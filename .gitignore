@@ -1,0 +1,13 @@
+# Ignoriere .env, damit der Bot-Token nicht hochgeladen wird
+.env
+
+# Standard Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+dist/
+build/
+
+# Falls du andere Secrets-Dateien hast
+*.secret
