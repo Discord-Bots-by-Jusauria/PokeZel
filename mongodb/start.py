@@ -2,10 +2,10 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # Stelle sicher, dass du hier deinen Connection-String einträgst
-client = MongoClient("mongodb://USERNAME:PASSWORT@HOST:PORT")
-db = client["mybotdb"]  # Beispiel: Datenbankname
+client = MongoClient("mongodb+srv://mewtumew1:hoihoihoi@cluster0.jpxvquh.mongodb.net/test")
+db = client["PokeZel"]  # Beispiel: Datenbankname
 
-trainers_coll = db["trainers"]   # Collection für Spieler/Trainer
+trainers_coll = db["users"]   # Collection für Spieler/Trainer
 pokemons_coll = db["pokemons"]   # Collection für Pokémon
 
 def create_or_get_trainer(user_id: int) -> dict:
