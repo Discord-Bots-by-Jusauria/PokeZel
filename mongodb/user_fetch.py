@@ -1,15 +1,20 @@
 from pymongo import MongoClient
 
 def fetch_profile_data(user_id: int):
-    # Hier deine Verbindung zu MongoDB herstellen (Connection String, DB-Namen usw.)
-    client = MongoClient("mongodb://USERNAME:PASSWORT@HOST:PORT")
-    db = client["mein-datenbank-name"]
-    collection = db["profile_collection"]  # Beispielname
+        # Hier deine Verbindung zu MongoDB herstellen (Connection String, DB-Namen usw.)
+    client = MongoClient("mongodb+srv://mewtumew1:hoihoihoi@cluster0.jpxvquh.mongodb.net/test")
+    db = client["PokeZel"]  # Beispiel: Datenbankname
+
+    collection = db["trainers"]   # Collection für Spieler/Trainer
 
     # Ein Dokument anhand der user_id finden
     user_data = collection.find_one({"user_id": user_id})
     if not user_data:
         return None  # Falls nichts gefunden wird
+    if user_data["team"]:
+        user_data["team"] = ", ".join(str(member_id) for member_id in user_data["team"])
+    else:
+        user_data["team"] = 'Kein Team'
 
     # Rückgabe als Dictionary
     return {

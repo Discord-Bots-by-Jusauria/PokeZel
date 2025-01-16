@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from bot_util import make_embed
 
 # MongoDB helper functions
-from mongodb.start import create_or_get_trainer, create_pokemon_for_trainer, update_trainer_team
+from mongodb.start import create_or_get_trainer, create_starter_pokemon_for_trainer, update_trainer_team
 
 load_dotenv()  # load all the variables from the .env file
 bot = discord.Bot()
@@ -55,7 +55,7 @@ class StarterView(discord.ui.View):
         trainer = create_or_get_trainer(user_id)
 
         # 2) Create the Pokémon document for this trainer
-        pokemon_id = create_pokemon_for_trainer(user_id, pokemon_name)
+        pokemon_id = create_starter_pokemon_for_trainer(user_id, pokemon_name)
 
         # 3) Push the Pokémon ID into the trainer's team array
         update_trainer_team(trainer["_id"], pokemon_id)
@@ -96,7 +96,18 @@ class NextActionsSelect(discord.ui.Select):
         choice = self.values[0]
 
         if choice == "Profile Checking":
-            await interaction.response.send_message("Try `/profile` now!", ephemeral=True)
+            cmd = interaction.client.get_application_command("profile")
+            # Defer or respond so the interaction is acknowledged
+            await interaction.response.defer(ephemeral=True)
+
+            # Convert the Interaction to an ApplicationContext
+            ctx = await bot.get_application_context(interaction)  
+
+            # Now call the slash command with ctx
+            if cmd:
+                await cmd(ctx=ctx)  # Passing ctx as the slash command expects
+            else:
+                await interaction.followup.send("Could not find '/profile' command!", ephemeral=True)
 
         elif choice == "Investigate Area":
             await interaction.response.send_message("Try `/investigate` to explore.", ephemeral=True)

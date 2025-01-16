@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 # Falls du fetch_profile_data nutzt, importiere es hier.
-# from .deine_db_datei import fetch_profile_data
+from mongodb.user_fetch import fetch_profile_data
 
 class Player(commands.Cog):
     def __init__(self, bot):
@@ -10,7 +10,7 @@ class Player(commands.Cog):
 
     @discord.slash_command(
         name="profile",
-        description="Player profile"
+        description="Trainer profile"
     )
     async def profile(self, ctx: discord.ApplicationContext):
         # Hier kommt dein Code für den 'profile'-Slash-Command:
