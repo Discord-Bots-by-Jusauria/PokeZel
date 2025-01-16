@@ -1,0 +1,54 @@
+{
+    "cityName": "Azurquora",
+    "townOverview": "A tranquil, water-centric city known for its coral reefs and bustling docks.",
+    "gym": {
+      "hasGym": true,
+      "gymType": "water",
+      "gymRequirement": ""
+    },
+    "townHighlights": [
+      {
+        "locationName": "Beachside Boardwalk",
+        "description": "A long wooden walkway along the shore, offering a beautiful view of the sunset.",
+        "investigationHint": "Fresh footprints lead off the boardwalk towards a hidden cove.",
+        "investigationResult": "You find a small shell that seems to glow in the moonlight."
+      },
+      {
+        "locationName": "Coral Market",
+        "description": "A lively marketplace selling seafood and rare aquatic-themed trinkets.",
+        "investigationHint": "Rumors of stolen pearls are circulating among traders.",
+        "investigationResult": "One merchant admits they've seen suspicious visitors at dawn."
+      }
+    ],
+    "pokemonField": {
+      "isFieldAvailable": true,
+      "spawnList": [
+        {
+          "pokemon": "Psyduck",
+          "levelRange": "5 - 10"
+        },
+        {
+          "pokemon": "Magikarp",
+          "levelRange": "1 - 5"
+        }
+      ]
+    },
+    "shop": {
+      "itemsToBuy": [
+        "Potion",
+        "Poké Ball",
+        "Antidote",
+        "Fishing Rod"
+      ]
+    },
+    "healingService": {
+      "available": true,
+      "description": "A small clinic run by local nurses specialized in Water-type ailments."
+    },
+    "additionalFeatures": {
+      "seasonalEvent": "Harbor Lights Festival",
+      "famousResident": "Captain Marina, known for her oceanic exploration",
+      "localQuestGiver": "Dockmaster Kaito who needs help tracking missing fishing nets"
+    }
+  }
+  
