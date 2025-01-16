@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from bot_util import make_embed
 
 # MongoDB helper functions
-from mongodb.start import create_or_get_trainer, create_starter_pokemon_for_trainer, update_trainer_team
+from mongodb.start import create_trainer, get_trainer, create_starter_pokemon_for_trainer, update_trainer_team
 
 load_dotenv()  # load all the variables from the .env file
 bot = discord.Bot()
@@ -52,7 +52,8 @@ class StarterView(discord.ui.View):
         user_id = interaction.user.id
 
         # 1) Fetch or create the trainer document
-        trainer = create_or_get_trainer(user_id)
+        await create_trainer(user_id,interaction.user.author)
+        trainer = get_trainer(user_id)
 
         # 2) Create the Pokémon document for this trainer
         pokemon_id = create_starter_pokemon_for_trainer(user_id, pokemon_name)

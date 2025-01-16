@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-
+from datetime import datetime
 # Stelle sicher, dass du hier deinen Connection-String einträgst
 client = MongoClient("mongodb+srv://mewtumew1:hoihoihoi@cluster0.jpxvquh.mongodb.net/test")
 db = client["PokeZel"]  # Beispiel: Datenbankname
@@ -16,13 +16,20 @@ def get_trainer(user_id: int) -> dict:
     """
     return trainers_coll.find_one({"user_id": user_id})
 
-def create_trainer(user_id: int) -> dict:
+def create_trainer(user_id: int,name: str) -> dict:
     new_trainer = {
-        "user_id": user_id,
-        "team": [],  # Platzhalter-Feld
-        "dollar":0,
-        "role": 'trainer'
-    }
+    "user_id": user_id,
+    "name":name,
+    "team": [],  # Placeholder field
+    "dollar": 0,
+    "role": 'trainer',
+    "shiny_count": 0,
+    "started": datetime.now().isoformat(),  # Current date and time in ISO 8601 format
+    "fav": "none",
+    "passive": "none",
+    "bages": "none",
+    "lvl": 1
+}
     result = trainers_coll.insert_one(new_trainer)
     return trainers_coll.find_one({"_id": result.inserted_id})
 
