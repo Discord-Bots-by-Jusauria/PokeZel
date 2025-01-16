@@ -7,6 +7,6 @@ def make_embed(title: str, description: str) -> discord.Embed:
     embed = discord.Embed(
         title=title,
         description=description,
-        color=discord.Color.DarkVividPink()
+        color=discord.Color.dark_magenta()
     )
     return embed
