@@ -51,7 +51,13 @@ def create_starter_pokemon_for_trainer(user_id: int, pokemon_name: str) -> Objec
         "stats": {"attack": 10, "defense": 10, "speed": 10},
         "exp_until_next_level": 100,
         "held_item": None,
-        "passive_training": False}
+        "passive_training": False,
+        "was_in_team": True,
+        "team_requirement": None
+        "evolution_history":[
+            pokemon_name
+        ]
+        }
         ],
     }
     result = pokemons_coll.insert_one(new_pokemon)

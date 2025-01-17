@@ -7,7 +7,6 @@ db = client["PokeZel"]  # Beispiel: Datenbankname
 trainers_coll = db["trainers"]   # Collection für Spieler/Trainer
 pokemons_coll = db["pokemons"]   # Collection für Pokémon
 
-from pymongo import MongoClient
 def get_trainer_with_team(user_id: int) -> dict:
     """
     Fetches the trainer's details, including the Pokémon team with full details.
