@@ -24,11 +24,11 @@ def create_trainer(user_id: int,name: str) -> dict:
     "dollar": 0,
     "role": 'trainer',
     "shiny_count": 0,
-    "started": datetime.now().isoformat(),  # Current date and time in ISO 8601 format
+    "started":int( datetime.now().timestamp()),  # Current date and time in ISO 8601 format
     "fav": "none",
     "passive": "none",
-    "bages": "none",
-    "lvl": 1
+    "badges": "none",
+    "trainer_lvl": 1
 }
     result = trainers_coll.insert_one(new_trainer)
     return trainers_coll.find_one({"_id": result.inserted_id})
@@ -40,7 +40,7 @@ def create_starter_pokemon_for_trainer(user_id: int, pokemon_name: str) -> Objec
     """
     new_pokemon = {
         "user_id": user_id,
-        pokemons_owned:[
+        "pokemons_owned":[
             {"name": pokemon_name,
         "nickname": pokemon_name+" the chosen one", 
         "lvl": 5,
@@ -63,5 +63,5 @@ def update_trainer_team(trainer_id: ObjectId, pokemon_id: ObjectId):
     """
     trainers_coll.update_one(
         {"_id": trainer_id},
-        {"$push": {"team": pokemon_id}}
+        {"$push": {"team": {"pokemon_id": pokemon_id}}}  # Use a string key
     )

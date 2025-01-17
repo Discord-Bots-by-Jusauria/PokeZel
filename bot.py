@@ -52,8 +52,7 @@ class StarterView(discord.ui.View):
         user_id = interaction.user.id
 
         # 1) Fetch or create the trainer document
-        await create_trainer(user_id,interaction.user.author)
-        trainer = get_trainer(user_id)
+        trainer = create_trainer(user_id,interaction.user.name)
 
         # 2) Create the Pokémon document for this trainer
         pokemon_id = create_starter_pokemon_for_trainer(user_id, pokemon_name)
