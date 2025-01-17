@@ -6,14 +6,13 @@ from bot_util import make_embed
 from mongodb.trainer import get_trainer_with_team
 from pojos.emoji_handle import get_emoji
 
+subgroup = "trainer_"
+
 class Player(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @discord.slash_command(
-        name="profile",
-        description="Trainer profile"
-    )
+    @discord.slash_command(name=subgroup+"profile",description="Shows trainer profile")
     async def profile(self, ctx: discord.ApplicationContext):
         # Hier kommt dein Code für den 'profile'-Slash-Command:
         user_id = ctx.author.id
