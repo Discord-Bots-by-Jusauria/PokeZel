@@ -2,7 +2,9 @@
 
 # Dictionary to store emoji name-ID mappings
 app_emojis = {
-    "Bulbasaur": 1329831574174437490,
+    "bulbasaur": 1329831574174437490,
+    "charmander":1329853063422283867,
+    "squirtle":1329853079843242004,
 }
 
 def get_emoji(name: str) -> str:

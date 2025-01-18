@@ -4,7 +4,9 @@ from dotenv import load_dotenv
 from bot_util import make_embed
 
 # MongoDB helper functions
-from mongodb.start import create_trainer, get_trainer, create_starter_pokemon_for_trainer, update_trainer_team
+from mongodb.pokemon import create_new_Pokemon
+from mongodb.start import create_trainer, create_starter_pokemon_for_trainer, update_trainer_team
+from mongodb.trainer import get_trainer_with_team
 
 load_dotenv()  # load all the variables from the .env file
 bot = discord.Bot()
@@ -53,7 +55,11 @@ class StarterView(discord.ui.View):
 
         # 1) Fetch or create the trainer document
         trainer = create_trainer(user_id,interaction.user.name)
-
+        if not trainer:
+            embed = make_embed("You are already a Trainer","")
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            return
+        
         # 2) Create the Pokémon document for this trainer
         pokemon_id = create_starter_pokemon_for_trainer(user_id, pokemon_name)
 
@@ -96,7 +102,7 @@ class NextActionsSelect(discord.ui.Select):
         choice = self.values[0]
 
         if choice == "Profile Checking":
-            cmd = interaction.client.get_application_command("profile")
+            cmd = interaction.client.get_application_command("trainer_profile")
             # Defer or respond so the interaction is acknowledged
             await interaction.response.defer(ephemeral=True)
 
@@ -127,6 +133,12 @@ async def start(ctx: discord.ApplicationContext):
     """
     A slash command for starting the Pokémon Trainer journey.
     """
+    trainer = get_trainer_with_team(user_id=ctx.author.id)
+    if trainer:
+        embed = make_embed("You are already a Trainer!","")
+        await ctx.response.send_message(embed=embed,ephemeral=True)
+        return
+
     embed = make_embed(
         title="Welcome to Zelquora!",
         description=(
