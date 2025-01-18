@@ -24,7 +24,8 @@ def create_trainer(user_id: int,name: str) -> dict:
     "passive": "none",
     "badges": "none",
     "trainer_lvl": 1,
-    "story":"start"
+    "story":"start",
+    "location":"Azurquora"
 }
     result = trainers_coll.insert_one(new_trainer)
     return trainers_coll.find_one({"_id": result.inserted_id})
