@@ -1,6 +1,6 @@
 import discord
 
-def make_embed(title: str, description: str) -> discord.Embed:
+def make_embed(title: str, description="") -> discord.Embed:
     """
     Creates and returns a discord.Embed with the given parameters.
     """

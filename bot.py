@@ -6,7 +6,8 @@ from bot_util import make_embed
 # MongoDB helper functions
 from mongodb.pokemon import create_new_Pokemon
 from mongodb.start import create_trainer, create_starter_pokemon_for_trainer, update_trainer_team
-from mongodb.trainer import get_trainer_with_team
+from mongodb.trainer import get_trainer_with_team, update_trainer_location
+from services.AzurquoraHandler import AzurquoraHandler
 
 load_dotenv()  # load all the variables from the .env file
 bot = discord.Bot()
@@ -25,134 +26,102 @@ cogs_list = [
 for cog in cogs_list:
     bot.load_extension(f'cogs.{cog}')
 
+CITY_HANDLERS = {
+    "azurquora": AzurquoraHandler,
+}
 
-class StarterView(discord.ui.View):
-    def __init__(self, ctx: discord.ApplicationContext):
-        super().__init__(timeout=None)  # No automatic timeout
-        self.ctx = ctx  # Store the original slash command Context in the View
-
-    @discord.ui.button(label="Bulbasaur", style=discord.ButtonStyle.success)
-    async def bulbasaur_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_starter_choice(interaction, "Bulbasaur")
-
-    @discord.ui.button(label="Charmander", style=discord.ButtonStyle.danger)
-    async def charmander_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_starter_choice(interaction, "Charmander")
-
-    @discord.ui.button(label="Squirtle", style=discord.ButtonStyle.primary)
-    async def squirtle_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_starter_choice(interaction, "Squirtle")
-
-    async def handle_starter_choice(self, interaction: discord.Interaction, pokemon_name: str):
-        """
-        Once a user clicks on a starter button:
-         1) Fetch/create trainer data in MongoDB.
-         2) Create a Pokémon document in MongoDB.
-         3) Add the Pokémon's ID to the trainer's 'team'.
-         4) Send a confirmation message to the user.
-        """
-        user_id = interaction.user.id
-
-        # 1) Fetch or create the trainer document
-        trainer = create_trainer(user_id,interaction.user.name)
-        if not trainer:
-            embed = make_embed("You are already a Trainer","")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
-            return
-        
-        # 2) Create the Pokémon document for this trainer
-        pokemon_id = create_starter_pokemon_for_trainer(user_id, pokemon_name)
-
-        # 3) Push the Pokémon ID into the trainer's team array
-        update_trainer_team(trainer["_id"], pokemon_id)
-
-        # 4) Send a confirmation message
-        embed = make_embed(
-            title=f"{pokemon_name}, the chosen one!",
-            description=(
-                "It appears before you.\n\n"
-                "It's time to look around and investigate the area.\n"
-                "(Your trainer and Pokémon records have been created in the database.)"
-            )
-        )
-
-        # -- Recommended approach: respond via the Interaction (each button press is its own interaction).
-        # This sends a new message from the button press itself:
-        await interaction.response.send_message(embed=embed, view=NextActionsView())
-        
-        # OR, if you must re-use the slash command context for some reason:
-        # await self.ctx.followup.send(embed=embed, view=NextActionsView())
-
-
-class NextActionsSelect(discord.ui.Select):
-    def __init__(self):
-        options = [
-            discord.SelectOption(label="Profile Checking", description="Check your profile (runs /profile)"),
-            discord.SelectOption(label="Investigate Area", description="Look around (runs /investigate)"),
-            discord.SelectOption(label="Pokemon Checking", description="Check your pokémon (runs /team)"),
-        ]
-        super().__init__(
-            placeholder="Choose your next action...",
-            min_values=1,
-            max_values=1,
-            options=options
-        )
-
-    async def callback(self, interaction: discord.Interaction):
-        choice = self.values[0]
-
-        if choice == "Profile Checking":
-            cmd = interaction.client.get_application_command("trainer_profile")
-            # Defer or respond so the interaction is acknowledged
-            await interaction.response.defer(ephemeral=True)
-
-            # Convert the Interaction to an ApplicationContext
-            ctx = await bot.get_application_context(interaction)  
-
-            # Now call the slash command with ctx
-            if cmd:
-                await cmd(ctx=ctx)  # Passing ctx as the slash command expects
-            else:
-                await interaction.followup.send("Could not find '/profile' command!", ephemeral=True)
-
-        elif choice == "Investigate Area":
-            await interaction.response.send_message("Try `/investigate` to explore.", ephemeral=True)
-
-        else:  # "Pokemon Checking"
-            await interaction.response.send_message("Use `/team` to check your Pokémon.", ephemeral=True)
-
-
-class NextActionsView(discord.ui.View):
-    def __init__(self):
-        super().__init__(timeout=None)
-        self.add_item(NextActionsSelect())
-
-
-@bot.slash_command(name="start", description="Start your Pokémon Trainer Journey!")
-async def start(ctx: discord.ApplicationContext):
+async def handle_action(interaction, trainer_data, action_name, *args, **kwargs):
     """
-    A slash command for starting the Pokémon Trainer journey.
+    Dynamically calls the appropriate city handler for the given action.
     """
-    trainer = get_trainer_with_team(user_id=ctx.author.id)
-    if trainer:
-        embed = make_embed("You are already a Trainer!","")
-        await ctx.response.send_message(embed=embed,ephemeral=True)
+    city = trainer_data["position"]["city"]
+    handler_class = CITY_HANDLERS.get(city)
+    if not handler_class:
+        raise ValueError(f"No handler found for city '{city}'.")
+    await handler_class.handle_action(action_name, interaction, trainer_data, *args, **kwargs)
+
+async def handle_button_click(interaction: discord.Interaction):
+    trainer_data = get_trainer_with_team(user_id= interaction.user.id)
+    current_city = trainer_data["position"]["city"]
+    current_location = trainer_data["position"]["location"]
+    current_step = trainer_data["position"]["story_step"]
+
+    # Get the current step details from the JSON
+    story_json = await CITY_HANDLERS.get(current_city).load_story_data()
+    location_data = story_json["locations"].get(current_location, [])
+    step_data = next((step[current_step] for step in location_data if current_step in step), None)
+    
+    if not step_data:
+        await interaction.response.send_message("Could not find the next story step.", ephemeral=True)
         return
 
+    pokemon_name = trainer_data["team"][0]["name"].capitalize() if trainer_data.get("team") else "Pokémon"
+    player_name = trainer_data["name"].capitalize()
+
+    step_data["title"] = step_data["title"].replace("{pokemon_name}", pokemon_name).replace("{player_name}", player_name)
+    step_data["description"] = step_data["description"].replace("{pokemon_name}", pokemon_name).replace("{player_name}", player_name)
+    
+    # Render the options
+    view = discord.ui.View()
+    for option in step_data["options"]:
+        if "next" in option:
+            custom_id = option["label"]+option["next"]["step"]
+        else:
+            custom_id = option["action"]
+        button = discord.ui.Button(label=option["label"], custom_id=custom_id)
+        
+        # Attach a callback to handle the button click
+        async def button_callback(interaction: discord.Interaction, option=option):
+            await interaction.response.defer()
+            # Save the next step to the trainer's data
+            if "next" in option:
+                trainer_data["position"]["story_step"] = option["next"]["step"]
+                if "location" in option["next"]:
+                    trainer_data["position"]["location"] = option["next"]["location"]
+                elif "city" in option["next"]:
+                    trainer_data["position"]["city"] = option["next"]["city"]
+
+            # Handle the action dynamically
+            if "action" in option:
+                await handle_action(interaction, trainer_data, option["action"], pokemon_name=option.get("label"))
+                update_trainer_location(trainer_data["user_id"],trainer_data["position"])
+
+            # Render the next step
+            await handle_button_click(interaction)
+
+        button.callback = button_callback
+        view.add_item(button)
+
+    # Send the embed for the current step
     embed = make_embed(
-        title="Welcome to Zelquora!",
-        description=(
-            "You wake up on a beach, your head hurting from hitting a rock. "
-            "Your memories are hazy; you only remember your name and your gender.\n\n"
-            "Looking around, you find a small Poké Ball. You toss it into the air, and a Pokémon appears! "
-            "Which Pokémon do you see in front of you?"
-        )
+        title=step_data["title"],
+        description=step_data["description"]
     )
+    if not interaction.response.is_done():
+        await interaction.response.send_message(embed=embed, view=view)
+    else:
+        await interaction.followup.send(embed=embed, view=view)
+    
+@bot.slash_command(name="start", description="Begin your Pokemon adventure!")
+async def start(interaction: discord.Interaction):
+    user_id = interaction.user.id
+    trainer_data = get_trainer_with_team(user_id=user_id)
+    if trainer_data:
+        await interaction.response.send_message(embed=make_embed(title="You are a trainer already"), ephemeral=True)
+        return
+    trainer_data = create_trainer(user_id, interaction.user.name)
+    if trainer_data:
+        await handle_button_click(interaction)
 
-    # Pass ctx into StarterView so button callbacks can reference it if needed
-    view = StarterView(ctx)
-    await ctx.respond(embed=embed, view=view)
-
+@bot.slash_command(name="continue", description="Continue your story from where you left off.")
+async def continue_story(interaction: discord.Interaction):
+    user_id = interaction.user.id
+    trainer_data = get_trainer_with_team(user_id)
+    if not trainer_data:
+        await interaction.response.send_message(embed=make_embed(title="You are no trainer yet",description="Please use /start to start your journey"), ephemeral=True)
+        return
+    
+    await handle_button_click(interaction)
 
 # Finally, run the bot with the token from .env
 bot.run(os.getenv('TOKEN'))

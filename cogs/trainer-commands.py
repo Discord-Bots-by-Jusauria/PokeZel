@@ -36,7 +36,7 @@ class Player(commands.Cog):
 
         # Felder befüllen
         embed.add_field(name="Trainer-Level", value=data["trainer_lvl"], inline=True)
-        embed.add_field(name="Rolle", value=data["role"], inline=True)
+        embed.add_field(name="Role", value=data["role"], inline=True)
 
         embed.add_field(name="PokeDollar", value=data["dollar"], inline=True)
         embed.add_field(name="Favorite", value=data["fav"], inline=False)
@@ -62,7 +62,7 @@ class Player(commands.Cog):
         registered=registeres_pokedex_pokemon_name(ctx.author.id)
 
         for available_pokemon in app_emojis:
-            pokemon_registered = "❌ not registred"
+            pokemon_registered = "❌ not registered"
             if available_pokemon in registered:
                 pokemon_registered = "✅ registered"
             embed.add_field(name=f"{get_emoji(name=available_pokemon)} {available_pokemon}",value=pokemon_registered,inline=True)

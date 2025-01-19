@@ -88,6 +88,7 @@ def create_new_Pokemon(name:str, lvl: int,team_requirements=None):
                 }
         
         return {
+            "id": 0,
             "name": pokemon_info["name"],
             "nickname": pokemon_info["name"], 
             "types":[type["type"]["name"] for type in pokemon_info["types"]],

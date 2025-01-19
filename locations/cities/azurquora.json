@@ -1,54 +1,44 @@
 {
-    "cityName": "Azurquora",
-    "townOverview": "A tranquil, water-centric city known for its coral reefs and bustling docks.",
-    "gym": {
-      "hasGym": true,
-      "gymType": "water",
-      "gymRequirement": ""
-    },
-    "townHighlights": [
+  "cityName": "Azurquora",
+  "details": "A tranquil, water-centric city known for its coral reefs and bustling docks.",
+  "locations": {
+    "beach": [
       {
-        "locationName": "Beachside Boardwalk",
-        "description": "A long wooden walkway along the shore, offering a beautiful view of the sunset.",
-        "investigationHint": "Fresh footprints lead off the boardwalk towards a hidden cove.",
-        "investigationResult": "You find a small shell that seems to glow in the moonlight."
+        "start":{
+          "title": "Welcome to Azurquora!",
+          "description": "You wake up on a beach, your head throbbing from hitting a rock. Your memories are foggy—you can only recall your name and gender.\n\nYou spot a small Poké Ball nearby. Curiosity piqued, you pick it up and toss it into the air. A Pokémon emerges!\n\nWhich Pokémon stands before you?",
+          "options": [
+            { "label": "Bulbasaur", "next": {"step":"pokemon_chosen"}, "action": "add_starter_pokemon" },
+            { "label": "Charmander", "next": {"step":"pokemon_chosen"}, "action": "add_starter_pokemon" },
+            { "label": "Squirtle", "next": {"step":"pokemon_chosen"}, "action": "add_starter_pokemon" }
+          ]
+        }
       },
       {
-        "locationName": "Coral Market",
-        "description": "A lively marketplace selling seafood and rare aquatic-themed trinkets.",
-        "investigationHint": "Rumors of stolen pearls are circulating among traders.",
-        "investigationResult": "One merchant admits they've seen suspicious visitors at dawn."
-      }
-    ],
-    "pokemonField": {
-      "isFieldAvailable": true,
-      "spawnList": [
-        {
-          "pokemon": "Psyduck",
-          "levelRange": "5 - 10"
-        },
-        {
-          "pokemon": "Magikarp",
-          "levelRange": "1 - 5"
+        "pokemon_chosen": {
+          "title": "{pokemon_name}, the chosen one!",
+          "description": "{pokemon_name} appears, running around happily, its excitement unmistakable. The beach around you is quiet, and in the distance, you notice a staircase leading upward.\n\nWhat will you do?",
+          "options": [
+            { "label": "Investigate the area", "next": {"step":"town_enter"} },
+            { "label": "Check your profile", "action":"call_profile" }
+          ]
         }
-      ]
-    },
-    "shop": {
-      "itemsToBuy": [
-        "Potion",
-        "Poké Ball",
-        "Antidote",
-        "Fishing Rod"
-      ]
-    },
-    "healingService": {
-      "available": true,
-      "description": "A small clinic run by local nurses specialized in Water-type ailments."
-    },
-    "additionalFeatures": {
-      "seasonalEvent": "Harbor Lights Festival",
-      "famousResident": "Captain Marina, known for her oceanic exploration",
-      "localQuestGiver": "Dockmaster Kaito who needs help tracking missing fishing nets"
+      }
+    ]
+  },
+  "town":[
+    {
+      "first_entry": {
+        "title": "Entering Azurquora",
+        "description": "You climb the stairs and enter the town, greeted by its beautiful blue accents and the sound of laughter. Water-type Pokémon are everywhere, and the town feels alive with activity.\n\nYou notice a marketplace on your right and a sad-looking man on your left.",
+        "options": [
+          { "label": "Approach the sad man", "next": "sad_man" },
+          { "label": "Explore the marketplace", "next": "marketplace" }
+        ]
+      }
     }
+  ],
+  "actions": {
+    "add_starter_pokemon": "Handles adding a Pokémon to the trainer's team."
   }
-  
+}
