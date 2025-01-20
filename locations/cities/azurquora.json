@@ -20,7 +20,7 @@
           "description": "{pokemon_name} appears, running around happily, its excitement unmistakable. The beach around you is quiet, and in the distance, you notice a staircase leading upward.\n\nWhat will you do?",
           "options": [
             { "label": "Investigate the area", "next": {"location":"town","step":"first_entry"} },
-            { "label": "Check your profile", "action":"call_profile" }
+            { "label": "Check your profile", "action":"call_profile", "handler":"trainer" }
           ]
         }
       }

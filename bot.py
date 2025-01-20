@@ -94,9 +94,11 @@ async def handle_button_click(interaction: discord.Interaction):
                 handler_name= option.get("handler")
                 await handle_action(interaction, trainer_data, option["action"],handler_name=handler_name, pokemon_name=option.get("label"))
                 update_trainer_location(trainer_data["user_id"],trainer_data["position"])
-
-            # Render the next step
-            await handle_button_click(interaction)
+            if "next" in option:
+                # Render the next step
+                await handle_button_click(interaction)
+            else:
+                return
 
         button.callback = button_callback
         view.add_item(button)
