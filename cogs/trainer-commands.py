@@ -46,7 +46,8 @@ class Player(commands.Cog):
         
         stringTeam = ""
         for pokemon in data["team"]:
-            stringTeam += f"lvl {pokemon['lvl']} {get_emoji(pokemon['name'])} {pokemon['nickname']}\n"
+            shiny_star = ":sparkles:" if pokemon["is_shiny"] else ""
+            stringTeam += f"lvl {pokemon['lvl']} {get_emoji(pokemon['name'])} {shiny_star} {pokemon['nickname']}\n"
         embed.add_field(name="Team", value=stringTeam, inline=False)
         embed.add_field(name="Passive training", value=str(data["passive"]), inline=False)
 

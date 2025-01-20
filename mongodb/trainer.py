@@ -27,7 +27,8 @@ def get_trainer_with_team(user_id: int) -> dict:
                         "id": str(poke.get("id")),  # Add Pokémon object ID
                         "nickname": poke.get("nickname"),
                         "lvl": poke.get("lvl"),
-                        "name": poke.get("name")
+                        "name": poke.get("name"),
+                        "is_shiny": poke.get("is_shiny")
                     })
 
     # Add detailed team to the trainer object

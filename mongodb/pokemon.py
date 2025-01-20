@@ -86,7 +86,9 @@ def create_new_Pokemon(name:str, lvl: int,team_requirements=None):
                     "name": item["name"],
                     "url": item["url"]
                 }
-        
+        # shiny chance increase
+        ## needs to be done when shiny pin comes in the game
+        shiny_change = 4096
         return {
             "id": 0,
             "name": pokemon_info["name"],
@@ -94,6 +96,7 @@ def create_new_Pokemon(name:str, lvl: int,team_requirements=None):
             "types":[type["type"]["name"] for type in pokemon_info["types"]],
             "lvl": lvl,
             "gender": gender,
+            "is_shiny": (random.randint(1, shiny_change) == 1),
             "ability": abilityAsigned,
             "attacks": useAttacks,
             "trust_level": max(min_trust, int(new_trust_state)) ,
