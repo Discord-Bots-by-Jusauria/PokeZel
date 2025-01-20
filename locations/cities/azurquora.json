@@ -26,15 +26,80 @@
         }
       }
     ],
-    "town":[{
+    "town":[
+      {
       "first_entry": {
-        "title": "Entering Azurquora",
+        "title": "Entering Azurquora Center",
         "description": "You climb the stairs and enter the town, greeted by its beautiful blue accents and the sound of laughter. Water-type Pokémon are everywhere, and the town feels alive with activity.\n\nYou notice a marketplace on your right and a sad-looking man on your left.",
         "options": [
           { "label": "Approach the sad man", "next":{"step": "sad_man"} },
-          { "label": "Explore the marketplace", "next": {"step":"marketplace"} }
+          { "label": "Explore the marketplace", "next": {"step":"fishmarket"} }
         ]
       }
-    }]
+      },
+      {
+        "first_entry_1": {
+          "title": "Azurquora Center",
+          "description": "You walk back to where you came from. The sad man is still sobbing and looking as he has a rough time. What will you do now?",
+          "options": [
+            { "label": "Approach the sad man", "next":{"step": "sad_man"} },
+            { "label": "Explore the marketplace", "next": {"step":"fishmarket"} }
+          ]
+        }
+        },
+
+      {
+        "fishmarket": {
+          "title": "Fishmarket of Azurquora",
+          "description": "You enter the Marketplace. the smell of fish hits you like a punch in the face. Everyone seems friendly tho and you hover your eyes around the stands.\n",
+          "options": [
+            { "label": "See Offers", "next":{"step": "fishmarket_offer_1"} },
+            { "label": "Go back to the entry", "next": {"step":"first_entry_1"} }
+          ]
+        }
+      },
+      {
+        "fishmarket_offer_1": {
+          "title": "Food",
+          "description": "The best fish-related food items in the whole country!\n Use /buy to get the items by name",
+          "options": [
+            { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
+            { "label": "> ", "next":{"step": "fishmarket_offer_2"}, "edit": true}
+          ]
+        }
+      },
+      {
+        "fishmarket_offer_2": {
+          "title": "Stones",
+          "description": "The best fish-related food items in the whole country!\n Use /buy to get the items by name",
+          "options": [
+            { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
+            { "label": "< ", "next":{"step": "fishmarket_offer_1"},"edit":true },
+            { "label": "> ", "next":{"step": "fishmarket_offer_3"},"edit":true }
+          ]
+        }
+      },
+      {
+        "fishmarket_offer_3": {
+          "title": "Specials",
+          "description": "The best fish-related food items in the whole country!\n Use /buy to get the items by name",
+          "options": [
+            { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
+            { "label": "< ", "next":{"step": "fishmarket_offer_2"},"edit":true }
+          ]
+        }
+      }
+    ]
+  },
+  "fishmarket_offers":{
+    "Food":[
+
+    ],
+    "Stones":[
+
+    ],
+    "Specials":[
+
+    ]
   }
 }

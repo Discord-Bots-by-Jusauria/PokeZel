@@ -48,7 +48,7 @@ async def handle_action(interaction, trainer_data, action_name, handler_name=Non
         raise ValueError(f"No handler found for city '{city}'.")
     await handler_class.handle_action(action_name, interaction, trainer_data, *args, **kwargs)
 
-async def handle_button_click(interaction: discord.Interaction, trainer_data=None):
+async def handle_button_click(interaction: discord.Interaction, trainer_data=None, edit_Message=None):
     if trainer_data is None:
         trainer_data = get_trainer_with_team(user_id= interaction.user.id)
     current_city = trainer_data["position"]["city"]
@@ -60,6 +60,7 @@ async def handle_button_click(interaction: discord.Interaction, trainer_data=Non
     step_data = next((step[current_step] for step in location_data if current_step in step), None)
     
     if not step_data:
+        await interaction.response.defer()
         await interaction.followup.send("Could not find the next story step.", ephemeral=True)
         return
 
@@ -95,7 +96,7 @@ async def handle_button_click(interaction: discord.Interaction, trainer_data=Non
             update_trainer_location(trainer_data["user_id"],trainer_data["position"])
             if "next" in option:
                 # Render the next step
-                await handle_button_click(interaction,trainer_data=trainer_data)
+                await handle_button_click(interaction,trainer_data=trainer_data,edit_Message=option.get("edit"))
             else:
                 return
 
@@ -107,10 +108,17 @@ async def handle_button_click(interaction: discord.Interaction, trainer_data=Non
         title=step_data["title"],
         description=step_data["description"]
     )
-    if not interaction.response.is_done():
-        await interaction.response.send_message(embed=embed, view=view)
+    if edit_Message is not None:
+        try:
+            await interaction.message.edit(embed=embed, view=view)
+        except discord.errors.NotFound:
+            print("Not found")
+            await interaction.followup.send("Nachricht zum Bearbeiten nicht gefunden.", ephemeral=True)
     else:
-        await interaction.followup.send(embed=embed, view=view)
+        if not interaction.response.is_done():
+            await interaction.response.send_message(embed=embed, view=view)
+        else:
+            await interaction.followup.send(embed=embed, view=view)
     
 @bot.slash_command(name="start", description="Begin your Pokemon adventure!")
 async def start(interaction: discord.Interaction):
