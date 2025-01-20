@@ -92,7 +92,7 @@ async def handle_button_click(interaction: discord.Interaction, trainer_data=Non
             if "action" in option:
                 handler_name= option.get("handler")
                 await handle_action(interaction, trainer_data, option["action"],handler_name=handler_name, pokemon_name=option.get("label"))
-                update_trainer_location(trainer_data["user_id"],trainer_data["position"])
+            update_trainer_location(trainer_data["user_id"],trainer_data["position"])
             if "next" in option:
                 # Render the next step
                 await handle_button_click(interaction,trainer_data=trainer_data)
