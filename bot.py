@@ -7,6 +7,7 @@ from bot_util import make_embed
 from mongodb.pokemon import create_new_Pokemon
 from mongodb.start import create_trainer, create_starter_pokemon_for_trainer, update_trainer_team
 from mongodb.trainer import get_trainer_with_team, update_trainer_location
+from services.TrainerHandler import TrainerHandler
 from services.AzurquoraHandler import AzurquoraHandler
 
 load_dotenv()  # load all the variables from the .env file
@@ -26,16 +27,23 @@ cogs_list = [
 for cog in cogs_list:
     bot.load_extension(f'cogs.{cog}')
 
-CITY_HANDLERS = {
+ALL_HANDLERS  = {
     "azurquora": AzurquoraHandler,
+     "trainer": TrainerHandler,
 }
 
-async def handle_action(interaction, trainer_data, action_name, *args, **kwargs):
+async def handle_action(interaction, trainer_data, action_name, handler_name=None, *args, **kwargs):
     """
     Dynamically calls the appropriate city handler for the given action.
     """
-    city = trainer_data["position"]["city"]
-    handler_class = CITY_HANDLERS.get(city)
+    if handler_name is None:
+        # Fallback: city-Handler nehmen
+        city = trainer_data["position"]["city"]
+        handler_class = ALL_HANDLERS.get(city)
+    else:
+        # Spezifischen Handler (z.B. 'trainer')
+        handler_class = ALL_HANDLERS.get(handler_name)
+
     if not handler_class:
         raise ValueError(f"No handler found for city '{city}'.")
     await handler_class.handle_action(action_name, interaction, trainer_data, *args, **kwargs)
@@ -47,7 +55,7 @@ async def handle_button_click(interaction: discord.Interaction):
     current_step = trainer_data["position"]["story_step"]
 
     # Get the current step details from the JSON
-    story_json = await CITY_HANDLERS.get(current_city).load_story_data()
+    story_json = await ALL_HANDLERS.get(current_city).load_story_data()
     location_data = story_json["locations"].get(current_location, [])
     step_data = next((step[current_step] for step in location_data if current_step in step), None)
     
@@ -83,7 +91,8 @@ async def handle_button_click(interaction: discord.Interaction):
 
             # Handle the action dynamically
             if "action" in option:
-                await handle_action(interaction, trainer_data, option["action"], pokemon_name=option.get("label"))
+                handler_name= option.get("handler")
+                await handle_action(interaction, trainer_data, option["action"],handler_name=handler_name, pokemon_name=option.get("label"))
                 update_trainer_location(trainer_data["user_id"],trainer_data["position"])
 
             # Render the next step
