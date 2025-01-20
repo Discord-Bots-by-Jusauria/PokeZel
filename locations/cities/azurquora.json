@@ -20,25 +20,21 @@
           "description": "{pokemon_name} appears, running around happily, its excitement unmistakable. The beach around you is quiet, and in the distance, you notice a staircase leading upward.\n\nWhat will you do?",
           "options": [
             { "label": "Investigate the area", "next": {"location":"town","step":"first_entry"} },
-            { "label": "Check your profile", "action":"call_profile", "handler":"trainer" }
+            { "label": "Check your profile", "action":"call_profile", "handler":"trainer" },
+            { "label": "Hit yourself with stone", "action":"delete", "handler":"trainer" }
           ]
         }
       }
-    ]
-  },
-  "town":[
-    {
+    ],
+    "town":[{
       "first_entry": {
         "title": "Entering Azurquora",
         "description": "You climb the stairs and enter the town, greeted by its beautiful blue accents and the sound of laughter. Water-type Pokémon are everywhere, and the town feels alive with activity.\n\nYou notice a marketplace on your right and a sad-looking man on your left.",
         "options": [
-          { "label": "Approach the sad man", "next": "sad_man" },
-          { "label": "Explore the marketplace", "next": "marketplace" }
+          { "label": "Approach the sad man", "next":{"step": "sad_man"} },
+          { "label": "Explore the marketplace", "next": {"step":"marketplace"} }
         ]
       }
-    }
-  ],
-  "actions": {
-    "add_starter_pokemon": "Handles adding a Pokémon to the trainer's team."
+    }]
   }
 }

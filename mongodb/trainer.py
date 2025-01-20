@@ -89,3 +89,17 @@ def update_trainer_shiny(user_id:int):
         {"user_id": user_id},
         {"$inc": {"shiny_count": 1}}
     )
+def delete_trainer(user_id):
+    # Lösche alle Pokémon des Trainers
+    pokemons_result = pokemons_coll.delete_many({"user_id": user_id})
+    print(f"Gelöscht: {pokemons_result.deleted_count} Pokémon(s) für user_id {user_id}.")
+
+    # Lösche den Trainer selbst
+    trainer_result = trainers_coll.delete_one({"user_id": user_id})
+    if trainer_result.deleted_count > 0:
+        print(f"Trainer mit user_id {user_id} erfolgreich gelöscht.")
+        return True
+    else:
+        print(f"Kein Trainer mit user_id {user_id} gefunden.")
+        return False
+  

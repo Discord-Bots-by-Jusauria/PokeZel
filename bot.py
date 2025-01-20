@@ -48,19 +48,19 @@ async def handle_action(interaction, trainer_data, action_name, handler_name=Non
         raise ValueError(f"No handler found for city '{city}'.")
     await handler_class.handle_action(action_name, interaction, trainer_data, *args, **kwargs)
 
-async def handle_button_click(interaction: discord.Interaction):
-    trainer_data = get_trainer_with_team(user_id= interaction.user.id)
+async def handle_button_click(interaction: discord.Interaction, trainer_data=None):
+    if trainer_data is None:
+        trainer_data = get_trainer_with_team(user_id= interaction.user.id)
     current_city = trainer_data["position"]["city"]
     current_location = trainer_data["position"]["location"]
     current_step = trainer_data["position"]["story_step"]
-
     # Get the current step details from the JSON
     story_json = await ALL_HANDLERS.get(current_city).load_story_data()
     location_data = story_json["locations"].get(current_location, [])
     step_data = next((step[current_step] for step in location_data if current_step in step), None)
     
     if not step_data:
-        await interaction.response.send_message("Could not find the next story step.", ephemeral=True)
+        await interaction.followup.send("Could not find the next story step.", ephemeral=True)
         return
 
     pokemon_name = trainer_data["team"][0]["name"].capitalize() if trainer_data.get("team") else "Pokémon"
@@ -88,7 +88,6 @@ async def handle_button_click(interaction: discord.Interaction):
                     trainer_data["position"]["location"] = option["next"]["location"]
                 elif "city" in option["next"]:
                     trainer_data["position"]["city"] = option["next"]["city"]
-
             # Handle the action dynamically
             if "action" in option:
                 handler_name= option.get("handler")
@@ -96,7 +95,7 @@ async def handle_button_click(interaction: discord.Interaction):
                 update_trainer_location(trainer_data["user_id"],trainer_data["position"])
             if "next" in option:
                 # Render the next step
-                await handle_button_click(interaction)
+                await handle_button_click(interaction,trainer_data=trainer_data)
             else:
                 return
 
