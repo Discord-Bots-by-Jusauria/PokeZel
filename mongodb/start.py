@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 from datetime import datetime
 
 from mongodb.pokemon import create_new_Pokemon
+from mongodb.trainer import update_trainer_shiny
 # Stelle sicher, dass du hier deinen Connection-String einträgst
 client = MongoClient("mongodb+srv://mewtumew1:hoihoihoi@cluster0.jpxvquh.mongodb.net/test")
 db = client["PokeZel"]  # Beispiel: Datenbankname
@@ -45,6 +46,8 @@ def create_starter_pokemon_for_trainer(user_id: int, pokemon_name: str) -> Objec
         ]
     }
     result = pokemons_coll.insert_one(trainer_pokemon)
+    if new_pokemon["is_shiny"]:
+        update_trainer_shiny(user_id=user_id)
     return result.inserted_id
 
 def update_trainer_team(trainer_id: ObjectId, pokemon_id: int):

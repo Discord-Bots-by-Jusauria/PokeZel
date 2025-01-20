@@ -84,3 +84,8 @@ def update_trainer_location(user_id:int, location):
         {"$set": {"position": location}}
     )
     return result.modified_count > 0
+def update_trainer_shiny(user_id:int):
+    result = trainers_coll.update_one(
+        {"user_id": user_id},
+        {"$inc": {"shiny_count": 1}}
+    )
