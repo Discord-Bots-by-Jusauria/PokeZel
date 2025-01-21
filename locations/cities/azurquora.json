@@ -5,7 +5,7 @@
     "beach": [
       {
         "start":{
-          "title": "Welcome to Azurquora!",
+          "title": "Welcome to Zelquora! - Ep. 1",
           "description": "You wake up on a beach, your head throbbing from hitting a rock. Your memories are foggy—you can only recall your name and gender.\n\nYou spot a small Poké Ball nearby. Curiosity piqued, you pick it up and toss it into the air. A Pokémon emerges!\n\nWhich Pokémon stands before you?",
           "options": [
             { "label": "Bulbasaur", "next": {"step":"pokemon_chosen"}, "action": "add_starter_pokemon" },
