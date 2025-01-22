@@ -11,16 +11,23 @@ from services.pokemon_api import get_itemPrice
 class MarketHandler:
     #listType has to be the same name as Market_offers: specific list 
     @staticmethod
-    async def addList(embed:Embed, listType, placeHandler: AzurquoraHandler):
+    async def getMarketOffers(listType, placeHandler: AzurquoraHandler):
         json_data = await placeHandler.load_story_data()
         listItems = json_data["market_offers"][listType]
-
+        newList = []
         for item in listItems:
+            itemCost = 0
             if item.get("handler"):
-                itemDetails ={
+                itemCost ={
                     "cost": 1000
                 }
             else:
-                itemDetails = get_itemPrice(item["value"])
-            embed.add_field(name=f"{get_item_emoji(item["value"])} {item["label"]} ${itemDetails["cost"]}", value=item["description"],inline=False)
+                itemCost = get_itemPrice(item["value"])["cost"]
+            newList.append({"value":item["value"],"label":item["label"], "description":item["description"], "cost" :itemCost})
+        return newList
+    @staticmethod
+    async def addList(embed:Embed, listType, placeHandler: AzurquoraHandler):
+            list = await MarketHandler.getMarketOffers(listType,placeHandler)
+            for item in list:
+                embed.add_field(name=f"{get_item_emoji(item["value"])} {item["label"]} ${item["cost"]}", value=item["description"],inline=False)
     
