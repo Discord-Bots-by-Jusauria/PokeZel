@@ -13,16 +13,14 @@ class MarketHandler:
     @staticmethod
     async def addList(embed:Embed, listType, placeHandler: AzurquoraHandler):
         json_data = await placeHandler.load_story_data()
-        print(json_data)
         listItems = json_data["market_offers"][listType]
 
         for item in listItems:
-            print(item["value"])
             if item.get("handler"):
                 itemDetails ={
                     "cost": 1000
                 }
             else:
                 itemDetails = get_itemPrice(item["value"])
-            embed.add_field(name=f"{get_item_emoji(item["value"])} {item["label"]} ${itemDetails["cost"]}", value=item["description"])
+            embed.add_field(name=f"{get_item_emoji(item["value"])} {item["label"]} ${itemDetails["cost"]}", value=item["description"],inline=False)
     

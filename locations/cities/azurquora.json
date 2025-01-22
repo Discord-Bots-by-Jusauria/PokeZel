@@ -61,7 +61,7 @@
       {
         "fishmarket_offer_1": {
           "title": "Food",
-          "description": "The best fish-related food items in the whole country!\n Use /buy to get the items by name",
+          "description": "Best Drinks and Consumables for your Beach day.\n To buy use `/buy` and select the item in the dropdown",
           "options": [
             { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
             { "label": "> ", "next":{"step": "fishmarket_offer_2"}, "edit": true}
@@ -72,7 +72,7 @@
       {
         "fishmarket_offer_2": {
           "title": "Stones",
-          "description": "The best fish-related food items in the whole country!\n Use /buy to get the items by name",
+          "description": "The shiniest Stones found on the Beach!\nTo buy use `/buy` and select the item in the dropdown",
           "options": [
             { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
             { "label": "< ", "next":{"step": "fishmarket_offer_1"},"edit":true },
@@ -84,7 +84,7 @@
       {
         "fishmarket_offer_3": {
           "title": "Specials",
-          "description": "The best fish-related food items in the whole country!\n Use /buy to get the items by name",
+          "description": "Items you might need on your Beach day!\n To buy use `/buy` and select the item in the dropdown",
           "options": [
             { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
             { "label": "< ", "next":{"step": "fishmarket_offer_2"},"edit":true }
