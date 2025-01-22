@@ -65,7 +65,8 @@
           "options": [
             { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
             { "label": "> ", "next":{"step": "fishmarket_offer_2"}, "edit": true}
-          ]
+          ],
+           "type":"market"
         }
       },
       {
@@ -76,7 +77,8 @@
             { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
             { "label": "< ", "next":{"step": "fishmarket_offer_1"},"edit":true },
             { "label": "> ", "next":{"step": "fishmarket_offer_3"},"edit":true }
-          ]
+          ],
+           "type":"market"
         }
       },
       {
@@ -86,20 +88,36 @@
           "options": [
             { "label": "Go back to the entry", "next": {"step":"first_entry_1"} },
             { "label": "< ", "next":{"step": "fishmarket_offer_2"},"edit":true }
-          ]
+          ],
+           "type":"market"
         }
       }
     ]
   },
-  "fishmarket_offers":{
+  "market_offers":{
     "Food":[
-
+      {"label": "Refreshing Spray","description":"A refreshing cold spray that heals 20HP of a Pokemon","value":"potion"},
+      {"label": "Coolish Spray","description":"A coolish spray that heals 50HP of a Pokemon","value":"super-potion"},
+      {"label": "Magic Water","description":"A very sweet and minty flavored water that heals 50HP of a pokemon","value":"fresh-water"},
+      {"label": "Fizzy Drink","description":"Cooled and fizzy. Heals 60HP","value":"soda-pop"},
+      {"label": "Sweet Lemonade ","description":"Azurquora's special Lemonade. The fresh taste makes your pokemon 80HP more healthy.","value":"lemonade"},
+      {"label": "Antidote","description":"In cases of poisoning. This will save you.","value":"antidote"},
+      {"label": "Cools Sunburns","description":"Oh wow. Got burned? This will help you.","value":"burn-heal"},
+      {"label": "Anti-Brainfreeze","description":"Eaten your icecream too fast? This will be your warm up.","value":"ice-heal"},
+      {"label": "Walk Again Potion","description":"You are unable to move? Drink this and you can again. (not suitable for wheelchair users)","value":"paralyze-heal"},
+      {"label": "Insomnia","description":":eye: :lips: :eye:","value":"awakening"}
     ],
     "Stones":[
-
+      {"label": "Wet Stone","description":"Shiny blue but ungodly wet","value":"water-stone"},
+      {"label": "Hot Stone","description":"Perfect to cook something on it","value":"fire-stone"},
+      {"label": "Caught Thunder","description":"During thunders the local throw stones in the ocean. When retrieving they get this beautiful stone.","value":"thunder-stone"},
+      {"label": "Carved Leaf","description":"One of the locals loves to carves leafs in stones","value":"leaf-stone"}
     ],
     "Specials":[
-
+      {"label": "Poke Ball","description":"1x Chance of catching ","value":"poke-ball"},
+      {"label": "Great Ball","description":"1.5x Chance of catching ","value":"great-ball"},
+      {"label": "Safari Ball","description":"0.3x Chance of catching, in Safari Zones: 2x Chance ","value":"safari-ball"},
+      {"label": "Surf Board","description":"This will teach any pokemon how to surf.","value":"surf", "handler":"attacks"}
     ]
   }
 }

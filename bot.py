@@ -7,6 +7,8 @@ from bot_util import make_embed
 from mongodb.pokemon import create_new_Pokemon
 from mongodb.start import create_trainer, create_starter_pokemon_for_trainer, update_trainer_team
 from mongodb.trainer import get_trainer_with_team, update_trainer_location
+from services.MarketHandler import MarketHandler
+from services.AttackHandler import AttackHandler
 from services.TrainerHandler import TrainerHandler
 from services.AzurquoraHandler import AzurquoraHandler
 
@@ -29,7 +31,9 @@ for cog in cogs_list:
 
 ALL_HANDLERS  = {
     "azurquora": AzurquoraHandler,
-     "trainer": TrainerHandler,
+    "trainer": TrainerHandler,
+    "market": MarketHandler,
+    "attack": AttackHandler
 }
 
 async def handle_action(interaction, trainer_data, action_name, handler_name=None, *args, **kwargs):
@@ -108,6 +112,13 @@ async def handle_button_click(interaction: discord.Interaction, trainer_data=Non
         title=step_data["title"],
         description=step_data["description"]
     )
+    ## COULT BE NEEDING A CHANGE LATER ON
+    if step_data.get("type"):
+        if step_data["type"]=="market":
+            typeHandler = ALL_HANDLERS[step_data["type"]]
+            await typeHandler.addList(embed,step_data["title"], ALL_HANDLERS.get(current_city))
+
+
     if edit_Message is not None:
         try:
             await interaction.message.edit(embed=embed, view=view)

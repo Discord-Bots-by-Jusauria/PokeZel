@@ -93,24 +93,33 @@ Zenith - champ battles
 
 
 Available food:
-Grilled Fish Skewers
-Seaweed Salad
-Shrimp Cocktail
-Clam Bisque
-Tropical Smoothie
-
-Stones Stall
+Potion (0x14)	Restores 20 HP to one Pokémon.	300 PokéDollars
+Super Potion (0x13)	Restores 50 HP to one Pokémon.	700 PokéDollars
+Fresh Water (0x3C)	Restores 50 HP to one Pokémon.	300 PokéDollars
+Soda Pop (0x3D)	Restores 60 HP to one Pokémon.	500 PokéDollars
+Lemonade (0x3E)	Restores 80 HP to one Pokémon.	700 PokéDollars
+Antidote (0x0B)	Cures poison from one Pokémon.	100 PokéDollars
+Burn Heal (0x0C)	Cures burn from one Pokémon.	100 PokéDollars
+Ice Heal (0x0D)	Cures freeze from one Pokémon.	100 PokéDollars
+Awakening (0x0E)	Cures sleep from one Pokémon.	100 PokéDollars
+Parlyz Heal (0x0F)	Cures paralysis from one Pokémon.	100 PokéDollars
 
 Available stones:
-Water Stone
-Fire Stone
-Thunder Stone
-Leaf Stone
-Moon Stone
+Fire Stone (0x20)	Evolves Vulpix into Ninetales, Growlithe into Arcanine, and Eevee into Flareon.	2,000 PokéDollars
+Water Stone (0x22)	Evolves Poliwhirl into Poliwrath, Staryu into Starmie, and Eevee into Vaporeon.	2,000 PokéDollars
+Thunderstone (0x21)	Evolves Pikachu into Raichu and Eevee into Jolteon.	2,000 PokéDollars
+Leaf Stone (0x2F)	Evolves Gloom into Vileplume, Weepinbell into Victreebel, and Exeggcute into Exeggutor.	2,000 PokéDollars
+Moon Stone (0x0A)	Evolves Jigglypuff into Wigglytuff, Nidorina into Nidoqueen, Nidorino into Nidoking, and Clefairy into Clefable.	2,000 PokéDollars
+
 
 Available special:
-Great Ball
-Ultra Ball
-Rare Candy
-HM03 Surf
-Poké Flute
+Poké Ball (0x04)	Used to capture wild Pokémon.	200 PokéDollars
+Great Ball (0x03)	Offers a higher catch rate than a Poké Ball.	600 PokéDollars
+Safari Ball (0x08)	Used exclusively in Safari Zones with unique capture mechanics.	1,000 PokéDollars
+Escape Rope (0x1D)	Instantly escapes from caves or dungeons.	500 PokéDollars
+Itemfinder (0x47)	Helps locate hidden items in the area.	1,000 PokéDollars
+Silph Scope (0x48)	Identifies Ghost-type Pokémon in haunted areas.	5,000 PokéDollars
+Poké Flute (0x49)	Wakes up sleeping Pokémon like Snorlax.	3,000 PokéDollars
+HM01: Cut (0xC4)	Allows a Pokémon to cut down small trees obstructing the path.	2,000 PokéDollars
+HM02: Fly (0xC5)	Enables fast travel between previously visited cities.	3,000 PokéDollars
+HM03: Surf (0xC6)	Allows a Pokémon to traverse over water bodies and use Surf in battles.	3,000 PokéDollars

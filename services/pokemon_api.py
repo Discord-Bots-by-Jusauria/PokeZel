@@ -85,4 +85,15 @@ def get_growrate(name:str,lvl:int,listStart=1):
                 }
         return get_growrate(name=name,lvl=lvl,listStart=listStart+1)
 
-   
+def get_itemPrice(item:str):
+    url = f"{BASE_URL}/item/"
+    responseName = requests.get(f"{url}/{item}")
+    
+    if responseName.status_code:
+        return {
+            "cost": responseName.json()["cost"], # half is the resell price
+            "attributes": responseName.json()["attributes"],
+            "category" :responseName.json()["category"]["name"],
+        }
+    else:
+        raise ValueError(f"Type '{item}' not found. Status code: {responseName.status_code}")
