@@ -65,7 +65,8 @@ def update_trainer_inventory(user_id: int, item: {"name","cost","category","attr
 
     result = trainers_coll.update_one(
         {"user_id": user_id},
-        {"$push": {"inventory": item}},  # Adds item to inventory array
+        {"$push": {"inventory": item}}, 
+        # Adds item to inventory array
         upsert=True  # Creates the inventory field if it doesn't exist
     )
     return result.modified_count > 0
