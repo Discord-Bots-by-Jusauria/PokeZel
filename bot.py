@@ -11,6 +11,7 @@ from services.MarketHandler import MarketHandler
 from services.AttackHandler import AttackHandler
 from services.TrainerHandler import TrainerHandler
 from services.AzurquoraHandler import AzurquoraHandler
+from services.handlerList import ALL_HANDLERS
 
 load_dotenv()  # load all the variables from the .env file
 bot = discord.Bot()
@@ -29,12 +30,7 @@ cogs_list = [
 for cog in cogs_list:
     bot.load_extension(f'cogs.{cog}')
 
-ALL_HANDLERS  = {
-    "azurquora": AzurquoraHandler,
-    "trainer": TrainerHandler,
-    "market": MarketHandler,
-    "attack": AttackHandler
-}
+
 
 async def handle_action(interaction, trainer_data, action_name, handler_name=None, *args, **kwargs):
     """

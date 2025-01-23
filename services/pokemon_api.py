@@ -94,6 +94,7 @@ def get_itemPrice(item:str):
             "cost": responseName.json()["cost"], # half is the resell price
             "attributes": responseName.json()["attributes"],
             "category" :responseName.json()["category"]["name"],
+            "shortText":responseName.json()["effect_entries"][0]["short_effect"]
         }
     else:
         raise ValueError(f"Type '{item}' not found. Status code: {responseName.status_code}")

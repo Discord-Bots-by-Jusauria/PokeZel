@@ -10,20 +10,31 @@ from services.pokemon_api import get_itemPrice
 
 class MarketHandler:
     #listType has to be the same name as Market_offers: specific list 
+
     @staticmethod
     async def getMarketOffers(listType, placeHandler: AzurquoraHandler):
         json_data = await placeHandler.load_story_data()
         listItems = json_data["market_offers"][listType]
         newList = []
         for item in listItems:
+            tempItem =  get_itemPrice(item["value"])
             itemCost = 0
             if item.get("handler"):
                 itemCost ={
                     "cost": 1000
                 }
             else:
-                itemCost = get_itemPrice(item["value"])["cost"]
-            newList.append({"value":item["value"],"label":item["label"], "description":item["description"], "cost" :itemCost})
+                itemCost = tempItem["cost"]
+            newList.append(
+                 {
+                    "value":item["value"],
+                    "label":item["label"], 
+                    "description":item["description"], 
+                    "cost" :itemCost,
+                    "attributes": tempItem["attributes"],
+                    "category" :tempItem["category"],
+                    "shortText":tempItem["shortText"]
+                })
         return newList
     @staticmethod
     async def addList(embed:Embed, listType, placeHandler: AzurquoraHandler):

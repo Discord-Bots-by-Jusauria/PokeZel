@@ -10,8 +10,8 @@ class AttackHandler:
     @staticmethod
     async def handle_action(action_name: str, *args, **kwargs):
         actions = {
-            "call_profile": TrainerHandler.call_profile,
-            "delete": TrainerHandler.delete,
+            "call_profile": AttackHandler.call_profile,
+            "delete": AttackHandler.delete,
             # Add more actions here as needed
         }
         action = actions.get(action_name)

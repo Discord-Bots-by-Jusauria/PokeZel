@@ -36,13 +36,13 @@ def get_trainer_with_team(user_id: int) -> dict:
     return trainer
 
 
+
 def update_whole_trainer_data(trainer: dict) -> bool:
     """
     Overwrites the entire trainer document with new data.
     """
     result = trainers_coll.replace_one({"_id": trainer["_id"]}, trainer)
     return result.modified_count > 0
-
 
 def update_trainer_team(user_id: int, team: list) -> bool:
     """
@@ -55,21 +55,14 @@ def update_trainer_team(user_id: int, team: list) -> bool:
     return result.modified_count > 0
 
 
-def update_trainer_money(user_id: int, amount: int) -> bool:
-    """
-    Updates the trainer's money. If the trainer doesn't have a money field, it is initialized.
-    """
+def update_trainer_money(user_id: int, amountChange: int) -> bool:
     result = trainers_coll.update_one(
         {"user_id": user_id},
-        {"$set": {"money": amount}}
+        {"$inc": {"dollar": amountChange}}
     )
     return result.modified_count > 0
+def update_trainer_inventory(user_id: int, item: {"name","cost","category","attributes", "shortTest"}) -> bool:
 
-
-def update_trainer_inventory(user_id: int, item: dict) -> bool:
-    """
-    Updates the trainer's inventory. If the inventory does not exist, it is created.
-    """
     result = trainers_coll.update_one(
         {"user_id": user_id},
         {"$push": {"inventory": item}},  # Adds item to inventory array
@@ -89,6 +82,7 @@ def update_trainer_shiny(user_id:int):
         {"user_id": user_id},
         {"$inc": {"shiny_count": 1}}
     )
+
 def delete_trainer(user_id):
     # Lösche alle Pokémon des Trainers
     pokemons_result = pokemons_coll.delete_many({"user_id": user_id})
