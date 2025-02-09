@@ -2,8 +2,7 @@ import json
 import os
 
 from bot_util import make_embed
-from mongodb.start import create_starter_pokemon_for_trainer, update_trainer_team
-from mongodb.trainer import delete_trainer, get_trainer_with_team, update_trainer_inventory, update_trainer_money
+
 from services.trainerUtilities import show_profile
 
 class TrainerHandler:
@@ -37,18 +36,10 @@ class TrainerHandler:
         if not interaction.response.is_done():
             await interaction.response.defer()
         
-        dead= delete_trainer(user_id)
-        if dead:
-             await interaction.followup.send(embed=make_embed("You hit yourself","With a sharp stone you hit yourself. As you lie there in the sand you think about if it was worth it. Maybe next life, you get a shiny..."))
-        else:
-            await interaction.followup.send(embed=make_embed("You tried","With a sharp stone you tried to hit yoursel. The stone missed your head and bounced on the wall. Shattering in millions of pieces. Guess it's not your time yet."))
+       
+        await interaction.followup.send(embed=make_embed("You tried","With a sharp stone you tried to hit yoursel. The stone missed your head and bounced on the wall. Shattering in millions of pieces. Guess it's not your time yet."))
         
     @staticmethod
     async def buy(user_id,item, *args, **kwargs):
-        moneyUpdate = update_trainer_money(user_id=user_id, amountChange=item["cost"]*-1)
-        if not moneyUpdate:
-            return False
-        inventoryUpdate = update_trainer_inventory(user_id=user_id,item=item)
-        if not inventoryUpdate:
-            return False
+       
         return True

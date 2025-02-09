@@ -1,0 +1,27 @@
+ground:
+- easily happy 1.5
+- stupid as hell 1.5
+- likes to run
+
+water:
+- fast hungry 1.5
+- stay less thursty 1.5
+- likes to swim
+
+trash
+- smart and learn fast 1.5 
+- gets easily health bad 1.5
+- likes to hide
+
+fire
+- trust faster 1,5
+- burns out faster - happy 1,5 
+
+- speed
+- hunger is faster down 1,5
+- health goes up faster 1,5
+
+galaxy
+- Mysteriously wise 1.5x intelligence gain
+- Forgets to eat (1.5x slower hunger increase)
+- likes to go into the abyss for a walk

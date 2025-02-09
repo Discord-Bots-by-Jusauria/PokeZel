@@ -1,0 +1,92 @@
+[
+    {
+        "name": "ground",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "effects": [
+            {"happiness": 1.5},
+            {"intelligence": 0.67}
+        ]
+    },
+    {
+        "name": "water",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "effects": [
+            {"hunger": 1.5},
+            {"thirst": 0.67}
+        ]
+    },
+    {
+        "name": "trash",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "effects": [
+            {"intelligence": 1.5},
+            {"health": 0.67}
+        ]
+    },
+    {
+        "name": "fire",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "effects": [
+            {"trust": 1.5},
+            {"happiness": 0.67}
+        ]
+    },
+    {
+        "name": "galaxy",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "effects": [
+            {"intelligence": 1.5},
+            {"hunger": 0.67}
+        ]
+    },
+    {
+        "name": "speed",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "effects": [
+            {"health": 1.5},
+            {"hunger":  0.67}
+        ]
+    }
+]

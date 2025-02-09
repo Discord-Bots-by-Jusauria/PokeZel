@@ -1,0 +1,255 @@
+[
+    {
+        "stage": 1,
+        "species": "Dog",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 10],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "ground",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Wolf", "Husky", "Coyote"]
+    },
+    {
+        "stage": 1,
+        "species": "Cat",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 10],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "ground",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Bob cat", "Tiger", "Lion"]
+    },
+    {
+        "stage": 1,
+        "species": "Shrimp",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 5],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "water",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Isopod", "Lobster", "Cuttlefish"]
+    },
+    {
+        "stage": 1,
+        "species": "Roach",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 5],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "trash",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Scorpion", "Tarantula", "Jumping spider"]
+    },
+    {
+        "stage": 1,
+        "species": "Mouse",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 15],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "speed",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Rat", "Hamster", "Bunny"]
+    },
+    {
+        "stage": 1,
+        "species": "Racoon",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 15],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "trash",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Fox", "Ferret", "Red panda"]
+    },
+    {
+        "stage": 1,
+        "species": "Fish",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 5],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "water",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Shark", "Koi", "Mini son"]
+    },
+    {
+        "stage": 1,
+        "species": "Snail",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 10],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "speed",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Giant African snail", "Volcano snail", "Slug"]
+    },
+    {
+        "stage": 1,
+        "species": "Worm",
+        "nickname": null,
+        "level": 0,
+        "happiness": [0, 60],
+        "intelligence": [0, 5],
+        "health": 100,
+        "hunger": [20, 70],
+        "thurst": [20, 70],
+        "trust": [0, 100],
+        "item_hold": null,
+        "type": "trash",
+        "favorites": {
+            "drink": null,
+            "food": null
+        },
+        "hates": {
+            "drink": null,
+            "food": null
+        },
+        "decoration": {
+            "slot1": null,
+            "slot2": null,
+            "slot3": null
+        },
+        "evolution": ["Snake", "Kobold", "Lizard"]
+    }
+    
+]

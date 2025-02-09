@@ -1,18 +1,12 @@
+import json
 import discord
 import os  # default module
 from dotenv import load_dotenv
 from bot_util import make_embed
 
-# MongoDB helper functions
-from mongodb.pokemon import create_new_Pokemon
-from mongodb.start import create_trainer, create_starter_pokemon_for_trainer, update_trainer_team
-from mongodb.trainer import get_trainer_with_team, update_trainer_location
-from services.MarketHandler import MarketHandler
-from services.AttackHandler import AttackHandler
-from services.TrainerHandler import TrainerHandler
-from services.AzurquoraHandler import AzurquoraHandler
-from services.handlerList import ALL_HANDLERS
 
+from services.handlerList import ALL_HANDLERS
+from mongodb.owner import get_owner, create_adoption
 load_dotenv()  # load all the variables from the .env file
 bot = discord.Bot()
 
@@ -23,7 +17,7 @@ async def on_ready():
 
 # List of cogs to load (e.g., "player-commands")
 cogs_list = [
-    'trainer-commands',
+    'owner-commands',
 ]
 
 # Load all cogs from the list
@@ -31,122 +25,58 @@ for cog in cogs_list:
     bot.load_extension(f'cogs.{cog}')
 
 
+def load_pets():
+    with open("./pojos/pets_basic.json", "r", encoding="utf-8") as file:
+        return json.load(file)
 
-async def handle_action(interaction, trainer_data, action_name, handler_name=None, *args, **kwargs):
-    """
-    Dynamically calls the appropriate city handler for the given action.
-    """
-    if handler_name is None:
-        # Fallback: city-Handler nehmen
-        city = trainer_data["position"]["city"]
-        handler_class = ALL_HANDLERS.get(city)
-    else:
-        # Spezifischen Handler (z.B. 'trainer')
-        handler_class = ALL_HANDLERS.get(handler_name)
-
-    if not handler_class:
-        raise ValueError(f"No handler found for city '{city}'.")
-    await handler_class.handle_action(action_name, interaction, trainer_data, *args, **kwargs)
-
-async def handle_button_click(interaction: discord.Interaction, trainer_data=None, edit_Message=None):
-    if trainer_data is None:
-        trainer_data = get_trainer_with_team(user_id= interaction.user.id)
-    current_city = trainer_data["position"]["city"]
-    current_location = trainer_data["position"]["location"]
-    current_step = trainer_data["position"]["story_step"]
-    # Get the current step details from the JSON
-    story_json = await ALL_HANDLERS.get(current_city).load_story_data()
-    location_data = story_json["locations"].get(current_location, [])
-    step_data = next((step[current_step] for step in location_data if current_step in step), None)
-    
-    if not step_data:
-        await interaction.response.defer()
-        await interaction.followup.send("Could not find the next story step.", ephemeral=True)
-        return
-
-    pokemon_name = trainer_data["team"][0]["name"].capitalize() if trainer_data.get("team") else "Pokémon"
-    player_name = trainer_data["name"].capitalize()
-
-    step_data["title"] = step_data["title"].replace("{pokemon_name}", pokemon_name).replace("{player_name}", player_name)
-    step_data["description"] = step_data["description"].replace("{pokemon_name}", pokemon_name).replace("{player_name}", player_name)
-    
-    # Render the options
-    view = discord.ui.View()
-    for option in step_data["options"]:
-        if "next" in option:
-            custom_id = option["label"]+option["next"]["step"]
-        else:
-            custom_id = option["action"]
-        button = discord.ui.Button(label=option["label"], custom_id=custom_id)
+pets_data = load_pets()
+class AdoptDropdown(discord.ui.Select):
+    def __init__(self, user_id: int):
+        self.user_id = user_id  # Store user ID to prevent others from selecting
         
-        # Attach a callback to handle the button click
-        async def button_callback(interaction: discord.Interaction, option=option):
-            await interaction.response.defer()
-            # Save the next step to the trainer's data
-            if "next" in option:
-                trainer_data["position"]["story_step"] = option["next"]["step"]
-                if "location" in option["next"]:
-                    trainer_data["position"]["location"] = option["next"]["location"]
-                elif "city" in option["next"]:
-                    trainer_data["position"]["city"] = option["next"]["city"]
-            # Handle the action dynamically
-            if "action" in option:
-                handler_name= option.get("handler")
-                await handle_action(interaction, trainer_data, option["action"],handler_name=handler_name, pokemon_name=option.get("label"))
-            update_trainer_location(trainer_data["user_id"],trainer_data["position"])
-            if "next" in option:
-                # Render the next step
-                await handle_button_click(interaction,trainer_data=trainer_data,edit_Message=option.get("edit"))
-            else:
-                return
+        options = [
+            discord.SelectOption(label=pet["species"], description=f"Evolves into: {', '.join(pet['evolution'])}")
+            for pet in pets_data
+        ]
+        super().__init__(placeholder="Choose your pet!", min_values=1, max_values=1, options=options)
 
-        button.callback = button_callback
-        view.add_item(button)
+    async def callback(self, interaction: discord.Interaction):
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("This menu isn't for you!", ephemeral=True)
+            return
+        
+        selected_pet = next((p for p in pets_data if p["species"] == self.values[0]), None)
+        if not selected_pet:
+            await interaction.response.send_message("Pet not found!", ephemeral=True)
+            return
+        
+        create_adoption(interaction.user,selected_pet)
+        await interaction.response.send_message(embed=make_embed("Adopted!", f"You adopted a **{selected_pet['species']}** 🎉"))
 
-    # Send the embed for the current step
-    embed = make_embed(
-        title=step_data["title"],
-        description=step_data["description"]
-    )
-    ## COULT BE NEEDING A CHANGE LATER ON
-    if step_data.get("type"):
-        if step_data["type"]=="market":
-            typeHandler = ALL_HANDLERS[step_data["type"]]
-            await typeHandler.addList(embed,step_data["title"], ALL_HANDLERS.get(current_city))
+class AdoptView(discord.ui.View):
+    def __init__(self, user_id: int):
+        super().__init__(timeout=60)
+        self.add_item(AdoptDropdown(user_id))
 
 
-    if edit_Message is not None:
-        try:
-            await interaction.message.edit(embed=embed, view=view)
-        except discord.errors.NotFound:
-            print("Not found")
-            await interaction.followup.send("Nachricht zum Bearbeiten nicht gefunden.", ephemeral=True)
-    else:
-        if not interaction.response.is_done():
-            await interaction.response.send_message(embed=embed, view=view)
-        else:
-            await interaction.followup.send(embed=embed, view=view)
-    
-@bot.slash_command(name="start", description="Begin your Pokemon adventure!")
-async def start(interaction: discord.Interaction):
-    user_id = interaction.user.id
-    trainer_data = get_trainer_with_team(user_id=user_id)
-    if trainer_data:
-        await interaction.response.send_message(embed=make_embed(title="You are a trainer already"), ephemeral=True)
+@bot.slash_command(name="adopt", description="Get your own Server Pet :D")
+async def adopt(interaction: discord.Interaction):
+    user = get_owner(interaction.user.id)
+    if user:
+        await interaction.response.send_message(embed=make_embed("You already have a pet!", "You can't adopt another one."), ephemeral=True)
         return
-    trainer_data = create_trainer(user_id, interaction.user.name)
-    if trainer_data:
-        await handle_button_click(interaction)
+    embed = make_embed("Adopt a Pet!", "Choose one of the available pets from the dropdown below.")
+    for pet in pets_data:
+        evolution = ", ".join(pet["evolution"])  # Join evolution types with commas
+        
+        # Add a field for each pet
+        embed.add_field(
+            name=f"{pet["species"]}",
+            value=f"Type: {pet["type"]} -- Evolutions: {evolution}",
+            inline=False
+        )
+    await interaction.response.send_message(embed=embed, view=AdoptView(interaction.user.id))
 
-@bot.slash_command(name="continue", description="Continue your story from where you left off.")
-async def continue_story(interaction: discord.Interaction):
-    user_id = interaction.user.id
-    trainer_data = get_trainer_with_team(user_id)
-    if not trainer_data:
-        await interaction.response.send_message(embed=make_embed(title="You are no trainer yet",description="Please use /start to start your journey"), ephemeral=True)
-        return
-    
-    await handle_button_click(interaction)
 
 # Finally, run the bot with the token from .env
 bot.run(os.getenv('TOKEN'))

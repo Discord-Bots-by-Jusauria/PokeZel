@@ -2,7 +2,7 @@ from collections import defaultdict
 import discord
 
 from bot_util import make_embed
-from mongodb.trainer import get_trainer_with_team
+from mongodb.owner import get_owner
 from pojos.emoji_handle import get_emoji
 
 
@@ -37,7 +37,7 @@ async def show_profile(interaction: discord.Interaction, user_id: int):
     - user_id: The unique ID of the trainer.
     """
     # Fetch user data
-    data = get_trainer_with_team(user_id)
+    data = get_owner(user_id)
     if not data:
         await interaction.followup.send(embed=make_embed("No Trainer Found"), ephemeral=True)
         return
@@ -89,7 +89,7 @@ async def show_inventory(interaction: discord.Interaction, user_id: int):
     - user_id: The unique ID of the trainer.
     """
     # Fetch user data
-    data = get_trainer_with_team(user_id)
+    data = get_owner(user_id)
     if not data:
         await interaction.followup.send(embed=make_embed("No Trainer Found"), ephemeral=True)
         return
