@@ -38,10 +38,14 @@ Iced Tea (Happiness + Trust Reduction) - 3 points
 Fruit Juice (Happiness Boost) - 2 points
 Lemonade (Happiness + Thirst Boost) - 3 points
 
-Special
-Interactive Playtime - 5 points
-Long Walk - 6 points
-Training Session - 4 points
-Shower Gel - 2 points
-Snuggles - 1 point
-Luxury Bed - 7 points
+Special Items
+Fever Medicine - 20 points
+Cold Medicine
+Stomach Relief
+Sleep Pills
+Painkiller
+Comfort Blanket
+
+
+Book of Intelligence - 15 points
+Soap - 10 points

@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Fiver",
+        "effect": {"health": -5},
+        "med": "Fever Medicine",
+        "action": null
+    },
+    {
+        "name": "Flu",
+        "effect": {"health": -10},
+        "med": "Fever Medicine",
+        "action": null
+    },
+    {
+        "name": "Lethargy",
+        "effect": {"happiness": -5},
+        "med": null,
+        "action": {"handler": "feeding", "amount": 1, "nameOfItem": "Energy Drink"}
+    },
+    {
+        "name": "Dizziness",
+        "effect": {"health": -3, "happiness": -2},
+        "med": null,
+        "action": {"handler": "drinking", "amount": 1, "nameOfItem": "Freshwater"}
+    },
+    {
+        "name": "Cold",
+        "effect": {"health": -5, "happiness": -3},
+        "med": "Cold Medicine",
+        "action": null
+    },
+    {
+        "name": "Stomach Ache",
+        "effect": {"health": -7, "happiness": -2},
+        "med": "Stomach Relief",
+        "action": null
+    },
+    {
+        "name": "Insomnia",
+        "effect": {"health": -4, "happiness": -6},
+        "med": "Sleep Pills",
+        "action": null
+    },
+    {
+        "name": "Dehydration",
+        "effect": {"health": -3, "thirst": -10},
+        "med": null,
+        "action": {"handler": "drinking", "amount": 2, "nameOfItem": "Freshwater"}
+    },
+    {
+        "name": "Nausea",
+        "effect": {"health": -5, "happiness": -3},
+        "med": "Stomach Relief",
+        "action": null
+    },
+    {
+        "name": "Headache",
+        "effect": {"health": -2, "happiness": -4},
+        "med": "Painkiller",
+        "action": null
+    },
+    {
+        "name": "Fatigue",
+        "effect": {"health": -6, "happiness": -3},
+        "med": null,
+        "action": {"handler": "feeding", "amount": 1, "nameOfItem": "Energy Drink"}
+    },
+    {
+        "name": "Stress",
+        "effect": {"happiness": -8},
+        "med": null,
+        "action": {"handler": "snuggling", "amount": 1, "nameOfItem": "Comfort Blanket"}
+    },
+    {
+        "name": "Cough",
+        "effect": {"health": -4, "happiness": -2},
+        "med": "Cold Medicine",
+        "action": null
+    },
+    {
+        "name": "Malnutrition",
+        "effect": {"health": -8, "hunger": -10},
+        "med": null,
+        "action": {"handler": "feeding", "amount": 3, "nameOfItem": "Energy Drink"}
+    },
+    {
+        "name": "Chills",
+        "effect": {"health": -5, "happiness": -3},
+        "med": "Comfort Blanket",
+        "action": null
+    }
+]

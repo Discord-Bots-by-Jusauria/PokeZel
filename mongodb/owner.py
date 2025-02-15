@@ -32,6 +32,7 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     pet["thurst"]= random.randint(selectedPet["thurst"][0], selectedPet["thurst"][1])
     pet["passed_out"] = None
     pet["died"] = None
+    pet["sick"]= None
     # New document to insert into MongoDB
     new_entry = {
         "user_id": user.id,
