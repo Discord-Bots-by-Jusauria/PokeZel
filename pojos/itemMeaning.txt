@@ -1,0 +1,47 @@
+Food
+Meat Biscuits (Happiness Boost) - 3 points
+Fruit Salad (Health Boost) - 4 points
+Grainy Stew (Happiness + Intelligence Boost) - 5 points
+Root Vegetables (Health Boost + Intelligence) - 4 points
+Cheese Platter (Happiness Boost) - 3 points
+Fish Platter (Health + Hunger Relief) - 6 points
+Grilled Veggies (Health + Intelligence Boost) - 5 points
+Chicken Drumstick (Health + Hunger Relief) - 4 points
+Gravy Smoothie (Happiness + Health Boost) - 6 points
+Stale Bread (Hunger Relief) - 2 points
+Chocolate Cake (Intelligence Boost) - 5 points
+Leftover Pizza (Intelligence + Health) - 5 points
+Coconut Cake (Happiness Boost) - 3 points
+Oily Fish (Intelligence Boost) - 4 points
+Tough Meat (Happiness Reduction) - 2 points
+Spicy Sausage (Trust + Happiness Boost) - 6 points
+Cold Pizza (Happiness + Hunger Reduction) - 3 points
+Garlic Bread (Happiness + Trust) - 4 points
+
+Drinks
+Freshwater (Thirst Relief) - 2 points
+Coconut Water (Health + Thirst Relief) - 4 points
+Herbal Tea (Happiness + Intelligence Boost) - 3 points
+Fruit Punch (Happiness Boost + Hunger Relief) - 4 points
+Ice Water (Thirst Relief + Health) - 4 points
+Energy Drink (Health + Hunger Boost) - 5 points
+Protein Shake (Health + Hunger Boost) - 5 points
+Spiced Cider (Trust + Happiness Boost) - 5 points
+Hot Cocoa (Happiness + Trust) - 4 points
+Starlight Smoothie (Intelligence + Hunger Relief) - 6 points
+Fizzy Soda (Happiness + Intelligence Reduction) - 3 points
+Caffeine Shot (Health Boost + Hunger) - 5 points
+Sweet Tea (Happiness + Intelligence Boost) - 3 points
+Cold Brew Coffee (Thirst + Intelligence) - 4 points
+Soda (Health + Hunger Reduction) - 3 points
+Iced Tea (Happiness + Trust Reduction) - 3 points
+Fruit Juice (Happiness Boost) - 2 points
+Lemonade (Happiness + Thirst Boost) - 3 points
+
+Special
+Interactive Playtime - 5 points
+Long Walk - 6 points
+Training Session - 4 points
+Shower Gel - 2 points
+Snuggles - 1 point
+Luxury Bed - 7 points

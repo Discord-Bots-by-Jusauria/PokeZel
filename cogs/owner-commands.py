@@ -19,7 +19,6 @@ class Player(commands.Cog):
     @discord.slash_command(name=subgroup+"profile",description="Shows owner profile")
     async def profile(self, ctx: discord.ApplicationContext):
         user_id = ctx.author.id
-        await ctx.defer() 
         user_data = get_owner(user_id=user_id)
         if not user_data:
             await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)

@@ -117,3 +117,38 @@ async def show_inventory(interaction: discord.Interaction, user_data):
 
     # Edit the original message with the Inventory embed and view
     await interaction.response.edit_message(embed=embed, view=view)
+
+async def show_pet_profile(interaction: discord.Interaction, user_data):
+    pet = user_data["pet"]
+    if user_data["pet_slot_available"]==1:
+        pet = pet[0]
+        embed = make_embed(pet["species"])
+        file = discord.File("assets/alpha.png", filename="alpha.png")
+        embed.set_thumbnail(url="attachment://alpha.png")
+        ## Basic data
+        embed.add_field(name="Nickname", value=pet["nickname"])
+        value = f"{pet["level"]} ({pet["exp"]["current"]}/{pet["exp"]["goal"]})"
+        embed.add_field(name="Level", value=pet["level"])
+        embed.add_field(name="Type", value=pet["type"])
+        embed.add_field(name="Holding Special", value=pet["item_hold"]["special"],inline=False)
+        ## Statues of living
+        value = f"Hunger: {pet["hunger"]}\n"
+        value+= f"Thirst: {pet["thirst"]}\n"
+        value+= f"Health: {pet["health"]}\n"
+        value+= f"Happiness: {pet["happiness"]}\n"
+        value+= f"Intelligence: {pet["intelligence"]}\n"
+        embed.add_field(name="Status:",value=value,inline=False)
+        ## Fav things
+        value = f"Drink: {pet['favorites']['drink']['name'] if pet['favorites']['drink']['discovered'] else '???'}\n" \
+        f"Food: {pet['favorites']['food']['name'] if pet['favorites']['food']['discovered'] else '???'}\n" 
+        value2= f"Drink: {pet['hates']['drink']['name'] if pet['hates']['drink']['discovered'] else '???'}\n" \
+        f"Food: {pet['hates']['food']['name'] if pet['hates']['food']['discovered'] else '???'}"
+        embed.add_field(name="Likes", value=value)
+        embed.add_field(name="Hates", value=value2)
+        ## Holding Slots
+        value=f"Slot 1: {pet["item_hold"]["slot1"]}\n"\
+        f"Slot 2: {pet["item_hold"]["slot2"]}\n"\
+        f"Slot 3: {pet["item_hold"]["slot3"]}\n"  
+        embed.add_field(name="Item Slots", value=value,inline=False)  
+    
+    await interaction.response.send_message(embed=embed, file=file)

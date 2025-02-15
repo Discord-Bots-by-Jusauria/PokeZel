@@ -18,6 +18,7 @@ async def on_ready():
 # List of cogs to load (e.g., "player-commands")
 cogs_list = [
     'owner-commands',
+    'pet-commands'
 ]
 
 # Load all cogs from the list

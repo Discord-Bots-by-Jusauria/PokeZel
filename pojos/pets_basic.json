@@ -4,26 +4,29 @@
         "species": "Dog",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 200
+        },
         "happiness": [0, 60],
         "intelligence": [0, 10],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "ground",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "thirst": [20, 70],
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
+        },
+        "type": "ground",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
         },
         "evolution": ["Wolf", "Husky", "Coyote"]
     },
@@ -32,26 +35,29 @@
         "species": "Cat",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 200
+        },
         "happiness": [0, 60],
         "intelligence": [0, 10],
         "health": 100,
         "hunger": [20, 70],
         "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "ground",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
+        },
+        "type": "ground",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
         },
         "evolution": ["Bob cat", "Tiger", "Lion"]
     },
@@ -60,26 +66,29 @@
         "species": "Shrimp",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 250
+        },
         "happiness": [0, 60],
         "intelligence": [0, 5],
         "health": 100,
         "hunger": [20, 70],
         "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "water",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
+        },
+        "type": "water",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
         },
         "evolution": ["Isopod", "Lobster", "Cuttlefish"]
     },
@@ -88,26 +97,29 @@
         "species": "Roach",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 150
+        },
         "happiness": [0, 60],
         "intelligence": [0, 5],
         "health": 100,
         "hunger": [20, 70],
         "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "trash",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
+        },
+        "type": "trash",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
         },
         "evolution": ["Scorpion", "Tarantula", "Jumping spider"]
     },
@@ -116,26 +128,29 @@
         "species": "Mouse",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 200
+        },
         "happiness": [0, 60],
         "intelligence": [0, 15],
         "health": 100,
         "hunger": [20, 70],
         "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "speed",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
+        },
+        "type": "speed",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
         },
         "evolution": ["Rat", "Hamster", "Bunny"]
     },
@@ -144,26 +159,29 @@
         "species": "Racoon",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 150
+        },
         "happiness": [0, 60],
         "intelligence": [0, 15],
         "health": 100,
         "hunger": [20, 70],
         "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "trash",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
+        },
+        "type": "trash",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
         },
         "evolution": ["Fox", "Ferret", "Red panda"]
     },
@@ -172,26 +190,29 @@
         "species": "Fish",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 250
+        },
         "happiness": [0, 60],
         "intelligence": [0, 5],
         "health": 100,
         "hunger": [20, 70],
         "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "water",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
+        },
+        "type": "water",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
         },
         "evolution": ["Shark", "Koi", "Mini sona"]
     },
@@ -200,26 +221,29 @@
         "species": "Snail",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 200
+        },
         "happiness": [0, 60],
         "intelligence": [0, 10],
         "health": 100,
         "hunger": [20, 70],
         "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "speed",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
+        },
+        "type": "speed",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
         },
         "evolution": ["Giant African snail", "Volcano snail", "Slug"]
     },
@@ -228,28 +252,30 @@
         "species": "Worm",
         "nickname": null,
         "level": 0,
+        "exp":{
+            "current":0,
+            "goal": 150
+        },
         "happiness": [0, 60],
         "intelligence": [0, 5],
         "health": 100,
         "hunger": [20, 70],
         "thurst": [20, 70],
-        "trust": [0, 100],
-        "item_hold": null,
-        "type": "trash",
-        "favorites": {
-            "drink": null,
-            "food": null
-        },
-        "hates": {
-            "drink": null,
-            "food": null
-        },
-        "decoration": {
+        "item_hold": {
+            "special": null,
             "slot1": null,
             "slot2": null,
             "slot3": null
         },
+        "type": "trash",
+        "favorites": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
+        "hates": {
+            "drink": {"name": null, "discovered": false},
+            "food": {"name": null, "discovered": false}
+        },
         "evolution": ["Snake", "Kobold", "Lizard"]
     }
-    
 ]
