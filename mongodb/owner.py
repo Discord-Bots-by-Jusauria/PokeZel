@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import json
 import time
 import random
 from pymongo import MongoClient
@@ -85,4 +86,29 @@ def updateBday(user_id:int,birthday:str):
         return;
     return timestamp;
 
-    
+
+def load_items():
+    with open("pojos/items.json", "r") as file:
+        return json.load(file)
+def buyItem(user_id,item,amount):
+    itemsList = load_items()
+    for ogItem in itemsList:
+        if ogItem["name"] == item["name"]:
+            ogItem["amount"]=amount
+            result = owner_coll.update_one(
+                    {
+                        "user_id": user_id,
+                        "inventory": {"$elemMatch": {"name": ogItem["name"]}}  # Check if item exists
+                    },
+                    {
+                        "$inc": {
+                            "points": -(ogItem["price"] * amount),  # Deduct points
+                            "inventory.$.amount": amount  # Increase item amount
+                        }
+                    }
+                )
+            if result ==0:
+                return owner_coll.update_one({"user_id":user_id},
+                    {"$push":{"inventory":ogItem},"$inc":{"points":-(ogItem["price"]*amount)}})
+            else:
+                return result
