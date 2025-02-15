@@ -1,12 +1,14 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+import time
 import random
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 # Stelle sicher, dass du hier deinen Connection-String einträgst
 client = MongoClient("mongodb+srv://mewtumew1:hoihoihoi@cluster0.jpxvquh.mongodb.net/test")
 db = client["Pointlink"]  # Beispiel: Datenbankname
-
 owner_coll = db["owner"]   # Collection für Spieler/Owner
+dbg = client["General"]
+people_coll = dbg["people"]
 
 def get_owner(user_id: int) -> dict:
     # Fetch the owner document
@@ -17,7 +19,10 @@ def get_owner(user_id: int) -> dict:
     return owner
 
 def create_adoption(user: any, selectedPet: any) -> bool:
-
+    peep = people_coll.find_one({"user":str(user.id)})
+    money = 10
+    if peep:
+        money = peep["points"]
     #random values set of pet
     print(selectedPet["happiness"][0])
     pet = selectedPet
@@ -31,10 +36,10 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     new_entry = {
         "user_id": user.id,
         "user_name": user.name,
-        "points": 10,
+        "points": money,
         "start_of_game": int( datetime.now().timestamp()),
         "rank": 0,
-        "check-in":"2024-08-01T00:00:00.000Z",
+        "check-in":  int((datetime.now() - timedelta(days=1)).timestamp()),
         "commission_target":{
             "name":"none",
             "amount":0,
@@ -53,3 +58,30 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     except Exception as e:
         print(f"Error inserting adoption: {e}")
         return False  # Return False if something went wrong
+
+## Updates
+
+def updateCheckin(user_id:int,amount:int):
+    result = owner_coll.update_one({"user_id": user_id}, {"$inc": {"points": amount},"$set":{"check-in":int(datetime.now().timestamp())}})
+    
+    return result.modified_count > 0
+
+def updateBday(user_id:int,birthday:str):
+    month, day = map(int, birthday.split("-"))
+    current_year = datetime.now().year
+
+    # Convert to datetime for this year
+    bday_this_year = datetime(year=current_year, month=month, day=day)
+
+    # If the birthday already passed this year, use next year
+    if bday_this_year < datetime.now():
+        bday_this_year = bday_this_year.replace(year=current_year + 1)
+
+    # Convert to timestamp
+    timestamp = int(time.mktime(bday_this_year.timetuple()))
+    result = owner_coll.update_one({"user_id": user_id}, {"$set": {"bday": timestamp}})
+    if result ==0:
+        return;
+    return timestamp;
+
+    

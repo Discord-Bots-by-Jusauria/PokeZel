@@ -4,13 +4,13 @@ from discord.ext import commands
 # Falls du fetch_profile_data nutzt, importiere es hier.
 from bot_util import make_embed
 from pojos.emoji_handle import app_emojis, get_emoji, get_item_emoji
-from services.MarketHandler import MarketHandler
 from services.handlerList import ALL_HANDLERS
-from services.trainerUtilities import show_profile
-from mongodb.owner import get_owner
+from mongodb.owner import get_owner, updateCheckin, updateBday
+from utilities.profile import show_profile
+from utilities.time import checkBdayToday
 
 subgroup = "owner_"
-
+        
 class Player(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -19,26 +19,12 @@ class Player(commands.Cog):
     @discord.slash_command(name=subgroup+"profile",description="Shows owner profile")
     async def profile(self, ctx: discord.ApplicationContext):
         user_id = ctx.author.id
+        await ctx.defer() 
         user_data = get_owner(user_id=user_id)
-        if user_data:
-            embed = make_embed(user_data["user_name"])
-            embed.set_thumbnail(url=ctx.user.display_avatar.url)
-            embed.add_field(name="Points", value=user_data["points"])
-            embed.add_field(name="Rank", value=user_data["rank"])
-            embed.add_field(name="Commission target:", 
-                            value=user_data["commission_target"]["name"] + 
-                                " (" + str(user_data["commission_target"]["amount"]) + 
-                                "/" + str(user_data["commission_target"]["goal"]) + ")",inline=False)
-            embed.add_field(name="Check-in", value=user_data["check_in"], inline=False)
-            embed.add_field(name="Daily Pet Task:", 
-                            value=user_data["commission_target"]["name"] + 
-                                " (" + str(user_data["commission_target"]["amount"]) + 
-                                "/" + str(user_data["commission_target"]["goal"]) + ")")
-
-            
-            await ctx.response.send_message(embed=embed)
-        else:
+        if not user_data:
             await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
+            return
+        await show_profile(ctx,user_data) 
 
     @discord.command(name="buy", description="Purchase an item from the marketplace.")
     async def buy(self, interaction: discord.ApplicationContext):
@@ -115,5 +101,41 @@ class Player(commands.Cog):
         # Send the message with the dropdown
         await interaction.response.send_message(embed=make_embed("Select an item to purchase:"), view=view, ephemeral=True)
 
+    @discord.slash_command(name="check-in",description="Your daily allowance")
+    async def check_in(self, ctx: discord.ApplicationContext):
+        user_id = ctx.author.id
+
+        user_data = get_owner(user_id=user_id)
+        if not user_data:
+            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
+            return
+        checkin_status=0
+        bday = False
+        if user_data.get("bday"):
+            if checkBdayToday(user_data["bday"]):
+                bday = True
+                checkin_status= updateCheckin(user_id,23)
+            else:
+                checkin_status= updateCheckin(user_id,1)
+        if checkin_status == 0:  
+            await ctx.response.send_message(embed=make_embed("Your Check-in didnt work."))
+            return  
+        if bday: await ctx.response.send_message(embed=make_embed("You check-in-ed\nHappy Birthday 🎂"))
+        else: await ctx.response.send_message(embed=make_embed("You check-in-ed"))
+        
+    @discord.slash_command(name=subgroup+"bday",description="Set your Bday to get Benefits")
+    async def bday(self, ctx: discord.ApplicationContext, birthday: discord.Option(input_type=str, description="Enter your Bday (MM-DD)")):
+        user_id = ctx.author.id
+
+        user_data = get_owner(user_id=user_id)
+        if not user_data:
+            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
+            return
+        
+        bday = updateBday(user_id,birthday)
+        if not bday:  
+            await ctx.response.send_message(embed=make_embed("Your Check-in didnt work."))
+            return        
+        await ctx.response.send_message(embed=make_embed(f"<t:{str(bday)}:F>"))
 def setup(bot):
     bot.add_cog(Player(bot))
