@@ -3,7 +3,7 @@ import json
 import time
 import random
 from pymongo import MongoClient
-from bson.objectid import ObjectId
+from bot_util import load_items
 # Stelle sicher, dass du hier deinen Connection-String einträgst
 client = MongoClient("mongodb+srv://mewtumew1:hoihoihoi@cluster0.jpxvquh.mongodb.net/test")
 db = client["Pointlink"]  # Beispiel: Datenbankname
@@ -25,7 +25,6 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     if peep:
         money = peep["points"]
     #random values set of pet
-    print(selectedPet["happiness"][0])
     pet = selectedPet
     pet["happiness"]= random.randint(selectedPet["happiness"][0], selectedPet["happiness"][1])
     pet["intelligence"]= random.randint(selectedPet["intelligence"][0], selectedPet["intelligence"][1])
@@ -34,6 +33,14 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     pet["passed_out"] = None
     pet["died"] = None
     pet["sick"]= None
+    ## likings
+    types = load_items("type_meaning.json")
+    typeDetails = next((t for t in types if t["name"] == pet["type"]), None)
+    pet["favorites"]["drink"]["name"] = typeDetails["favorites"]["drink"][random.randint(0,2)]
+    pet["favorites"]["food"]["name"] = typeDetails["favorites"]["food"][random.randint(0,2)]
+    pet["hates"]["food"]["name"] = typeDetails["hates"]["food"][random.randint(0,2)]
+    pet["hates"]["drink"]["name"] = typeDetails["hates"]["drink"][random.randint(0,2)]
+    pet["typeEffects"]=typeDetails["effects"]
     # New document to insert into MongoDB
     new_entry = {
         "user_id": user.id,
@@ -87,11 +94,8 @@ def updateBday(user_id:int,birthday:str):
     return timestamp;
 
 
-def load_items():
-    with open("pojos/items.json", "r") as file:
-        return json.load(file)
 def buyItem(user_id,item,amount):
-    itemsList = load_items()
+    itemsList = load_items("items.json")
     for ogItem in itemsList:
         if ogItem["name"] == item["name"]:
             ogItem["amount"]=amount

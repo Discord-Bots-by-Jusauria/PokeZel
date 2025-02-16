@@ -1,13 +1,10 @@
 import discord
-import json
 from discord.ui import View, Select, Button
 from discord import Embed, Interaction
-from bot_util import make_embed
+from bot_util import load_items, make_embed
 from mongodb.owner import buyItem
 
-def load_items():
-    with open("pojos/items.json", "r") as file:
-        return json.load(file)
+
 
 def categorize_items(items):
     categories = {}
@@ -114,7 +111,7 @@ class ShopView(View):
 
 
 async def buyView(interaction: discord.ApplicationContext, user_data, amount):
-    items = load_items()
+    items = load_items("items.json")
     money = user_data['points']
     categories = categorize_items(items)
 

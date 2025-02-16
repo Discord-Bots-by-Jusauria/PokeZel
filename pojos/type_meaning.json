@@ -2,12 +2,12 @@
     {
         "name": "ground",
         "favorites": {
-            "drink": null,
-            "food": null
+            "drink": ["Herbal Tea", "Cold Brew Coffee", "Freshwater"],
+            "food": ["Grainy Stew", "Root Vegetables", "Garlic Bread"]
         },
         "hates": {
-            "drink": null,
-            "food": null
+            "drink": ["Energy Drink", "Fizzy Soda", "Caffeine Shot"],
+            "food": ["Chocolate Cake", "Coconut Cake", "Oily Fish"]
         },
         "effects": [
             {"happiness": 1.5},
@@ -17,12 +17,12 @@
     {
         "name": "water",
         "favorites": {
-            "drink": null,
-            "food": null
+            "drink": ["Freshwater", "Coconut Water", "Ice Water"],
+            "food": ["Fish Platter", "Grilled Veggies", "Root Vegetables"]
         },
         "hates": {
-            "drink": null,
-            "food": null
+            "drink": ["Caffeine Shot", "Fizzy Soda", "Soda"],
+            "food": ["Tough Meat", "Spicy Sausage", "Gravy Smoothie"]
         },
         "effects": [
             {"hunger": 1.5},
@@ -32,12 +32,12 @@
     {
         "name": "trash",
         "favorites": {
-            "drink": null,
-            "food": null
+            "drink": ["Fizzy Soda", "Sweet Tea", "Fruit Punch"],
+            "food": ["Leftover Pizza", "Cold Pizza", "Stale Bread"]
         },
         "hates": {
-            "drink": null,
-            "food": null
+            "drink": ["Herbal Tea", "Coconut Water", "Hot Cocoa"],
+            "food": ["Root Vegetables", "Grilled Veggies", "Fish Platter"]
         },
         "effects": [
             {"intelligence": 1.5},
@@ -47,12 +47,12 @@
     {
         "name": "fire",
         "favorites": {
-            "drink": null,
-            "food": null
+            "drink": ["Spiced Cider", "Hot Cocoa", "Energy Drink"],
+            "food": ["Spicy Sausage", "Gravy Smoothie", "Chicken Drumstick"]
         },
         "hates": {
-            "drink": null,
-            "food": null
+            "drink": ["Ice Water", "Freshwater", "Coconut Water"],
+            "food": ["Fruit Salad", "Grilled Veggies", "Cheese Platter"]
         },
         "effects": [
             {"trust": 1.5},
@@ -62,12 +62,12 @@
     {
         "name": "galaxy",
         "favorites": {
-            "drink": null,
-            "food": null
+            "drink": ["Starlight Smoothie", "Cold Brew Coffee", "Caffeine Shot"],
+            "food": ["Chocolate Cake", "Oily Fish", "Leftover Pizza"]
         },
         "hates": {
-            "drink": null,
-            "food": null
+            "drink": ["Sweet Tea", "Spiced Cider", "Herbal Tea"],
+            "food": ["Tough Meat", "Grainy Stew", "Root Vegetables"]
         },
         "effects": [
             {"intelligence": 1.5},
@@ -77,16 +77,16 @@
     {
         "name": "speed",
         "favorites": {
-            "drink": null,
-            "food": null
+            "drink": ["Energy Drink", "Protein Shake", "Caffeine Shot"],
+            "food": ["Chicken Drumstick", "Grainy Stew", "Spicy Sausage"]
         },
         "hates": {
-            "drink": null,
-            "food": null
+            "drink": ["Hot Cocoa", "Iced Tea", "Fruit Juice"],
+            "food": ["Grilled Veggies", "Stale Bread", "Coconut Cake"]
         },
         "effects": [
             {"health": 1.5},
-            {"hunger":  0.67}
+            {"hunger": 0.67}
         ]
     }
 ]

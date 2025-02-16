@@ -1,3 +1,4 @@
+import json
 import discord
 
 def make_embed(title: str, description="") -> discord.Embed:
@@ -10,3 +11,7 @@ def make_embed(title: str, description="") -> discord.Embed:
         color=discord.Color.dark_blue()
     )
     return embed
+
+def load_items(fileName):
+    with open("pojos/"+fileName, "r") as file:
+        return json.load(file)
