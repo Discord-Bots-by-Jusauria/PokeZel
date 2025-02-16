@@ -80,7 +80,7 @@ async def show_inventory(interaction: discord.Interaction, user_data):
         # Step 1: Group items by category
         category_dict = defaultdict(list)
         for item in inventory:
-            category = item.get('category', 'Uncategorized')  # Default to 'Uncategorized' if category is missing
+            category = item.get('typeOfItem', 'Uncategorized')  # Default to 'Uncategorized' if category is missing
             category_dict[category].append(item)
 
         # Step 2: Iterate through each category and sort items by name
@@ -99,11 +99,12 @@ async def show_inventory(interaction: discord.Interaction, user_data):
             item_lines = []
             for item in sorted_items:
                 name = item.get('name', 'Unknown')
-                quantity = item.get('quantity', 1)  # Default quantity to 1 if not specified
-                cost = item.get('cost', 0)
-                short_text = item.get('shortText', '')
+                quantity = item.get('amount', 1)
+                short_text = f"Filling: {item["filling"]}; Effects: "
+                for effect in item["specialEffect"]:
+                    short_text+= f"{effect["name"]}(Chance: {effect["chance"]}%), "
                 # You can customize the format as needed
-                line = f"**{name}** x{quantity} - ${(cost/2)}\n_{short_text}_"
+                line = f"**{name}** x{quantity} - {short_text} "
                 item_lines.append(line)
             
             # Join all item lines into a single string separated by newlines
