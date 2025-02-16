@@ -2,7 +2,7 @@ import discord
 from discord.ui import View, Select, Button
 from discord import Embed, Interaction
 from bot_util import load_items, make_embed
-from mongodb.owner import buyItem
+from mongodb.owner import buyItem, sellItem
 
 
 
@@ -138,8 +138,8 @@ class ConfirmPurchaseView(View):
 
     @discord.ui.button(label="Yes", style=discord.ButtonStyle.success)
     async def confirm(self, button: Button, interaction: Interaction):
-        if self.money < self.item["price"]:
-            await interaction.response.send_message(embed=Embed(title="Not enough ppoints!"), ephemeral=True)
+        if self.money < self.item["price"]*self.amount:
+            await interaction.response.send_message(embed=Embed(title="Not enough points!"))
         else:
             await self.callback(interaction, self.item, self.amount)
 
@@ -151,4 +151,78 @@ class ConfirmPurchaseView(View):
 async def confirm_purchase(interaction: Interaction, item, amount):
     """Handle successful purchase logic."""
     result = buyItem(interaction.user.id,item,amount)
-    await interaction.response.send_message(embed=Embed(title=f"You bought {amount}x **{item['name']}**!"), ephemeral=True)
+    await interaction.response.send_message(embed=Embed(title=f"You bought {amount}x **{item['name']}**!"))
+
+####################
+
+async def sellView(interaction: discord.ApplicationContext, user_data, amount):
+    inventory = user_data.get("inventory", [])
+    
+    if not inventory:
+        await interaction.response.send_message(embed=make_embed("You have no items to sell."), ephemeral=True)
+        return
+    
+    # Create dropdown options
+    options = []
+    for item in inventory:
+        max_sellable = min(item["amount"], amount)
+        sell_price = int(item["price"] // 1.7) * max_sellable
+        
+        if max_sellable > 0:
+            options.append(discord.SelectOption(
+                label=f"{max_sellable}x {item['name']} - {sell_price}p",
+                value=item["name"]
+            ))
+    
+    if not options:
+        await interaction.response.send_message(embed=make_embed("You don't have enough items to sell."), ephemeral=True)
+        return
+    
+    class SellDropdown(discord.ui.Select):
+        def __init__(self):
+            super().__init__(placeholder="Select an item to sell...", options=options)
+        
+        async def callback(self, sell_interaction: discord.Interaction):
+            selected_item = next((item for item in inventory if item["name"] == self.values[0]), None)
+            if not selected_item:
+                await sell_interaction.response.send_message("Invalid item selected.", ephemeral=True)
+                return
+            
+            max_sellable = min(selected_item["amount"], amount)
+            sell_price = int(selected_item["price"] // 1.7) * max_sellable
+            
+            class ConfirmSell(discord.ui.View):
+                def __init__(self):
+                    super().__init__()
+                    
+                @discord.ui.button(label="Confirm Sale", style=discord.ButtonStyle.green)
+                async def confirm(self, button_interaction: discord.Interaction, button: discord.ui.Button):
+                    # Perform the sale logic here (deduct items, add money)
+                    result = sellItem(interaction.user.id,selected_item,sell_price,max_sellable)
+                    if result == 0:
+                       await interaction.response.send(
+                        embed=make_embed(f"Selling failed!"), ephemeral=True
+                    ) 
+                    else:
+                        await interaction.followup.send(
+                            embed=make_embed(f"You sold {max_sellable}x {selected_item['name']} for {sell_price}p!")
+                        )
+                    self.stop()
+                
+                @discord.ui.button(label="Cancel", style=discord.ButtonStyle.red)
+                async def cancel(self, button_interaction: discord.Interaction, button: discord.ui.Button):
+                    await interaction.response.send("Sale canceled.", ephemeral=True)
+                    self.stop()
+            
+            confirm_view = ConfirmSell()
+            await sell_interaction.response.send_message(
+                embed=make_embed(f"Are you sure you want to sell {max_sellable}x {selected_item['name']} for {sell_price}p?"),
+                view=confirm_view,
+                ephemeral=True
+            )
+    
+    dropdown = SellDropdown()
+    view = discord.ui.View()
+    view.add_item(dropdown)
+    
+    await interaction.response.send_message(embed=make_embed("Select an inventory item to sell:"), view=view)

@@ -29,7 +29,7 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     pet["happiness"]= random.randint(selectedPet["happiness"][0], selectedPet["happiness"][1])
     pet["intelligence"]= random.randint(selectedPet["intelligence"][0], selectedPet["intelligence"][1])
     pet["hunger"]= random.randint(selectedPet["hunger"][0], selectedPet["hunger"][1])
-    pet["thurst"]= random.randint(selectedPet["thurst"][0], selectedPet["thurst"][1])
+    pet["thirst"]= random.randint(selectedPet["thirst"][0], selectedPet["thirst"][1])
     pet["passed_out"] = None
     pet["died"] = None
     pet["sick"]= None
@@ -111,8 +111,33 @@ def buyItem(user_id,item,amount):
                         }
                     }
                 )
-            if result ==0:
+            if result.modified_count == 0:
                 return owner_coll.update_one({"user_id":user_id},
                     {"$push":{"inventory":ogItem},"$inc":{"points":-(ogItem["price"]*amount)}})
             else:
                 return result
+
+def sellItem(user_id,item,price,amount):
+    result =owner_coll.update_one(
+        {
+            "user_id": user_id,
+            "inventory.name": item["name"]  # Ensure the item exists
+        },
+        {
+            "$inc": {
+                "inventory.$.amount": -amount,
+                "points": price}  # Reduce amount
+        }
+    )
+
+    # Step 2: Remove item if amount is 0 or less
+    owner_coll.update_one(
+        {
+            "user_id": user_id,
+            "inventory": {"$elemMatch": {"name": item["name"], "amount": {"$lte": 0}}}
+        },
+        {
+            "$pull": {"inventory": {"name": item["name"]}}
+        }
+    )
+    return result

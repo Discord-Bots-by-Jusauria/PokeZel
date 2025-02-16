@@ -8,7 +8,7 @@ from services.handlerList import ALL_HANDLERS
 from mongodb.owner import get_owner, updateCheckin, updateBday
 from utilities.profile import show_profile
 from utilities.time import checkBdayToday
-from utilities.buy import buyView
+from utilities.buy import buyView, sellView
 subgroup = "owner_"
         
 class Player(commands.Cog):
@@ -33,6 +33,15 @@ class Player(commands.Cog):
             await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
             return
         await buyView(ctx,user_data,amount) 
+    
+    @discord.command(name="sell", description="Sells items in your inventory")
+    async def sell(self, ctx: discord.ApplicationContext, amount: int=1):
+        user_id = ctx.author.id
+        user_data = get_owner(user_id=user_id)
+        if not user_data:
+            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
+            return
+        await sellView(ctx,user_data,amount) 
         
     @discord.slash_command(name="check-in",description="Your daily allowance")
     async def check_in(self, ctx: discord.ApplicationContext):

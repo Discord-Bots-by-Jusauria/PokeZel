@@ -102,7 +102,7 @@ async def show_inventory(interaction: discord.Interaction, user_data):
                 quantity = item.get('amount', 1)
                 short_text = f"Filling: {item["filling"]}; Effects: "
                 for effect in item["specialEffect"]:
-                    short_text+= f"{effect["name"]}(Chance: {effect["chance"]}%), "
+                    short_text+= f"{effect["name"]} (Chance: {effect["chance"]}%), "
                 # You can customize the format as needed
                 line = f"**{name}** x{quantity} - {short_text} "
                 item_lines.append(line)
@@ -134,7 +134,7 @@ async def show_pet_profile(interaction: discord.Interaction, user_data):
         embed.add_field(name="Holding Special", value=pet["item_hold"]["special"],inline=False)
         ## Statues of living
         value = f"Hunger: {pet["hunger"]}\n"
-        value+= f"Thirst: {pet["thirst"]}\n"
+        value+= f"thirst: {pet["thirst"]}\n"
         value+= f"Health: {pet["health"]}\n"
         value+= f"Happiness: {pet["happiness"]}\n"
         value+= f"Intelligence: {pet["intelligence"]}\n"
