@@ -127,11 +127,11 @@ async def show_pet_profile(interaction: discord.Interaction, user_data):
         file = discord.File("assets/alpha.png", filename="alpha.png")
         embed.set_thumbnail(url="attachment://alpha.png")
         ## Basic data
-        embed.add_field(name="Nickname", value=pet["nickname"])
+        embed.add_field(name="Nickname", value=pet["nickname"],inline=False)
         value = f"{pet["level"]} \n({pet["exp"]["current"]}/{pet["exp"]["goal"]})"
         embed.add_field(name="Level", value=value)
         embed.add_field(name="Type", value=pet["type"])
-        embed.add_field(name="Holding Special", value=pet["item_hold"]["special"],inline=False)
+        embed.add_field(name="Holding Special", value=pet["item_hold"]["special"])
         ## Statues of living
         value = f"Hunger: {pet["hunger"]}\n"
         value+= f"thirst: {pet["thirst"]}\n"
