@@ -43,7 +43,7 @@
         "intelligence": [0, 10],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
+        "thirst": [20, 70],
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -74,7 +74,7 @@
         "intelligence": [0, 5],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
+        "thirst": [20, 70],
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -105,7 +105,7 @@
         "intelligence": [0, 5],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
+        "thirst": [20, 70],
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -136,7 +136,7 @@
         "intelligence": [0, 15],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
+        "thirst": [20, 70],
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -167,7 +167,7 @@
         "intelligence": [0, 15],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
+        "thirst": [20, 70],
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -198,7 +198,7 @@
         "intelligence": [0, 5],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
+        "thirst": [20, 70],
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -229,7 +229,7 @@
         "intelligence": [0, 10],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
+        "thirst": [20, 70],
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -260,7 +260,7 @@
         "intelligence": [0, 5],
         "health": 100,
         "hunger": [20, 70],
-        "thurst": [20, 70],
+        "thirst": [20, 70],
         "item_hold": {
             "special": null,
             "slot1": null,
