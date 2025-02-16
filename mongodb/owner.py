@@ -18,6 +18,10 @@ def get_owner(user_id: int) -> dict:
         return None  # Owner not found
     
     return owner
+nicknames = [
+    "Bloop", "Wumbo", "Snorf", "Flibber", "Goobert", "Zonky", "Boingo", "Squizzle", "Dorfus", "Blorbo",
+    "Skiddly", "Muffintop", "Ziggly", "Tootles", "Noodle", "Quackles", "Bork", "Dingus", "Wigglytuff", "Splonky"
+]
 
 def create_adoption(user: any, selectedPet: any) -> bool:
     peep = people_coll.find_one({"user":str(user.id)})
@@ -33,6 +37,7 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     pet["passed_out"] = None
     pet["died"] = None
     pet["sick"]= None
+    pet["nickname"] = random.choice(nicknames)
     ## likings
     types = load_items("type_meaning.json")
     typeDetails = next((t for t in types if t["name"] == pet["type"]), None)
