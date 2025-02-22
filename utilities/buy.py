@@ -113,8 +113,13 @@ class ShopView(View):
 async def buyView(interaction: discord.ApplicationContext, user_data, amount):
     items = load_items("items.json")
     money = user_data['points']
+    #Stage filtering for items
+    pet_stage = user_data["pet"][0]["stage"]  # Assuming the pet's stage is stored like this
+    filtered_items = [item for item in items if item.get("stage",1) <= pet_stage]
+    items = filtered_items
     categories = categorize_items(items)
-
+    
+    
     first_category = list(categories.keys())[0]
     shop_view = ShopView(user_id=user_data["user_id"], money=money, categories=categories, current_category=first_category, amount=amount)
     

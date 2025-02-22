@@ -4,98 +4,109 @@
         "typeOfItem": "food",
         "price": 3,
         "filling": 5,
-        "specialEffect": []
+        "specialEffect": [],
+        "stage": 1
     },
     {
         "name": "Fruit Salad",
         "typeOfItem": "food",
         "price": 4,
-        "filling": 4,
+        "filling": 5,
         "specialEffect": [
             {"name": "healing", "chance": 70}
-        ]
+        ],
+        "stage": 1
     },
     {
         "name": "Grainy Stew",
         "typeOfItem": "food",
         "price": 5,
-        "filling": 6,
+        "filling": 8,
         "specialEffect": [
             {"name": "happiness", "chance": 60},
             {"name": "exp", "chance": 50}
-        ]
+        ],
+        "stage": 2
     },
     {
         "name": "Root Vegetables",
         "typeOfItem": "food",
         "price": 4,
-        "filling": 5,
+        "filling": 6,
         "specialEffect": [
             {"name": "intelligence", "chance": 50}
-        ]
+        ],
+        "stage": 1
     },
     {
         "name": "Cheese Platter",
         "typeOfItem": "food",
         "price": 3,
         "filling": 4,
-        "specialEffect": []
+        "specialEffect": [],
+        "stage": 1
     },
     {
         "name": "Fish Platter",
         "typeOfItem": "food",
         "price": 6,
-        "filling": 8,
+        "filling": 10,
         "specialEffect": [
             {"name": "healing", "chance": 80},
             {"name": "exp", "chance": 60}
-        ]
+        ],
+        "stage": 2
     },
     {
         "name": "Grilled Veggies",
         "typeOfItem": "food",
         "price": 5,
-        "filling": 5,
+        "filling": 9,
         "specialEffect": [
             {"name": "intelligence", "chance": 50},
             {"name": "exp", "chance": 40}
-        ]
+        ],
+        "stage": 2
     },
     {
         "name": "Chicken Drumstick",
         "typeOfItem": "food",
         "price": 4,
-        "filling": 6,
+        "filling": 8,
         "specialEffect": [
             {"name": "hunger", "chance": 80}
-        ]
+        ],
+        "stage": 2
     },
     {
         "name": "Gravy Smoothie",
         "typeOfItem": "food",
         "price": 6,
-        "filling": 7,
+        "filling": 11,
         "specialEffect": [
             {"name": "happiness", "chance": 70},
             {"name": "exp", "chance": 55}
-        ]
+        ],
+        "stage": 2
     },
     {
         "name": "Stale Bread",
         "typeOfItem": "food",
         "price": 2,
         "filling": 3,
-        "specialEffect": []
+        "specialEffect": [],
+        "stage": 1
     },
     {
         "name": "Chocolate Cake",
         "typeOfItem": "food",
         "price": 5,
-        "filling": 4,
+        "filling": 7,
         "specialEffect": [
             {"name": "intelligence", "chance": 60},
             {"name": "exp", "chance": 50}
-        ]
+        ],
+        "stage": 2
     },
     {
         "name": "Leftover Pizza",
@@ -105,223 +116,330 @@
         "specialEffect": [
             {"name": "healing", "chance": 50},
             {"name": "exp", "chance": 45}
-        ]
+        ],
+        "stage": 1
     },
     {
         "name": "Coconut Cake",
         "typeOfItem": "food",
         "price": 3,
         "filling": 4,
-        "specialEffect": []
+        "specialEffect": [],
+        "stage": 1
     },
     {
         "name": "Oily Fish",
         "typeOfItem": "food",
         "price": 4,
-        "filling": 5,
+        "filling": 6,
         "specialEffect": [
             {"name": "intelligence", "chance": 75}
-        ]
+        ],
+        "stage": 1
     },
     {
         "name": "Tough Meat",
         "typeOfItem": "food",
         "price": 2,
         "filling": 6,
-        "specialEffect": []
+        "specialEffect": [],
+        "stage": 1
     },
     {
         "name": "Spicy Sausage",
         "typeOfItem": "food",
         "price": 6,
-        "filling": 7,
+        "filling": 12,
         "specialEffect": [
             {"name": "happiness", "chance": 70},
             {"name": "exp", "chance": 65}
-        ]
+        ],
+        "stage": 2
     },
     {
         "name": "Cold Pizza",
         "typeOfItem": "food",
         "price": 3,
         "filling": 5,
-        "specialEffect": []
+        "specialEffect": [],
+        "stage": 1
     },
     {
         "name": "Garlic Bread",
         "typeOfItem": "food",
         "price": 4,
-        "filling": 5,
-        "specialEffect": [
-            {"name": "happiness", "chance": 50}
-        ]
-    },
-    {
-        "name": "Freshwater",
-        "typeOfItem": "drink",
-        "price": 2,
-        "filling": 4,
-        "specialEffect": []
-    },
-    {
-        "name": "Coconut Water",
-        "typeOfItem": "drink",
-        "price": 4,
-        "filling": 4,
-        "specialEffect": [
-            {"name": "healing", "chance": 60},
-            {"name": "thirst", "chance": 100}
-        ]
-    },
-    {
-        "name": "Herbal Tea",
-        "typeOfItem": "drink",
-        "price": 3,
-        "filling": 3,
-        "specialEffect": [
-            {"name": "happiness", "chance": 50}
-        ]
-    },
-    {
-        "name": "Fruit Punch",
-        "typeOfItem": "drink",
-        "price": 4,
-        "filling": 5,
-        "specialEffect": [
-            {"name": "happiness", "chance": 50},
-            {"name": "hunger", "chance": 60}
-        ]
-    },
-    {
-        "name": "Ice Water",
-        "typeOfItem": "drink",
-        "price": 4,
-        "filling": 3,
-        "specialEffect": [
-            {"name": "healing", "chance": 70}
-        ]
-    },
-    {
-        "name": "Energy Drink",
-        "typeOfItem": "drink",
-        "price": 5,
-        "filling": 5,
-        "specialEffect": [
-            {"name": "health", "chance": 60},
-            {"name": "exp", "chance": 50}
-        ]
-    },
-    {
-        "name": "Protein Shake",
-        "typeOfItem": "drink",
-        "price": 5,
-        "filling": 7,
-        "specialEffect": [
-            {"name": "hunger", "chance": 80},
-            {"name": "exp", "chance": 50}
-        ]
-    },
-    {
-        "name": "Spiced Cider",
-        "typeOfItem": "drink",
-        "price": 5,
-        "filling": 4,
-        "specialEffect": [
-            {"name": "happiness", "chance": 70},
-            {"name": "exp", "chance": 50}
-        ]
-    },
-    {
-        "name": "Hot Cocoa",
-        "typeOfItem": "drink",
-        "price": 4,
-        "filling": 3,
-        "specialEffect": [
-            {"name": "happiness", "chance": 60}
-        ]
-    },
-    {
-        "name": "Starlight Smoothie",
-        "typeOfItem": "drink",
-        "price": 6,
         "filling": 6,
         "specialEffect": [
-            {"name": "intelligence", "chance": 70},
-            {"name": "exp", "chance": 60}
-        ]
-    },
-    {
-        "name": "Fizzy Soda",
-        "typeOfItem": "drink",
-        "price": 3,
-        "filling": 3,
-        "specialEffect": [
-            {"name": "happiness", "chance": 50},
-            {"name": "intelligence", "chance": 10}
-        ]
-    },
-    {
-        "name": "Caffeine Shot",
-        "typeOfItem": "drink",
-        "price": 5,
-        "filling": 4,
-        "specialEffect": [
-            {"name": "health", "chance": 60},
-            {"name": "exp", "chance": 45}
-        ]
-    },
-    {
-        "name": "Sweet Tea",
-        "typeOfItem": "drink",
-        "price": 3,
-        "filling": 3,
-        "specialEffect": [
             {"name": "happiness", "chance": 50}
-        ]
+        ],
+        "stage": 1
     },
     {
-        "name": "Cold Brew Coffee",
-        "typeOfItem": "drink",
-        "price": 4,
-        "filling": 4,
+        "name": "Luxury Steak",
+        "typeOfItem": "food",
+        "price": 10,
+        "filling": 18,
         "specialEffect": [
-            {"name": "intelligence", "chance": 60}
-        ]
+            {"name": "happiness", "chance": 90},
+            {"name": "health", "chance": 75}
+        ],
+        "stage": 3
     },
     {
-        "name": "Soda",
-        "typeOfItem": "drink",
-        "price": 3,
-        "filling": 3,
+        "name": "Massive Fish Fillet",
+        "typeOfItem": "food",
+        "price": 15,
+        "filling": 20,
         "specialEffect": [
-            {"name": "hunger", "chance": 10}
-        ]
+            {"name": "healing", "chance": 90},
+            {"name": "happiness", "chance": 80}
+        ],
+        "stage": 3
     },
     {
-        "name": "Iced Tea",
-        "typeOfItem": "drink",
-        "price": 3,
-        "filling": 3,
+        "name": "Gourmet Meatloaf",
+        "typeOfItem": "food",
+        "price": 12,
+        "filling": 22,
         "specialEffect": [
-            {"name": "happiness", "chance": 50}
-        ]
+            {"name": "exp", "chance": 85},
+            {"name": "health", "chance": 70}
+        ],
+        "stage": 3
     },
     {
-        "name": "Fruit Juice",
-        "typeOfItem": "drink",
-        "price": 2,
-        "filling": 4,
-        "specialEffect": []
-    },
-    {
-        "name": "Lemonade",
-        "typeOfItem": "drink",
-        "price": 3,
-        "filling": 4,
+        "name": "Superfood Smoothie",
+        "typeOfItem": "food",
+        "price": 14,
+        "filling": 15,
         "specialEffect": [
-            {"name": "thirst", "chance": 70}
-        ]
+            {"name": "intelligence", "chance": 80},
+            {"name": "exp", "chance": 75}
+        ],
+        "stage": 3
     },
+    {
+        "name": "Mountainous Feast",
+        "typeOfItem": "food",
+        "price": 18,
+        "filling": 25,
+        "specialEffect": [
+            {"name": "happiness", "chance": 95},
+            {"name": "exp", "chance": 80}
+        ],
+        "stage": 3
+    },
+        {
+            "name": "Freshwater",
+            "typeOfItem": "drink",
+            "price": 2,
+            "filling": 4,
+            "specialEffect": [],
+            "stage": 1
+        },
+        {
+            "name": "Coconut Water",
+            "typeOfItem": "drink",
+            "price": 4,
+            "filling": 4,
+            "specialEffect": [
+                {"name": "healing", "chance": 60},
+                {"name": "thirst", "chance": 100}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Herbal Tea",
+            "typeOfItem": "drink",
+            "price": 3,
+            "filling": 3,
+            "specialEffect": [
+                {"name": "happiness", "chance": 50}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Fruit Punch",
+            "typeOfItem": "drink",
+            "price": 4,
+            "filling": 5,
+            "specialEffect": [
+                {"name": "happiness", "chance": 50},
+                {"name": "hunger", "chance": 60}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Ice Water",
+            "typeOfItem": "drink",
+            "price": 4,
+            "filling": 3,
+            "specialEffect": [
+                {"name": "healing", "chance": 70}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Energy Drink",
+            "typeOfItem": "drink",
+            "price": 5,
+            "filling": 5,
+            "specialEffect": [
+                {"name": "health", "chance": 60},
+                {"name": "exp", "chance": 50},
+                {"name": "energy", "chance": 100}
+            ],
+            "stage": 2
+        },
+        {
+            "name": "Protein Shake",
+            "typeOfItem": "drink",
+            "price": 5,
+            "filling": 7,
+            "specialEffect": [
+                {"name": "hunger", "chance": 80},
+                {"name": "exp", "chance": 50},
+                {"name": "energy", "chance": 100}
+            ],
+            "stage": 2
+        },
+        {
+            "name": "Spiced Cider",
+            "typeOfItem": "drink",
+            "price": 5,
+            "filling": 4,
+            "specialEffect": [
+                {"name": "happiness", "chance": 70},
+                {"name": "exp", "chance": 50}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Hot Cocoa",
+            "typeOfItem": "drink",
+            "price": 4,
+            "filling": 3,
+            "specialEffect": [
+                {"name": "happiness", "chance": 60}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Starlight Smoothie",
+            "typeOfItem": "drink",
+            "price": 6,
+            "filling": 6,
+            "specialEffect": [
+                {"name": "intelligence", "chance": 70},
+                {"name": "exp", "chance": 60}
+            ],
+            "stage": 2
+        },
+        {
+            "name": "Fizzy Soda",
+            "typeOfItem": "drink",
+            "price": 3,
+            "filling": 3,
+            "specialEffect": [
+                {"name": "happiness", "chance": 50},
+                {"name": "intelligence", "chance": 10}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Caffeine Shot",
+            "typeOfItem": "drink",
+            "price": 5,
+            "filling": 4,
+            "specialEffect": [
+                {"name": "health", "chance": 60},
+                {"name": "exp", "chance": 45},
+                {"name": "energy", "chance": 100}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Sweet Tea",
+            "typeOfItem": "drink",
+            "price": 3,
+            "filling": 3,
+            "specialEffect": [
+                {"name": "happiness", "chance": 50}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Cold Brew Coffee",
+            "typeOfItem": "drink",
+            "price": 4,
+            "filling": 4,
+            "specialEffect": [
+                {"name": "intelligence", "chance": 60}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Soda",
+            "typeOfItem": "drink",
+            "price": 3,
+            "filling": 3,
+            "specialEffect": [
+                {"name": "hunger", "chance": 10}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Iced Tea",
+            "typeOfItem": "drink",
+            "price": 3,
+            "filling": 3,
+            "specialEffect": [
+                {"name": "happiness", "chance": 50}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Fruit Juice",
+            "typeOfItem": "drink",
+            "price": 2,
+            "filling": 4,
+            "specialEffect": [],
+            "stage": 1
+        },
+        {
+            "name": "Lemonade",
+            "typeOfItem": "drink",
+            "price": 3,
+            "filling": 4,
+            "specialEffect": [
+                {"name": "thirst", "chance": 70}
+            ],
+            "stage": 1
+        },
+        {
+            "name": "Ginger Ale",
+            "typeOfItem": "drink",
+            "price": 6,
+            "filling": 12,
+            "specialEffect": [
+                {"name": "healing", "chance": 60},
+                {"name": "energy", "chance": 100}
+            ],
+            "stage": 3
+        },
+        {
+            "name": "Super Smoothie",
+            "typeOfItem": "drink",
+            "price": 8,
+            "filling": 15,
+            "specialEffect": [
+                {"name": "health", "chance": 80},
+                {"name": "exp", "chance": 70},
+                {"name": "energy", "chance": 100}
+            ],
+            "stage": 3
+        },
+    
     {
         "name": "Fever Medicine",
         "typeOfItem": "healing",
