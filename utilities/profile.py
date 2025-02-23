@@ -119,37 +119,90 @@ async def show_inventory(interaction: discord.Interaction, user_data):
     # Edit the original message with the Inventory embed and view
     await interaction.response.edit_message(embed=embed, view=view)
 
+
 async def show_pet_profile(interaction: discord.Interaction, user_data):
     pet = user_data["pet"]
-    if user_data["pet_slot_available"]==1:
+    if user_data["pet_slot_available"] == 1:
         pet = pet[0]
-        embed = make_embed(pet["species"])
-        file = discord.File("assets/alpha.png", filename="alpha.png")
-        embed.set_thumbnail(url="attachment://alpha.png")
-        ## Basic data
-        embed.add_field(name="Nickname", value=pet["nickname"],inline=False)
-        value = f"{pet["level"]} \n({pet["exp"]["current"]}/{pet["exp"]["goal"]})"
-        embed.add_field(name="Level", value=value)
-        embed.add_field(name="Type", value=pet["type"])
-        embed.add_field(name="Holding Special", value=pet["item_hold"]["special"])
-        ## Statues of living
-        value = f"Hunger: {pet["hunger"]}\n"
-        value+= f"thirst: {pet["thirst"]}\n"
-        value+= f"Health: {pet["health"]}\n"
-        value+= f"Happiness: {pet["happiness"]}\n"
-        value+= f"Intelligence: {pet["intelligence"]}\n"
-        embed.add_field(name="Status:",value=value,inline=False)
-        ## Fav things
+
+        # Page 1: General Information
+        addon = ""
+        if pet.get("is_sleeping", False):
+            addon = " 💤"
+        embed1 = make_embed(f"{pet["species"]}{addon}")
+        file1 = discord.File("assets/alpha.png", filename="alpha.png")
+        embed1.set_thumbnail(url="attachment://alpha.png")
+        
+        # Basic Data
+        embed1.add_field(name="Nickname", value=pet["nickname"], inline=False)
+        value = f"{pet['level']} \n({pet['exp']['current']}/{pet['exp']['goal']})"
+        embed1.add_field(name="Level", value=value)
+        embed1.add_field(name="Type", value=pet["type"])
+        embed1.add_field(name="Holding Special", value=pet["item_hold"]["special"])
+        # Mood
+        mood = pet["mood"]["name"] # Example mood based on happiness
+        embed1.add_field(name="Mood", value=mood, inline=False)
+        # Statues of Living
+        value=">>> "
+        value += f"Health: {pet['health']}\n"
+        value += f"Hunger: {pet['hunger']}\n"
+        value += f"Thirst: {pet['thirst']}\n"
+        value += f"Energy: {pet['energy']}\n"
+        value += f"Happiness: {pet['happiness']}\n"
+        value += f"Intelligence: {pet['intelligence']}\n"
+        
+        embed1.add_field(name="Status", value=value, inline=False)
+
+        # Page 2: Additional Information
+        embed2 = make_embed(f"{pet["species"]}{addon}")
+        embed2.set_thumbnail(url="attachment://alpha.png")
+        # Personality and Evolution Options
+        embed2.add_field(name="Personality", value=pet.get("personality", "Unknown"), inline=False)
+        # Favorite and Hated Things
         value = f"Drink: {pet['favorites']['drink']['name'] if pet['favorites']['drink']['discovered'] else '???'}\n" \
-        f"Food: {pet['favorites']['food']['name'] if pet['favorites']['food']['discovered'] else '???'}\n" 
-        value2= f"Drink: {pet['hates']['drink']['name'] if pet['hates']['drink']['discovered'] else '???'}\n" \
-        f"Food: {pet['hates']['food']['name'] if pet['hates']['food']['discovered'] else '???'}"
-        embed.add_field(name="Likes", value=value)
-        embed.add_field(name="Hates", value=value2)
-        ## Holding Slots
-        value=f"Slot 1: {pet["item_hold"]["slot1"]}\n"\
-        f"Slot 2: {pet["item_hold"]["slot2"]}\n"\
-        f"Slot 3: {pet["item_hold"]["slot3"]}\n"  
-        embed.add_field(name="Item Slots", value=value,inline=False)  
-    
-    await interaction.response.send_message(embed=embed, file=file)
+                f"Food: {pet['favorites']['food']['name'] if pet['favorites']['food']['discovered'] else '???'}"
+        value2 = f"Drink: {pet['hates']['drink']['name'] if pet['hates']['drink']['discovered'] else '???'}\n" \
+                 f"Food: {pet['hates']['food']['name'] if pet['hates']['food']['discovered'] else '???'}"
+        embed2.add_field(name="Likes", value=value)
+        embed2.add_field(name="Hates", value=value2)
+
+        # Holding Slots
+        value = f"Slot 1: {pet['item_hold']['slot1']}\n" \
+                f"Slot 2: {pet['item_hold']['slot2']}\n" \
+                f"Slot 3: {pet['item_hold']['slot3']}\n"
+        embed2.add_field(name="Item Slots", value=value, inline=False)
+        
+        value=f"Current Stage: {pet['stage']}\n"
+        value+=f"{pet['evolution'][0]} - {pet['evolution'][1]} - {pet['evolution'][2]}\n"
+        embed2.add_field(name="Evolution Info", value=value, inline=False)
+
+        # Navigation Buttons
+        button1 = discord.ui.Button(label="Next", style=discord.ButtonStyle.primary, custom_id="page_2")
+        button2 = discord.ui.Button(label="Back", style=discord.ButtonStyle.secondary, custom_id="page_1")
+        
+        # Create View for Buttons
+        view = discord.ui.View()
+        view.add_item(button1)
+
+        # Handle button clicks
+        async def button_callback(interaction):
+            if interaction.custom_id == "page_2":
+                # Re-open the file
+                file2 = discord.File("assets/alpha.png", filename="alpha.png")
+                view.clear_items()
+                view.add_item(button2)
+                await interaction.response.edit_message(embed=embed2, file=file2, view=view)  # Only edit the message
+            
+            elif interaction.custom_id == "page_1":
+                # Re-open the file
+                file1 = discord.File("assets/alpha.png", filename="alpha.png")
+                view.clear_items()
+                view.add_item(button1)
+                await interaction.response.edit_message(embed=embed1, file=file1, view=view)  # Only edit the message
+
+
+        button1.callback = button_callback
+        button2.callback = button_callback
+        
+        # Send the first page to the user
+        await interaction.response.send_message(embed=embed1, file=file1, view=view)

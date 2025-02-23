@@ -1,0 +1,504 @@
+{
+    "woken":{
+        "messages":[
+            "{pet_name} slowly opens their eyes, stretching and yawning as they greet the new day.\n",
+            "{pet_name} gives a little shake, their eyes blinking open as they get up and stretch.\n",
+            "With a soft stretch, {pet_name} wakes up from their rest and looks around, ready for the next adventure.\n",
+            "{pet_name} slowly rises, rubbing their eyes and letting out a big yawn.\n",
+            "After a peaceful rest, {pet_name} slowly gets up, stretching their tiny limbs and looking around with curiosity.\n"
+        ]
+    },
+    "fainting":{
+        "messages":[
+            "{pet_name} collapses from exhaustion, their body going limp as they drift into unconsciousness.\n",
+            "{pet_name} stumbles before falling over, their breathing slowing as they faint into a deep sleep.\n",
+            "With a final weak movement, {pet_name} closes their eyes and succumbs to exhaustion.\n",
+            "{pet_name} sways unsteadily before dropping to the ground, too tired to stay awake any longer.\n",
+            "Overcome by fatigue, {pet_name} lets out a soft sigh before slipping into unconsciousness.\n"
+        ]
+    },
+    "death": {
+        "messages": [
+            "{pet_name} takes one last, shuddering breath before their body falls still... 💀",
+            "With a final, pained whimper, {pet_name} collapses, their eyes closing forever. ☠️",
+            "{pet_name} lets out a weak sigh, their body growing cold as life fades away... 💀",
+            "A final flicker of energy leaves {pet_name}'s eyes before they slump to the ground, motionless. ☠️",
+            "{pet_name} trembles, their strength failing as they take their last breath... 💀",
+            "With one last desperate look, {pet_name} gives in to the darkness, never to wake again. ☠️",
+            "{pet_name}'s body weakens, their heartbeat slowing until, at last... silence. 💀",
+            "A soft, final sigh escapes {pet_name} as they collapse, lost to the void. ☠️"
+        ]
+    },
+    "sick": {
+        "messages": [
+            "{pet_name} isn't feeling well. They seem weak and uncomfortable due to {sickness}.\n",
+            "A wave of discomfort washes over {pet_name} as {sickness} takes its toll.\n",
+            "{pet_name} lowers their head, clearly struggling with {sickness}.\n",
+            "Something feels off—{pet_name} moves sluggishly, affected by {sickness}.\n",
+            "With a quiet whimper, {pet_name} tries to shake off the effects of {sickness}, but they still seem unwell.\n",
+            "{pet_name} pauses for a moment, their energy drained from dealing with {sickness}.\n",
+            "A faint sigh escapes {pet_name} as they struggle against {sickness}, their movements slower than usual.\n",
+            "It's clear {pet_name} isn't at their best. {sickness} has made them feel uneasy and tired.\n"
+        ]
+    },
+    "got_sick": {
+        "Sad": {
+            "messages": [
+                "{pet_name} isn't feeling well. They seem weak and uncomfortable due to {sickness}.\n",
+                "A wave of discomfort washes over {pet_name} as {sickness} takes its toll.\n",
+                "{pet_name} lowers their head, clearly struggling with {sickness}.\n",
+                "Something feels off—{pet_name} moves sluggishly, affected by {sickness}.\n",
+                "With a quiet whimper, {pet_name} tries to shake off the effects of {sickness}, but they still seem unwell.\n"
+            ]
+        },
+        "Tired": {
+            "messages": [
+                "{pet_name} looks exhausted, their energy drained by the onset of {sickness}.\n",
+                "A deep yawn escapes {pet_name}, who looks like they haven't had rest in ages due to {sickness}.\n",
+                "{pet_name} stumbles a bit, struggling to keep their eyes open, the effects of {sickness} wearing them down.\n",
+                "Every step seems heavy for {pet_name}, who is overwhelmed by the tiredness caused by {sickness}.\n",
+                "{pet_name} collapses down, barely able to stay awake as {sickness} takes its toll.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} growls lowly, clearly upset by how {sickness} is affecting them.\n",
+                "With an angry huff, {pet_name} tries to push through the discomfort caused by {sickness}.\n",
+                "{pet_name} bares their teeth, frustrated by how weak they feel from {sickness}.\n",
+                "{pet_name} paces restlessly, irritated by how {sickness} has taken control of their body.\n",
+                "There's an unmistakable fierceness in {pet_name}'s eyes, fueled by the anger of feeling unwell due to {sickness}.\n"
+            ]
+        },
+        "Frustrated": {
+            "messages": [
+                "{pet_name} lets out a frustrated sigh, their movements sluggish from the effects of {sickness}.\n",
+                "{pet_name} paws at their face, clearly annoyed that {sickness} is making things so difficult.\n",
+                "A frustrated growl rumbles from {pet_name} as they try to push through the discomfort of {sickness}.\n",
+                "{pet_name} throws an irritated glance, their body aching from {sickness}.\n",
+                "With a sharp shake of their head, {pet_name} seems to try to shake off the frustration of being unwell from {sickness}.\n"
+            ]
+        }
+    },
+    "low_hunger": {
+        "Lonely": {
+            "messages": [
+                "{pet_name} looks around, feeling abandoned as their hunger weighs heavily on them.\n",
+                "{pet_name} sighs, their stomach growling, the emptiness inside them making them feel even more alone.\n",
+                "As their hunger grows, {pet_name} feels a deep sense of isolation, as if no one is there to care for them.\n"
+            ]
+        },
+        "Sad": {
+            "messages": [
+                "{pet_name}'s hunger is overwhelming, making them feel weak and disheartened.\n",
+                "With every empty growl from {pet_name}'s stomach, they seem more defeated by their hunger.\n",
+                "The emptiness inside {pet_name} deepens, and they can't help but feel sorrowful as hunger takes its toll.\n"
+            ]
+        },
+        "Tired": {
+            "messages": [
+                "{pet_name} drags their feet, hunger leaving them weak and weary.\n",
+                "Hunger has drained {pet_name}'s energy, and they can barely muster the strength to move.\n",
+                "{pet_name} yawns, feeling sluggish and exhausted as their hunger continues to sap their vitality.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} growls, their hunger making them irritable and short-tempered.\n",
+                "Every moment without food seems to worsen {pet_name}'s mood, their hunger turning into frustration.\n",
+                "{pet_name} paces restlessly, frustration building as hunger gnaws at them, making them snap at anything nearby.\n"
+            ]
+        },
+        "Frustrated": {
+            "messages": [
+                "{pet_name} paws at the ground, unable to focus as hunger clouds their mind and makes them irritable.\n",
+                "{pet_name} huffs in frustration, their stomach growling loudly as hunger leaves them distracted and upset.\n",
+                "Frustration builds within {pet_name}, their hunger getting in the way of anything they try to do.\n"
+            ]
+        }
+    },
+    "low_thirst": {
+        "Lonely": {
+            "messages": [
+                "{pet_name} seems distant, their thirst leaving them feeling isolated and uncared for.\n",
+                "{pet_name} looks around as if expecting someone to bring them water, but their thirst only deepens the loneliness.\n",
+                "Thirst gnaws at {pet_name}, making them feel even more alone and abandoned.\n"
+            ]
+        },
+        "Sad": {
+            "messages": [
+                "A deep sigh escapes {pet_name} as their thirst makes them feel weak and saddened.\n",
+                "{pet_name} lowers their head, unable to ignore the discomfort from their thirst, making them feel so down.\n",
+                "The constant dryness in {pet_name}'s mouth only adds to their sorrow, leaving them drained and miserable.\n"
+            ]
+        },
+        "Tired": {
+            "messages": [
+                "{pet_name} stumbles, their energy failing as their thirst leaves them feeling parched and fatigued.\n",
+                "Every movement feels like a struggle for {pet_name}, their thirst slowing them down and leaving them tired.\n",
+                "{pet_name} collapses down, too weary from thirst to keep going, their energy drained by the lack of water.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} growls lowly, their thirst making them irritable and ready to snap.\n",
+                "The constant ache of thirst is turning {pet_name} into a ball of frustration and anger.\n",
+                "{pet_name} snarls, unable to focus on anything other than the unbearable thirst that’s making them angry.\n"
+            ]
+        },
+        "Frustrated": {
+            "messages": [
+                "{pet_name} paws at the ground, irritated and distracted by the constant thirst gnawing at them.\n",
+                "Frustration fills {pet_name} as their thirst grows, making it impossible to concentrate on anything.\n",
+                "{pet_name} lets out an exasperated sigh, frustration mounting as their thirst becomes harder to ignore.\n"
+            ]
+        }
+    },
+    "low_energy": {
+        "Lonely": {
+            "messages": [
+                "{pet_name} drags their feet, their lack of energy making them feel more isolated than ever.\n",
+                "{pet_name} seems to give up on trying, their low energy making them feel too weak to connect with anyone.\n",
+                "With every step, {pet_name} feels more alone, their energy too low to interact with anyone.\n"
+            ]
+        },
+        "Sad": {
+            "messages": [
+                "{pet_name} slumps over, feeling emotionally and physically drained as their energy fades.\n",
+                "A wave of sadness washes over {pet_name} as their energy slips away, leaving them weak and despondent.\n",
+                "With barely any energy left, {pet_name} curls up, feeling helpless and exhausted by their own tiredness.\n"
+            ]
+        },
+        "Tired": {
+            "messages": [
+                "{pet_name} collapses, barely able to stay awake as their energy fades.\n",
+                "{pet_name} struggles to keep their eyes open, completely drained by the lack of energy.\n",
+                "{pet_name} looks exhausted, their body sagging under the weight of their low energy.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} growls in frustration, unable to muster enough energy to do anything productive.\n",
+                "The lack of energy is making {pet_name} more irritable, their frustration boiling over.\n",
+                "{pet_name} is visibly angry, their low energy causing them to snap and lash out when they can barely move.\n"
+            ]
+        },
+        "Frustrated": {
+            "messages": [
+                "{pet_name} sighs heavily, frustrated that their lack of energy is holding them back.\n",
+                "{pet_name} paces in frustration, feeling trapped by their low energy and unable to do anything.\n",
+                "A frustrated growl rumbles from {pet_name} as they try, and fail, to find the strength to move.\n"
+            ]
+        }
+    },
+    "low_health": {
+        "Lonely": {
+            "messages": [
+                "{pet_name} looks weak and vulnerable, feeling more alone than ever as their health falters.\n",
+                "{pet_name} winces, their body too frail to do anything, leaving them feeling abandoned.\n",
+                "With every step, {pet_name} feels weaker, their health plummeting and leaving them isolated and frail.\n"
+            ]
+        },
+        "Sad": {
+            "messages": [
+                "{pet_name} seems to sink into despair, their failing health making them feel utterly hopeless.\n",
+                "The pain from {pet_name}'s deteriorating health weighs heavily on them, their spirits crushed by the situation.\n",
+                "{pet_name} sighs deeply, their weak health making everything feel more difficult and sadder.\n"
+            ]
+        },
+        "Tired": {
+            "messages": [
+                "{pet_name} stumbles, their health low and their body too tired to continue.\n",
+                "With each step, {pet_name} feels more fatigued as their health drains away, leaving them unable to move.\n",
+                "The struggle is real for {pet_name}, their failing health making them feel too weak to keep going.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} growls in frustration, their health failing but still unable to accept the weakness.\n",
+                "The pain from {pet_name}'s health condition fuels their anger, making them lash out.\n",
+                "{pet_name} is furious at their own body for failing them, making them snap at anyone nearby.\n"
+            ]
+        },
+        "Frustrated": {
+            "messages": [
+                "{pet_name} slams their paws down in frustration, their health preventing them from doing anything.\n",
+                "{pet_name} huffs and growls in frustration, their body weak and unable to do what they want.\n",
+                "Frustration fills {pet_name}, their failing health making it impossible to accomplish anything.\n"
+            ]
+        }
+    },
+    "low_happiness": {
+        "Lonely": {
+            "messages": [
+                "{pet_name} looks disheartened, their lack of happiness making them feel more alone.\n",
+                "Every moment feels empty to {pet_name}, their sadness growing as their happiness fades.\n",
+                "{pet_name} curls up, the lack of joy in their life making them feel like no one cares.\n"
+            ]
+        },
+        "Sad": {
+            "messages": [
+                "{pet_name}'s happiness is completely gone, and all that remains is a deep sadness.\n",
+                "A sigh escapes {pet_name}, their happiness drained and replaced with a deep sorrow.\n",
+                "{pet_name} lowers their head, too downhearted to even care about anything as their happiness disappears.\n"
+            ]
+        },
+        "Tired": {
+            "messages": [
+                "{pet_name} seems distant, their lack of happiness leaving them tired and apathetic.\n",
+                "{pet_name} doesn’t have the energy to smile or enjoy anything, their happiness at an all-time low.\n",
+                "The tiredness from {pet_name} is not just physical—it’s emotional, as their happiness is nowhere to be found.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} snaps at anything that comes their way, anger fueled by their lack of happiness.\n",
+                "A growl escapes {pet_name}, their mood souring as their happiness continues to drain.\n",
+                "{pet_name} is visibly angry, their lack of joy turning into frustration and irritation.\n"
+            ]
+        },
+        "Frustrated": {
+            "messages": [
+                "{pet_name} lets out an exasperated sigh, their lack of happiness preventing them from enjoying anything.\n",
+                "{pet_name} paces restlessly, frustration building as their happiness seems lost forever.\n",
+                "Frustration builds in {pet_name}, their lack of happiness turning every task into a struggle.\n"
+            ]
+        }
+    }, 
+    "low_intelligence": {
+        "Lonely": {
+            "messages": [
+                "{pet_name} stumbles through their thoughts, feeling lost and isolated in their confusion.\n",
+                "Every time {pet_name} tries to think, they feel more distant from others, their mind clouded and unclear.\n",
+                "{pet_name} looks around, unsure of their surroundings, their confusion growing as they try to process their thoughts.\n"
+            ]
+        },
+        "Sad": {
+            "messages": [
+                "{pet_name}'s mind feels empty, leaving them with a deep sadness as they struggle to think clearly.\n",
+                "A heavy sigh escapes {pet_name}, their inability to understand things leading them to feel downhearted.\n",
+                "{pet_name} sits quietly, feeling overwhelmed by the confusion in their head, sadness settling in.\n"
+            ]
+        },
+        "Tired": {
+            "messages": [
+                "{pet_name}'s mind is exhausted, unable to process anything properly, leaving them feeling mentally drained.\n",
+                "The lack of clarity in {pet_name}'s thoughts has them feeling mentally and physically worn out.\n",
+                "{pet_name} is mentally fatigued, struggling to focus as their thoughts slip away from them.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} snaps in frustration, unable to make sense of anything, their anger rising as their thoughts scatter.\n",
+                "Frustration builds in {pet_name} as they struggle to think through the simplest tasks, their anger bubbling over.\n",
+                "{pet_name} growls in irritation, their thoughts too jumbled to find peace, fueling their anger.\n"
+            ]
+        },
+        "Frustrated": {
+            "messages": [
+                "{pet_name} lets out an exasperated sigh, frustrated by their inability to make sense of things.\n",
+                "{pet_name} paces back and forth, frustration building as they try and fail to grasp even the simplest ideas.\n",
+                "{pet_name} feels completely defeated, their thoughts too disorganized to solve even the smallest problem.\n"
+            ]
+        }
+    },    
+    "long_mood": {
+        "Tired": {
+            "messages": [
+                "{pet_name} looks exhausted, as if no matter what they do, the weariness won’t leave them anytime soon.\n",
+                "The tiredness in {pet_name} lingers, their energy completely drained, and they can’t seem to shake it off.\n",
+                "{pet_name} yawns again, the tiredness in their body and mind showing no sign of fading for a while.\n"
+            ]
+        },
+        "Unmotivated": {
+            "messages": [
+                "{pet_name} feels stuck, the lack of motivation making it impossible for them to find the will to do anything.\n",
+                "{pet_name} gazes around blankly, every task feeling pointless, and their motivation won’t return anytime soon.\n",
+                "No matter what {pet_name} tries, they can’t find the drive to move forward, the unmotivated feeling hanging over them for a long time.\n"
+            ]
+        },
+        "Relaxed": {
+            "messages": [
+                "{pet_name} is content, basking in their relaxation, as though nothing could disturb this peaceful mood for a long while.\n",
+                "The calmness that envelops {pet_name} seems unshakable, like they could stay in this relaxed state forever.\n",
+                "{pet_name} settles in comfortably, feeling too relaxed to care about anything for the time being.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} is simmering with anger, and it seems like nothing can calm them down anytime soon.\n",
+                "Every little thing seems to make {pet_name} angrier, and they’re stuck in this fiery mood for a while.\n",
+                "{pet_name} is visibly angry, their frustration boiling over with no end in sight.\n"
+            ]
+        },
+        "Happy": {
+            "messages": [
+                "{pet_name} is grinning, and their happiness is so strong, it feels like it will last forever.\n",
+                "The joy in {pet_name} is contagious, and this happy mood is here to stay for a long time.\n",
+                "{pet_name} feels so at peace, their happiness radiating and showing no signs of fading anytime soon.\n"
+            ]
+        },
+        "Excited": {
+            "messages": [
+                "{pet_name} can’t contain their excitement, their energy so high, it feels like it will last forever.\n",
+                "Every little thing excites {pet_name}, and they’re too hyped up to settle down anytime soon.\n",
+                "{pet_name} is bouncing around, this excitement won’t fade for a long while, no matter what happens.\n"
+            ]
+        },
+        "Afraid": {
+            "messages": [
+                "{pet_name} is trembling, their fear lasting longer than they hoped, and they can’t seem to escape it.\n",
+                "Every shadow makes {pet_name} flinch, their fear gripping them tightly and sticking around for a while.\n",
+                "{pet_name} keeps glancing around nervously, too afraid to relax as their anxiety lingers in the air.\n"
+            ]
+        },
+        "Embarrassed": {
+            "messages": [
+                "{pet_name} hides their face, the embarrassment too strong to shake off, and it’s going to last for a while.\n",
+                "A deep blush covers {pet_name}'s face, and no matter how much they try, the embarrassment stays with them.\n",
+                "{pet_name} can’t look anyone in the eye, their embarrassment lingering and making them feel exposed.\n"
+            ]
+        },
+        "Playful": {
+            "messages": [
+                "{pet_name} is full of energy, and this playful mood won’t fade anytime soon—they’re too caught up in the fun.\n",
+                "The joy of play takes over {pet_name}, and no matter what happens, they’re going to stay this playful for a while.\n",
+                "{pet_name} can’t stop bouncing around, their playful mood lasting longer than they expected.\n"
+            ]
+        },
+        "Annoyed": {
+            "messages": [
+                "{pet_name} keeps huffing in irritation, their annoyance sticking with them for a long time, no matter what happens.\n",
+                "The little things are starting to get to {pet_name}, and their annoyance doesn’t seem to go away anytime soon.\n",
+                "{pet_name} flicks their tail, their annoyance building, and it feels like it will last longer than they want it to.\n"
+            ]
+        }
+    },
+    "new_mood": {
+        "Depressed": {
+            "messages": [
+                "{pet_name} feels like the world is weighing down on them, their energy completely drained.\n",
+                "The sadness in {pet_name} is deep, and they can’t shake the overwhelming feeling of despair.\n",
+                "{pet_name} lies down, lost in their thoughts, as the heaviness of depression takes hold.\n"
+            ]
+        },
+        "Frustrated": {
+            "messages": [
+                "{pet_name} sighs in frustration, every small task seeming like an insurmountable challenge.\n",
+                "{pet_name} huffs in irritation, struggling to keep calm as everything seems to go wrong.\n",
+                "{pet_name} paces around, unable to settle, their frustration building with every passing moment.\n"
+            ]
+        },
+        "Happy": {
+            "messages": [
+                "{pet_name} is filled with joy, their tail wagging uncontrollably as they bask in happiness.\n",
+                "The world seems brighter to {pet_name}, their heart light and full of cheerful energy.\n",
+                "{pet_name} can’t help but smile, feeling at peace and surrounded by a wave of happiness.\n"
+            ]
+        },
+        "Sad": {
+            "messages": [
+                "{pet_name} walks slowly, their head hung low, unable to shake the overwhelming sadness.\n",
+                "Tears well up in {pet_name}'s eyes, their mood clouded by an all-consuming sorrow.\n",
+                "{pet_name} feels empty, as though nothing can bring them out of their sadness.\n"
+            ]
+        },
+        "Angry": {
+            "messages": [
+                "{pet_name} is visibly tense, their frustration bubbling over into anger.\n",
+                "A snarl escapes {pet_name}, their eyes blazing with an uncontrollable rage.\n",
+                "{pet_name} snaps at the air, their anger unrelenting and taking over every part of them.\n"
+            ]
+        },
+        "Afraid": {
+            "messages": [
+                "{pet_name} trembles in fear, their body rigid and their eyes constantly scanning for danger.\n",
+                "{pet_name} tries to hide, their fear making them feel vulnerable and unsafe.\n",
+                "Every sound startles {pet_name}, their fear wrapping around them like a suffocating fog.\n"
+            ]
+        },
+        "Excited": {
+            "messages": [
+                "{pet_name} can't keep still, bouncing around with excitement and anticipation.\n",
+                "{pet_name}'s tail wags furiously, eager for whatever fun is coming next.\n",
+                "The joy in {pet_name}'s eyes is contagious, and their excitement seems to be endless.\n"
+            ]
+        },
+        "Lonely": {
+            "messages": [
+                "{pet_name} sits quietly, the feeling of loneliness sinking in as they long for company.\n",
+                "No one seems to understand {pet_name}, and they feel more isolated than ever.\n",
+                "{pet_name} looks around, feeling abandoned, as if no one is there to share in their world.\n"
+            ]
+        },
+        "Playful": {
+            "messages": [
+                "{pet_name} is in a mischievous mood, ready to pounce or chase after anything that moves.\n",
+                "Every moment feels like an opportunity for play, and {pet_name} is thrilled to dive into it.\n",
+                "{pet_name} barks excitedly, urging everyone around to join in their playful adventure.\n"
+            ]
+        },
+        "Annoyed": {
+            "messages": [
+                "{pet_name} flicks their ears in irritation, clearly bothered by something but unsure how to express it.\n",
+                "A frustrated growl escapes {pet_name}, their annoyance growing as things continue to irritate them.\n",
+                "{pet_name} huffs, clearly upset by the smallest of inconveniences, their mood souring.\n"
+            ]
+        },
+        "Tired": {
+            "messages": [
+                "{pet_name} seems sluggish, struggling to keep their eyes open as exhaustion takes over.\n",
+                "{pet_name} drags their paws, too tired to enjoy anything and in desperate need of rest.\n",
+                "Every step feels like a burden to {pet_name}, their body and mind exhausted from the constant weariness.\n"
+            ]
+        },
+        "Bored": {
+            "messages": [
+                "{pet_name} yawns, looking around with a vacant expression as nothing seems interesting.\n",
+                "{pet_name} stretches lazily, clearly uninterested in anything around them and in need of a distraction.\n",
+                "Every activity feels like a chore to {pet_name}, and they just can’t shake the overwhelming boredom.\n"
+            ]
+        },
+        "Equal": {
+            "messages": [
+                "{pet_name} feels balanced, neither too high nor too low, just in a state of calm equilibrium.\n",
+                "Everything around {pet_name} feels right, and they find contentment in the middle ground.\n",
+                "{pet_name} is neither overly excited nor downcast, simply existing in a peaceful, balanced state.\n"
+            ]
+        },
+        "Curious": {
+            "messages": [
+                "{pet_name} tilts their head, their eyes wide with wonder as they explore their surroundings.\n",
+                "Every little thing catches {pet_name}'s attention, their curiosity driving them to investigate everything.\n",
+                "{pet_name} is intrigued, constantly sniffing, exploring, and trying to uncover the secrets of their world.\n"
+            ]
+        },
+        "Relaxed": {
+            "messages": [
+                "{pet_name} stretches out, basking in the warmth of complete relaxation and tranquility.\n",
+                "{pet_name} sighs in contentment, feeling completely at ease as they rest peacefully.\n",
+                "{pet_name} seems to float in a state of calm, enjoying every moment of this peaceful relaxation.\n"
+            ]
+        },
+        "Embarrassed": {
+            "messages": [
+                "{pet_name} hides their face, their cheeks flushed with embarrassment after a mistake.\n",
+                "{pet_name} tries to avoid eye contact, clearly feeling exposed and self-conscious.\n",
+                "{pet_name} lets out an awkward sigh, feeling utterly embarrassed by their actions.\n"
+            ]
+        },
+        "Nervous": {
+            "messages": [
+                "{pet_name} fidgets, their nerves getting the best of them as they anxiously glance around.\n",
+                "{pet_name} shakes slightly, their unease clear as they try to calm themselves.\n",
+                "{pet_name} is on edge, their mind racing with worries and uncertainties that they can't shake.\n"
+            ]
+        },
+        "Unmotivated": {
+            "messages": [
+                "{pet_name} drags their feet, completely uninterested in doing anything and lacking the energy to try.\n",
+                "{pet_name} stares off into the distance, feeling as though nothing matters and unable to muster motivation.\n",
+                "{pet_name} can’t seem to find the will to move or do anything, their motivation completely absent.\n"
+            ]
+        }
+    }
+}

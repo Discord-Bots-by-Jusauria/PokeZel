@@ -1,0 +1,284 @@
+{
+    "Introvert": {
+        "mood_tendency": [
+            {"name":"Lonely", "chance":20},
+            {"name":"Bored", "chance":10},
+            {"name":"Tired", "chance":10},
+            {"name":"Unmotivated", "chance":10},
+            {"name":"Curious", "chance":5},
+            {"name":"Playful", "chance":1}
+        ],
+        "social_tendency": [
+            {"name":"Afraid", "chance":10},
+            {"name":"Embarrassed", "chance":10},
+            {"name":"Bored", "chance":10}
+        ],
+        "low_tendency": [
+            {"name":"Lonely", "chance":20},
+            {"name":"Sad", "chance":15},
+            {"name":"Tired", "chance":10}
+        ],
+        "sick_tendency": [
+            {"name":"Sad", "chance":50},
+            {"name":"Tired", "chance":50}
+        ],
+        "action_resistence": [
+            {"name":"social", "chance":30},
+            {"name":"walk", "chance":20}
+        ],
+        "action_buff":[
+            {"name":"play", "buff":1.5}
+        ],
+        "mood_time":[
+            {"name":"Tired", "range":[20,480]},
+            {"name":"Unmotivated", "range":[20,180]}
+        ]
+    },
+    "Chill": {
+        "mood_tendency": [
+            {"name": "Relaxed", "chance": 20},
+            {"name": "Curious", "chance": 10},
+            {"name": "Bored", "chance": 5}
+        ],
+        "social_tendency": [
+            {"name": "Happy", "chance": 15},
+            {"name": "Playful", "chance": 10},
+            {"name": "Excited", "chance": 5}
+        ],
+        "low_tendency": [
+            {"name": "Sad", "chance": 15},
+            {"name": "Tired", "chance": 10}
+        ],
+        "sick_tendency": [
+            {"name": "Tired", "chance": 50}
+        ],
+        "action_resistence": [],
+        "action_buff": [
+            {"name": "sleep", "buff": 1.5}
+        ],
+        "mood_time": [
+            {"name": "Relaxed", "range": [40, 600]}
+        ]
+    },
+    "Aggressive": {
+        "mood_tendency": [
+            {"name": "Angry", "chance": 25},
+            {"name": "Frustrated", "chance": 15},
+            {"name": "Annoyed", "chance": 10}
+        ],
+        "social_tendency": [
+            {"name": "Angry", "chance": 20},
+            {"name": "Frustrated", "chance": 15},
+            {"name": "Annoyed", "chance": 10}
+        ],
+        "low_tendency": [
+            {"name": "Angry", "chance": 20},
+            {"name": "Frustrated", "chance": 10}
+        ],
+        "sick_tendency": [
+            {"name": "Angry", "chance": 50},
+            {"name": "Frustrated", "chance": 50}
+        ],
+        "action_resistence": [
+            {"name": "walk", "chance": 15},
+            {"name": "attention", "chance": 15}
+        ],
+        "action_buff": [
+            {"name": "play", "buff": 1.5}
+        ],
+        "mood_time": [
+            {"name": "Angry", "range": [70, 300]}
+        ]
+    },
+    "Optimistic": {
+        "mood_tendency": [
+            {"name":"Excited", "chance":25},
+            {"name":"Happy", "chance":20},
+            {"name":"Playful", "chance":15}
+        ],
+        "social_tendency": [
+            {"name":"Excited", "chance":20},
+            {"name":"Happy", "chance":15}
+        ],
+        "low_tendency": [
+            {"name":"Tired", "chance":5}
+        ],
+        "sick_tendency": [
+            {"name":"Tired", "chance":50}
+        ],
+        "action_resistence": [],
+        "action_buff":[
+            {"name":"social", "buff":1.5}
+        ],
+        "mood_time":[
+            {"name":"Happy", "range":[60,600]},
+            {"name":"Excited", "range":[30,300]}
+        ]
+    },
+    "Timid": {
+        "mood_tendency": [
+            {"name":"Afraid", "chance":25},
+            {"name":"Embarrassed", "chance":20},
+            {"name":"Sad", "chance":15}
+        ],
+        "social_tendency": [
+            {"name":"Afraid", "chance":25},
+            {"name":"Embarrassed", "chance":20}
+        ],
+        "low_tendency": [
+            {"name":"Lonely", "chance":15},
+            {"name":"Sad", "chance":20}
+        ],
+        "sick_tendency": [
+            {"name":"Sad", "chance":50}
+        ],
+        "action_resistence": [
+            {"name":"social", "chance":25},
+            {"name":"walk", "chance":10}
+        ],
+        "action_buff":[
+            {"name":"attention", "buff":1.5}
+        ],
+        "mood_time":[
+            {"name":"Afraid", "range":[20,300]},
+            {"name":"Embarrassed", "range":[20,240]}
+        ]
+    },
+    "Calm": {
+        "mood_tendency": [
+            {"name":"Relaxed", "chance":25},
+            {"name":"Curious", "chance":15}
+        ],
+        "social_tendency": [
+            {"name":"Happy", "chance":15},
+            {"name":"Content", "chance":10}
+        ],
+        "low_tendency": [
+            {"name":"Sad", "chance":10}
+        ],
+        "sick_tendency": [
+            {"name":"Tired", "chance":50}
+        ],
+        "action_resistence": [],
+        "action_buff":[
+            {"name":"walk", "buff":1.5}
+        ],
+        "mood_time":[
+            {"name":"Relaxed", "range":[60,600]}
+        ]
+    },
+    "Adventurous": {
+        "mood_tendency": [
+            {"name":"Excited", "chance":30},
+            {"name":"Curious", "chance":20},
+            {"name":"Playful", "chance":10}
+        ],
+        "social_tendency": [
+            {"name":"Excited", "chance":25},
+            {"name":"Playful", "chance":20}
+        ],
+        "low_tendency": [
+            {"name":"Sad", "chance":10},
+            {"name":"Frustrated", "chance":5}
+        ],
+        "sick_tendency": [
+            {"name":"Sad", "chance":50},
+            {"name":"Tired", "chance":50}
+        ],
+        "action_resistence": [
+            {"name":"attention", "chance":15}
+        ],
+        "action_buff":[
+            {"name":"walk", "buff":1.5}
+        ],
+        "mood_time":[
+            {"name":"Excited", "range":[30,300]},
+            {"name":"Playful", "range":[50,160]}
+        ]
+    },
+    "Energetic": {
+        "mood_tendency": [
+            {"name":"Excited", "chance":30},
+            {"name":"Playful", "chance":25},
+            {"name":"Curious", "chance":10}
+        ],
+        "social_tendency": [
+            {"name":"Excited", "chance":25},
+            {"name":"Playful", "chance":25},
+            {"name":"Happy", "chance":15}
+        ],
+        "low_tendency": [
+            {"name":"Frustrated", "chance":10}
+        ],
+        "sick_tendency": [
+            {"name":"Sad", "chance":50},
+            {"name":"Tired", "chance":50}
+        ],
+        "action_resistence": [
+            {"name":"sleep", "chance":30},
+            {"name":"attention", "chance":15}
+        ],
+        "action_buff":[
+            {"name":"play", "buff":1.5}
+        ],
+        "mood_time":[
+            {"name":"Excited", "range":[30,300]},
+            {"name":"Playful", "range":[70,380]}
+        ]
+    },
+    "Grumpy": {
+        "mood_tendency": [
+            {"name":"Annoyed", "chance":30},
+            {"name":"Angry", "chance":20},
+            {"name":"Frustrated", "chance":10}
+        ],
+        "social_tendency": [
+            {"name":"Annoyed", "chance":25},
+            {"name":"Angry", "chance":15}
+        ],
+        "low_tendency": [
+            {"name":"Tired", "chance":10}
+        ],
+        "sick_tendency": [
+            {"name":"Angry", "chance":50},
+            {"name":"Sad", "chance":50}
+        ],
+        "action_resistence": [
+            {"name":"social", "chance":15},
+            {"name":"drink", "chance":15}
+        ],
+        "action_buff":[
+            {"name":"eat", "buff":1.5}
+        ],
+        "mood_time":[
+            {"name":"Annoyed", "range":[30,300]}
+        ]
+    },
+    "Soft Hearted": {
+        "mood_tendency": [
+            {"name":"Happy", "chance":25},
+            {"name":"Playful", "chance":20},
+            {"name":"Excited", "chance":15}
+        ],
+        "social_tendency": [
+            {"name":"Happy", "chance":20},
+            {"name":"Playful", "chance":15},
+            {"name":"Excited", "chance":10}
+        ],
+        "low_tendency": [
+            {"name":"Sad", "chance":10},
+            {"name":"Lonely", "chance":5}
+        ],
+        "sick_tendency": [
+            {"name":"Sad", "chance":50},
+            {"name":"Tired", "chance":50}
+        ],
+        "action_resistence": [],
+        "action_buff":[
+            {"name":"attention", "buff":1.5}
+        ],
+        "mood_time":[
+            {"name":"Happy", "range":[60,600]}
+        ]
+    }
+}

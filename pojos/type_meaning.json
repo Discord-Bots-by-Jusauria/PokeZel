@@ -2,32 +2,36 @@
     {
         "name": "ground",
         "favorites": {
-            "drink": ["Herbal Tea", "Cold Brew Coffee", "Freshwater"],
+            "drink": ["Superfood Smoothie", "Cold Brew Coffee", "Freshwater"],
             "food": ["Grainy Stew", "Root Vegetables", "Garlic Bread"]
         },
         "hates": {
-            "drink": ["Energy Drink", "Fizzy Soda", "Caffeine Shot"],
+            "drink": ["Energy Drink", "Ginger Ale", "Caffeine Shot"],
             "food": ["Chocolate Cake", "Coconut Cake", "Oily Fish"]
         },
-        "effects": [
-            {"happiness": 1.5},
-            {"intelligence": 0.67}
-        ]
+        "effects": {
+            "easy": {"happiness": 1.35},
+            "hard": {"intelligence": 0.6},
+            "fast": {"energy": 1.4},
+            "slow": {"happiness": 0.4}
+        }
     },
     {
         "name": "water",
         "favorites": {
-            "drink": ["Freshwater", "Coconut Water", "Ice Water"],
-            "food": ["Fish Platter", "Grilled Veggies", "Root Vegetables"]
+            "drink": ["Freshwater", "Ginger Ale", "Ice Water"],
+            "food": ["Fish Platter", "Grilled Veggies", "Massive Fish Fillet"]
         },
         "hates": {
             "drink": ["Caffeine Shot", "Fizzy Soda", "Soda"],
-            "food": ["Tough Meat", "Spicy Sausage", "Gravy Smoothie"]
+            "food": ["Tough Meat", "Spicy Sausage", "Luxury Steak"]
         },
-        "effects": [
-            {"hunger": 1.5},
-            {"thirst": 0.67}
-        ]
+        "effects": {
+            "easy": {"energy": 1.35},
+            "hard": {"thirst": 0.6},
+            "fast": {"energy": 1.4},
+            "slow": {"thirst": 0.4}
+        }
     },
     {
         "name": "trash",
@@ -37,27 +41,48 @@
         },
         "hates": {
             "drink": ["Herbal Tea", "Coconut Water", "Hot Cocoa"],
-            "food": ["Root Vegetables", "Grilled Veggies", "Fish Platter"]
+            "food": ["Root Vegetables", "Massive Fish Fillet", "Fish Platter"]
         },
-        "effects": [
-            {"intelligence": 1.5},
-            {"health": 0.67}
-        ]
+        "effects": {
+            "easy": {"intelligence": 1.35},
+            "hard": {"happiness": 0.6},
+            "fast": {"health": 1.4},
+            "slow": {"energy": 0.4}
+        }
     },
+    {
+        "name": "forest",
+        "favorites": {
+            "drink": ["Freshwater", "Herbal Tea", "Fruit Punch"],
+            "food": ["Root Vegetables", "Mountainous Feast", "Fruit Salad"]
+        },
+        "hates": {
+            "drink": ["Fizzy Soda", "Coconut Water", "Sweet Tea"],
+            "food": ["Stale Bread", "Leftover Pizza", "Cold Pizza"]
+        },
+        "effects": {
+            "easy": {"energy": 1.4},
+            "hard": {"health": 0.5},
+            "fast": {"thirst": 1.3},
+            "slow": {"happiness": 0.7}
+        }
+    }, 
     {
         "name": "fire",
         "favorites": {
             "drink": ["Spiced Cider", "Hot Cocoa", "Energy Drink"],
-            "food": ["Spicy Sausage", "Gravy Smoothie", "Chicken Drumstick"]
+            "food": ["Spicy Sausage", "Luxury Steak", "Chicken Drumstick"]
         },
         "hates": {
             "drink": ["Ice Water", "Freshwater", "Coconut Water"],
             "food": ["Fruit Salad", "Grilled Veggies", "Cheese Platter"]
         },
-        "effects": [
-            {"trust": 1.5},
-            {"happiness": 0.67}
-        ]
+        "effects": {
+            "easy": {"happiness": 1.35},
+            "hard": {"thirst": 0.6},
+            "fast": {"energy": 1.4},
+            "slow": {"hunger": 0.4}
+        }
     },
     {
         "name": "galaxy",
@@ -69,10 +94,12 @@
             "drink": ["Sweet Tea", "Spiced Cider", "Herbal Tea"],
             "food": ["Tough Meat", "Grainy Stew", "Root Vegetables"]
         },
-        "effects": [
-            {"intelligence": 1.5},
-            {"hunger": 0.67}
-        ]
+        "effects": {
+            "easy": {"intelligence": 1.35},
+            "hard": {"thirst": 0.6},
+            "fast": {"hunger": 1.4},
+            "slow": {"health": 0.4}
+        }
     },
     {
         "name": "speed",
@@ -84,9 +111,11 @@
             "drink": ["Hot Cocoa", "Iced Tea", "Fruit Juice"],
             "food": ["Grilled Veggies", "Stale Bread", "Coconut Cake"]
         },
-        "effects": [
-            {"health": 1.5},
-            {"hunger": 0.67}
-        ]
+        "effects": {
+            "easy": {"health": 1.35},
+            "hard": {"intelligence": 0.6},
+            "fast": {"thirst": 1.4},
+            "slow": {"energy": 0.4}
+        }
     }
 ]

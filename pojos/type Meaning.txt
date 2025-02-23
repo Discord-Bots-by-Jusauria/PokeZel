@@ -1,27 +1,56 @@
 ground:
-- easily happy 1.5
-- stupid as hell 1.5
+action based
+- easy happy 
+- hard intelligence 
+auto
+- fast energy
+- slow happy 
+
 - likes to run
 
 water:
-- fast hungry 1.5
-- stay less thursty 1.5
+action based
+- easy energy 
+- hard thirsty 
+auto
+- fast energy
+- slow thirsty 
+
 - likes to swim
 
 trash
-- smart and learn fast 1.5 
-- gets easily health bad 1.5
+action based
+- easy intelligence 
+- hard happy 
+auto
+- fast health
+- slow energy 
+
 - likes to hide
 
 fire
-- trust faster 1,5
-- burns out faster - happy 1,5 
+action based
+- easy happy 
+- hard thirsty 
+auto
+- fast energy
+- slow hunger 
+
 
 - speed
-- hunger is faster down 1,5
-- health goes up faster 1,5
+action based
+- easy health 
+- hard intelligence 
+auto
+- fast thirsty
+- slow energy 
 
 galaxy
-- Mysteriously wise 1.5x intelligence gain
-- Forgets to eat (1.5x slower hunger increase)
+action based
+- easy intelligence 
+- hard thirsty 
+auto
+- fast hunger
+- slow health 
+
 - likes to go into the abyss for a walk

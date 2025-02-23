@@ -18,11 +18,18 @@ def get_owner(user_id: int) -> dict:
         return None  # Owner not found
     
     return owner
+
+def get_all_owner() -> dict:
+    # Fetch the owner document
+    owners = owner_coll.find({})
+    if not owners:
+        return None  # Owner not found
+    return owners
+
 nicknames = [
     "Bloop", "Wumbo", "Snorf", "Flibber", "Goobert", "Zonky", "Boingo", "Squizzle", "Dorfus", "Blorbo",
     "Skiddly", "Muffintop", "Ziggly", "Tootles", "Noodle", "Quackles", "Bork", "Dingus", "Wigglytuff", "Splonky"
 ]
-
 def create_adoption(user: any, selectedPet: any) -> bool:
     peep = people_coll.find_one({"user":str(user.id)})
     money = 10
@@ -34,6 +41,7 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     pet["intelligence"]= random.randint(selectedPet["intelligence"][0], selectedPet["intelligence"][1])
     pet["hunger"]= random.randint(selectedPet["hunger"][0], selectedPet["hunger"][1])
     pet["thirst"]= random.randint(selectedPet["thirst"][0], selectedPet["thirst"][1])
+    pet["is_sleeping"] = False
     pet["passed_out"] = None
     pet["died"] = None
     pet["sick"]= None
@@ -46,6 +54,17 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     pet["hates"]["food"]["name"] = typeDetails["hates"]["food"][random.randint(0,2)]
     pet["hates"]["drink"]["name"] = typeDetails["hates"]["drink"][random.randint(0,2)]
     pet["typeEffects"]=typeDetails["effects"]
+    ## mood
+    moods = load_items("emotion.json")
+    random_mood = random.choice(["Happy", "Sad", "Afraid", "Excited", "Equal"])
+    pet["mood"]=  moods.get(random_mood, "Equal")
+    ## Personality
+    personalities = load_items("personalities.json")
+    random_personality = random.choice(list(personalities.keys()))
+    pet["personality"] = {
+    "name": random_personality,
+    **personalities[random_personality] 
+    }
     # New document to insert into MongoDB
     new_entry = {
         "user_id": user.id,
@@ -62,6 +81,7 @@ def create_adoption(user: any, selectedPet: any) -> bool:
         "pet_slot_available": 1,
         "daily_task": "",
         "inventory": [],
+        "notifications": "normal",
         "pet": [pet]
     }
 
@@ -98,6 +118,11 @@ def updateBday(user_id:int,birthday:str):
         return;
     return timestamp;
 
+def updateNotify(user_id:int,notify:str):
+    return owner_coll.update_one({"user_id": user_id}, 
+            {"$set": 
+                {"notifications": notify}
+            })
 
 def buyItem(user_id,item,amount):
     itemsList = load_items("items.json")
@@ -132,6 +157,41 @@ def sellItem(user_id,item,price,amount):
             "$inc": {
                 "inventory.$.amount": -amount,
                 "points": price}  # Reduce amount
+        }
+    )
+
+    # Step 2: Remove item if amount is 0 or less
+    owner_coll.update_one(
+        {
+            "user_id": user_id,
+            "inventory": {"$elemMatch": {"name": item["name"], "amount": {"$lte": 0}}}
+        },
+        {
+            "$pull": {"inventory": {"name": item["name"]}}
+        }
+    )
+    return result
+
+def updateCommissionTarget(user_id, commission_points):
+    return owner_coll.update_one(
+        {
+            "user_id": user_id,
+            "commission_target.name": {"$ne": "none"}  # Ensure name is not "None"
+        },
+        {
+            "$inc": {"commission_target.amount": commission_points }
+        }
+    )
+def update_inventory_usage(user_id, item, amount):
+    result = owner_coll.update_one(
+        {
+            "user_id": user_id,
+            "inventory.name": item["name"]  
+        },
+        {
+            "$inc": {
+                "inventory.$.amount": -amount
+            }
         }
     )
 

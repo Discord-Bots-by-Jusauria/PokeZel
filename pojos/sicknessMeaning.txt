@@ -1,0 +1,4 @@
+Triggers:
+- eat/drink/happy - level of hunger and thirst
+ - need to have chance along side it
+- any other has its chance
