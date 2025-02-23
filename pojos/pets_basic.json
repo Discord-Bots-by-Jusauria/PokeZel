@@ -13,6 +13,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -44,6 +45,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -75,6 +77,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -106,6 +109,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -137,6 +141,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -168,6 +173,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -199,6 +205,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -230,6 +237,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
@@ -261,6 +269,7 @@
         "health": 100,
         "hunger": [20, 70],
         "thirst": [20, 70],
+        "energy": 100,
         "item_hold": {
             "special": null,
             "slot1": null,
