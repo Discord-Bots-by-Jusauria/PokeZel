@@ -12,7 +12,11 @@ class ItemView(discord.ui.View):
         self.user_id = user_id
         self.food_items = food_items
         self.pet = pet
-
+        async def on_timeout(self):
+            """Disable all buttons when the timeout is reached."""
+            for child in self.children:
+                if isinstance(child, discord.ui.Button):
+                    child.disabled = True  # Disable buttons
         # Create a dropdown with food items
         options = []
         for item in food_items:

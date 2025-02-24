@@ -17,7 +17,9 @@ discord_pet_channel = 1343215062197862460
 class Pet(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.update_pets_status.start()
+        self.update_20min.start()
+        self.update_1h.start()
+        self.update_3h.start()
     
     @discord.slash_command(name=subgroup+"profile",description="Shows Pet Profiles")
     async def petProfile(self, ctx: discord.ApplicationContext):
@@ -129,12 +131,11 @@ class Pet(commands.Cog):
                 return
         # get pets
         for owner in owners:
-            if owner["difficulty"] !="20min":
+            if owner.get("difficulty") !="20min":
                 continue
-            self.update_pets_status(owner)
-            
+            await self.update_pets_status(owner)   
     @tasks.loop(hours=1)
-    async def update_20min(self):
+    async def update_1h(self):
          # get all users
         owners = get_all_owner()
         if not owners:
@@ -144,11 +145,11 @@ class Pet(commands.Cog):
                 return
         # get pets
         for owner in owners:
-            if owner["difficulty"] !="1h":
+            if owner.get("difficulty") !="1h":
                 continue
-            self.update_pets_status(owner)
+            await self.update_pets_status(owner)
     @tasks.loop(hours=3)
-    async def update_20min(self):
+    async def update_3h(self):
          # get all users
         owners = get_all_owner()
         if not owners:
@@ -158,9 +159,9 @@ class Pet(commands.Cog):
                 return
         # get pets
         for owner in owners:
-            if owner["difficulty"] !="3h":
+            if owner.get("difficulty") !="3h":
                 continue
-            self.update_pets_status(owner)
+            await self.update_pets_status(owner)
     
     async def update_pets_status(self, owner):
             # messages

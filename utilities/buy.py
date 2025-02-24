@@ -31,7 +31,7 @@ def create_shop_embed(category, items, money):
 
 class ShopView(View):
     def __init__(self, user_id, money, categories, current_category, amount):
-        super().__init__()
+        super().__init__(timeout=120)
         self.user_id = user_id
         self.money = money
         self.categories = categories
@@ -47,7 +47,12 @@ class ShopView(View):
         self.add_item(self.dropdown)
 
         self.update_buttons()
-
+    async def on_timeout(self):
+        
+        """Disable all buttons when the timeout is reached."""
+        for child in self.children:
+            if isinstance(child, discord.ui.Button) or isinstance(child, Select):
+                child.disabled = True  # Disable buttons
     def get_item_options(self):
         """Create dropdown options for the current category."""
         current_category = self.category_list[self.current_category_index]

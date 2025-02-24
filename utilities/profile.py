@@ -7,9 +7,13 @@ from utilities.time import checkBdayToday, secondsUntil12h
 
 class ProfileView(discord.ui.View):
     def __init__(self, user_data):
-        super().__init__(timeout=None)  # Persistent view
+        super().__init__(timeout=120)  # Persistent view
         self.user_data = user_data
-
+    async def on_timeout(self):
+        """Disable all buttons when the timeout is reached."""
+        for child in self.children:
+            if isinstance(child, discord.ui.Button):
+                child.disabled = True  # Disable buttons
     @discord.ui.button(label="Inventory", style=discord.ButtonStyle.primary, custom_id="profile_view:inventory")
     async def inventory_button(self, button: discord.Button, interaction: discord.Interaction):
         await show_inventory(interaction, self.user_data)
@@ -17,9 +21,13 @@ class ProfileView(discord.ui.View):
 
 class InventoryView(discord.ui.View):
     def __init__(self, user_data):
-        super().__init__(timeout=None)  # Persistent view
+        super().__init__(timeout=120)  # Persistent view
         self.user_data = user_data
-
+    async def on_timeout(self):
+        """Disable all buttons when the timeout is reached."""
+        for child in self.children:
+            if isinstance(child, discord.ui.Button):
+                child.disabled = True  # Disable buttons
     @discord.ui.button(label="Back", style=discord.ButtonStyle.secondary, custom_id="inventory_view:back")
     async def back_button(self, button: discord.Button, interaction: discord.Interaction):
         await show_profile(interaction, self.user_data)
