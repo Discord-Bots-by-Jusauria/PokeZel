@@ -1,10 +1,11 @@
+from datetime import datetime, timedelta
 import discord
 from discord.ext import commands
 
 # Falls du fetch_profile_data nutzt, importiere es hier.
 from bot_util import make_embed
 from pojos.emoji_handle import app_emojis, get_emoji, get_item_emoji
-from mongodb.owner import get_owner, updateCheckin, updateBday, updateNotify
+from mongodb.owner import get_owner, updateCheckin, updateBday, updateDifficulty, updateNotify
 from utilities.profile import show_profile
 from utilities.time import checkBdayToday
 from utilities.buy import buyView, sellView
@@ -53,18 +54,30 @@ class Player(commands.Cog):
         
     @discord.slash_command(name="check-in", description="Your daily allowance")
     async def check_in(self, ctx: discord.ApplicationContext):
+        
         if not await self.is_in_server(ctx): return  # Prevents execution in DMs
 
         user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
             return
+        actionCategory = "check-in"
+        checkin_status=0
         
-        checkin_status = updateCheckin(user_id, 1)
+        if (datetime.fromtimestamp(user_data[actionCategory]) + timedelta(hours=12))>= datetime.now():
+            await ctx.response.send_message(embed=make_embed(f"Your check-in is not ready yet"), ephemeral=True)
+            return
+        if user_data["difficulty"]=="20min":
+            checkin_status = updateCheckin(user_data["user_id"], 180)
+        elif user_data["difficulty"]=="1h":
+            checkin_status = updateCheckin(user_data["user_id"], 90)
+        else: 
+            checkin_status = updateCheckin(user_data["user_id"], 50)
+        
         bday = False
 
         if user_data.get("bday") and checkBdayToday(user_data["bday"]):
             bday = True
-            checkin_status = updateCheckin(user_id, 23)
+            checkin_status = updateCheckin(user_data["user_id"], 50)
                 
         if checkin_status == 0:  
             await ctx.response.send_message(embed=make_embed("Your Check-in didn't work."))
@@ -118,6 +131,41 @@ class Player(commands.Cog):
 
         # Send appropriate response based on the selection
         await ctx.response.send_message(embed=make_embed(f"Your Notification setting is set to {notification_type.capitalize()}.", message))
+
+    @discord.slash_command(name=subgroup+"difficulty", description="Sets how often your pet gets updated and sends updates")
+    async def notify(self, ctx: discord.ApplicationContext, difficulty: str = discord.Option(
+        description="Choose your difficulty",
+        choices=["20min", "1h", "3h"]
+    )):
+        if not await self.is_in_server(ctx): 
+            return  # Prevents execution in DMs
+
+        user_data = await isAOwner(ctx.author.id,ctx)
+        if not user_data:
+            return
+                
+        # Map the notification types to specific messages
+        updateTime = ""
+        sillyTime = ""
+        if difficulty == "20min":
+            updateTime="20 mins"
+            sillyTime = "10 mins"
+        elif difficulty == "1h":
+            updateTime="1 h"
+            sillyTime = "30 mins"
+        else:  # "none"
+            updateTime="3 h"
+            sillyTime = "2 h"
+            
+
+        # Update the notification setting based on the user's choice
+        result = updateDifficulty(user_data["user_id"], difficulty)
+        if not result:  
+            await ctx.response.send_message(embed=make_embed("Setting your Difficulty didn't work out. Sorry."), ephemeral=True)
+            return
+
+        # Send appropriate response based on the selection
+        await ctx.response.send_message(embed=make_embed(f"Pet difficulty changed", f"Your pet gets updated all {updateTime} and sends you silly messages about it's idle or events all  {sillyTime}"))
 
 def setup(bot):
     bot.add_cog(Player(bot))

@@ -118,24 +118,58 @@ class Pet(commands.Cog):
         await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} goes to sleep", f"{pet["nickname"]} goes to it's bed and curls up. Sleeping peacefully until you wake it or it is 100%"))
         update_pet(user_data["user_id"], pet)
     
-    @tasks.loop(minutes=10)
-    async def update_pets_status(self):
-        # get all users
+    @tasks.loop(minutes=20)
+    async def update_20min(self):
+         # get all users
         owners = get_all_owner()
         if not owners:
            channel = self.bot.get_channel(1054381452252426260)
            if channel:
-                #await channel.send(f"<@{470689466307313664}>. Hey. I got issues getting the Owner List. Could you fetch it for me?")
+                await channel.send(f"<@{470689466307313664}>. Hey. I got issues getting the Owner List. Could you fetch it for me?")
                 return
         # get pets
         for owner in owners:
+            if owner["difficulty"] !="20min":
+                continue
+            self.update_pets_status(owner)
+            
+    @tasks.loop(hours=1)
+    async def update_20min(self):
+         # get all users
+        owners = get_all_owner()
+        if not owners:
+           channel = self.bot.get_channel(1054381452252426260)
+           if channel:
+                await channel.send(f"<@{470689466307313664}>. Hey. I got issues getting the Owner List. Could you fetch it for me?")
+                return
+        # get pets
+        for owner in owners:
+            if owner["difficulty"] !="1h":
+                continue
+            self.update_pets_status(owner)
+    @tasks.loop(hours=3)
+    async def update_20min(self):
+         # get all users
+        owners = get_all_owner()
+        if not owners:
+           channel = self.bot.get_channel(1054381452252426260)
+           if channel:
+                await channel.send(f"<@{470689466307313664}>. Hey. I got issues getting the Owner List. Could you fetch it for me?")
+                return
+        # get pets
+        for owner in owners:
+            if owner["difficulty"] !="3h":
+                continue
+            self.update_pets_status(owner)
+    
+    async def update_pets_status(self, owner):
             # messages
             title = ""
             description = ""
             pet = owner["pet"][0]
             # check if alive even
             if pet["died"]:
-                continue
+                return
             # go around moods
             list = ["happiness","intelligence","health","hunger","thirst","energy"]
             #get type buff/debuff
@@ -143,7 +177,7 @@ class Pet(commands.Cog):
                 # 20% not changed
                 chance = random.randint(0, 10)
                 if chance in [4,9]:
-                    continue
+                    return
                 # change - 1*buff/debuff*moodEffect*sicknessEffect
                 # get typing buff
                 typeEffect = pet["typeEffects"].get("fast", {}).get(stat, 1)
@@ -167,7 +201,7 @@ class Pet(commands.Cog):
                         # wake pet up
                         pet["is_sleeping"] = not pet["is_sleeping"]
                         description += get_messages("woken", pet["nickname"])
-                    continue
+                    return
                 pet[stat] = round(pet[stat] -(1 * typeEffect * pet["mood"]["generalBuff"][stat] * sicknessDebuff), 1)
                 pet[stat] = max(0, min(100, pet[stat]))
                 # Consider Personality tendency...
@@ -177,7 +211,7 @@ class Pet(commands.Cog):
                     pet["happiness"] -= 20
                     title = f"{pet["nickname"]} has passed out..."
                     description += get_messages("fainting",pet["nickname"])
-                    continue
+                    return
             # mood changes and algorythm
             result = self.update_pet_mood(owner,pet,list)
             # died
@@ -188,9 +222,9 @@ class Pet(commands.Cog):
                 channel = self.bot.get_channel(discord_pet_channel)
                 if channel:
                     await channel.send(embed=make_embed(title,description))
-                continue
+                return
             elif result["message"]== "":
-                continue
+                return
             else:
                 title = f"{pet["nickname"]} gives you a little update! :sparkles:"
                 description += result["message"]

@@ -3,7 +3,7 @@ from collections import defaultdict
 from datetime import datetime
 import discord
 from bot_util import make_embed
-from utilities.time import checkBdayToday, secondsUntil14h
+from utilities.time import checkBdayToday, secondsUntil12h
 
 class ProfileView(discord.ui.View):
     def __init__(self, user_data):
@@ -39,7 +39,7 @@ async def show_profile(interaction: discord.Interaction, user_data):
         embed.add_field(name="B-day (MM-DD)",value= value, inline=False)
     
     ## Daily To-Dos
-    check_in_time = secondsUntil14h(user_data["check-in"])
+    check_in_time = secondsUntil12h(user_data["check-in"])
     check_in_display = "✅" if check_in_time == 0 else f"` {check_in_time}s `"
     value = f"Check-in: {check_in_display}\n"
     value +=f"Daily Pet Task:  {user_data["commission_target"]["name"] + 

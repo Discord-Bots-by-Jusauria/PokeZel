@@ -83,6 +83,7 @@ def create_adoption(user: any, selectedPet: any) -> bool:
         "daily_task": "",
         "inventory": [],
         "notifications": "normal",
+        "difficulty": "1h",
         "pet": [pet]
     }
 
@@ -124,7 +125,11 @@ def updateNotify(user_id:int,notify:str):
             {"$set": 
                 {"notifications": notify}
             })
-
+def updateDifficulty(user_id:int,notify:str):
+    return owner_coll.update_one({"user_id": user_id}, 
+            {"$set": 
+                {"difficulty": notify}
+            })
 def buyItem(user_id,item,amount):
     itemsList = load_items("items.json")
     for ogItem in itemsList:
