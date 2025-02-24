@@ -65,6 +65,7 @@ def create_adoption(user: any, selectedPet: any) -> bool:
     "name": random_personality,
     **personalities[random_personality] 
     }
+    pet["logs"]={}
     # New document to insert into MongoDB
     new_entry = {
         "user_id": user.id,

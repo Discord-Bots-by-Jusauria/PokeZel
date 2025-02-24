@@ -27,8 +27,9 @@
         "med": null,
         "action": { 
             "drink": {
-                "amount": 1, 
-                "item": "Energy Drink"
+                "goal": 1, 
+                "item": "Energy Drink",
+                "amount":0
             } 
         },
         "triggers": {
@@ -43,8 +44,9 @@
         "med": null,
         "action": { 
             "drink": {
-                "amount": 1, 
-                "item": "Energy Drink"
+                "goal": 1, 
+                "item": "Energy Drink",
+                "amount":0
             } 
         },
         "triggers": {
@@ -89,8 +91,9 @@
         "med": null,
         "action": { 
             "drink": { 
-                "amount": 2, 
-                "item": "Freshwater" 
+                "goal": 2, 
+                "item": "Freshwater" ,
+                "amount":0
             } 
         },
         "triggers": {
@@ -105,8 +108,9 @@
         "med": null,
         "action": { 
             "eat": { 
-                "amount": 2, 
-                "item": "Meat Biscuits" 
+                "goal": 2, 
+                "item": "Meat Biscuits" ,
+                "amount":0
             } 
         },
         "triggers": {
@@ -117,7 +121,7 @@
     },
     {
         "name": "Dying",
-        "effect": null,
+        "effect": {"health": 1.8},
         "med": null,
         "action": null,
         "triggers": {
@@ -154,8 +158,9 @@
         "med": null,
         "action": { 
             "drink": { 
-                "amount": 1, 
-                "item": "Energy Drink" 
+                "goal": 1, 
+                "item": "Energy Drink" ,
+                "amount":0
             } 
         },
         "triggers": {
@@ -190,8 +195,9 @@
         "med": null,
         "action": { 
             "eat": { 
-                "amount": 3, 
-                "item": "Root Vegetables" 
+                "goal": 3, 
+                "item": "Root Vegetables" ,
+                "amount":0
             } 
         },
         "triggers": {

@@ -24,7 +24,6 @@ def get_messages(section, petname, sick=""):
     messages= messages[section]["messages"]
     message= random.choice(messages)
     return message.format(pet_name = petname, sickness = sick)
-
 def get_messages_mood(section, petname, mood, sick=""):
     messages = load_items("messages.json")
     messages= messages[section][mood]["messages"]

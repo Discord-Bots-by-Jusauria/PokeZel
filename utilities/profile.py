@@ -129,6 +129,8 @@ async def show_pet_profile(interaction: discord.Interaction, user_data):
         addon = ""
         if pet.get("is_sleeping", False):
             addon = " 💤"
+        if pet.get("died",False):
+             addon = " ☠️"
         embed1 = make_embed(f"{pet["species"]}{addon}")
         file1 = discord.File("assets/alpha.png", filename="alpha.png")
         embed1.set_thumbnail(url="attachment://alpha.png")
@@ -141,15 +143,18 @@ async def show_pet_profile(interaction: discord.Interaction, user_data):
         embed1.add_field(name="Holding Special", value=pet["item_hold"]["special"])
         # Mood
         mood = pet["mood"]["name"] # Example mood based on happiness
-        embed1.add_field(name="Mood", value=mood, inline=False)
+        embed1.add_field(name="Mood", value=mood)
+        # Sick
+        if pet.get("sick"):
+            embed1.add_field(name="Sickness", value=pet["sick"]["name"])
         # Statues of Living
         value=">>> "
-        value += f"Health: {pet['health']}\n"
-        value += f"Hunger: {pet['hunger']}\n"
-        value += f"Thirst: {pet['thirst']}\n"
-        value += f"Energy: {pet['energy']}\n"
-        value += f"Happiness: {pet['happiness']}\n"
-        value += f"Intelligence: {pet['intelligence']}\n"
+        value += f"Health: {pet['health']}%\n"
+        value += f"Hunger: {pet['hunger']}%\n"
+        value += f"Thirst: {pet['thirst']}%\n"
+        value += f"Energy: {pet['energy']}%\n"
+        value += f"Happiness: {pet['happiness']}%\n"
+        value += f"Intelligence: {pet['intelligence']}%\n"
         
         embed1.add_field(name="Status", value=value, inline=False)
 
@@ -157,7 +162,7 @@ async def show_pet_profile(interaction: discord.Interaction, user_data):
         embed2 = make_embed(f"{pet["species"]}{addon}")
         embed2.set_thumbnail(url="attachment://alpha.png")
         # Personality and Evolution Options
-        embed2.add_field(name="Personality", value=pet.get("personality", "Unknown"), inline=False)
+        embed2.add_field(name="Personality", value=pet["personality"]["name"], inline=False)
         # Favorite and Hated Things
         value = f"Drink: {pet['favorites']['drink']['name'] if pet['favorites']['drink']['discovered'] else '???'}\n" \
                 f"Food: {pet['favorites']['food']['name'] if pet['favorites']['food']['discovered'] else '???'}"
