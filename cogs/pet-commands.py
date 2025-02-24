@@ -10,7 +10,7 @@ from utilities.profile import show_pet_profile
 from utilities.commands import isAOwner
 from mongodb.owner import get_all_owner, get_owner
 from mongodb.pet import nicknamePet, update_pet
-from utilities.pet_interaction import drinkView, feedView
+from utilities.pet_interaction import drinkView, feedView, itemView
 
 subgroup = "pet_"
 discord_pet_channel = 1343215062197862460
@@ -67,6 +67,25 @@ class Pet(commands.Cog):
         logs = pet["logs"]
         if logs.get(actionCategory):
             if (datetime.fromtimestamp(logs[actionCategory]["timestamp"]) + timedelta(minutes=10))>= datetime.now():
+                await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} is not ready to consider eating food."), ephemeral=True)
+                return
+            elif pet["personality"]["action_resistence"].get(actionCategory):
+                if random.randint(0,100)<pet["personality"]["action_resistence"][actionCategory]:
+                    pet["logs"][actionCategory]["timestamp"] = int(datetime.now().timestamp)
+                    await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} is refusing to eat", f"{pet["nickname"]} has a mind of it's own and is not wishing to eat yet. You will have to wait 10min until it's more willing to eat."))
+                    return
+        await drinkView(ctx, user_data)    
+    @discord.slash_command(name=subgroup+"hand-over",description="Give your pet an item in your inventory :D")
+    async def handOver(self, ctx: discord.ApplicationContext):
+        actionCategory = "give"
+        user_data = await isAOwner(ctx.author.id,ctx)
+        if not user_data:
+            return
+        #action refusal
+        pet = user_data["pet"][0]
+        logs = pet["logs"]
+        if logs.get(actionCategory):
+            if (datetime.fromtimestamp(logs[actionCategory]["timestamp"]) + timedelta(minutes=10))>= datetime.now():
                 await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} is not ready to consider drinking."), ephemeral=True)
                 return
             elif pet["personality"]["action_resistence"].get(actionCategory):
@@ -75,7 +94,7 @@ class Pet(commands.Cog):
                     await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} is refusing to drink", f"{pet["nickname"]} has a mind of it's own and is not wishing to drink yet. You will have to wait 10min until it's more willing to eat."))
                     return
                 
-        await drinkView(ctx, user_data)
+        await itemView(ctx, user_data)
     @discord.slash_command(name=subgroup+"sleep",description="Make it sleep! :D")
     async def sleep(self, ctx: discord.ApplicationContext):
         actionCategory = "sleep"
@@ -150,7 +169,7 @@ class Pet(commands.Cog):
                         description += get_messages("woken", pet["nickname"])
                     continue
                 pet[stat] = round(pet[stat] -(1 * typeEffect * pet["mood"]["generalBuff"][stat] * sicknessDebuff), 1)
-                pet[stat] = max(0,pet[stat])
+                pet[stat] = max(0, min(100, pet[stat]))
                 # Consider Personality tendency...
                 # energy <0 passing out - very unhappy mood when waking up and -30 happiness
                 if stat == "energy" and pet[stat] <=0:

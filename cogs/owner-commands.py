@@ -4,7 +4,6 @@ from discord.ext import commands
 # Falls du fetch_profile_data nutzt, importiere es hier.
 from bot_util import make_embed
 from pojos.emoji_handle import app_emojis, get_emoji, get_item_emoji
-from services.handlerList import ALL_HANDLERS
 from mongodb.owner import get_owner, updateCheckin, updateBday, updateNotify
 from utilities.profile import show_profile
 from utilities.time import checkBdayToday

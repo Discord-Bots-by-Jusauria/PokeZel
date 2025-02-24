@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from bot_util import make_embed
 
 
-from services.handlerList import ALL_HANDLERS
 from mongodb.owner import get_owner, create_adoption
 load_dotenv()  # load all the variables from the .env file
 bot = discord.Bot()

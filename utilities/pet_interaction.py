@@ -14,14 +14,13 @@ class ItemView(discord.ui.View):
         self.pet = pet
 
         # Create a dropdown with food items
-      
+        options = []
         for item in food_items:
             description = ""
             for effect in item.get("specialEffect",[]):
                 description += f"{effect["name"]} (Chance: {effect["chance"]}%), \n"
-            options = [
-                discord.SelectOption(label=f"{item["name"]} - filling: {item["filling"]}", description=description, value=item["name"])
-            ]
+            
+            options.append(discord.SelectOption(label=f"{item["name"]} - filling: {item["filling"]}", description=description, value=item["name"]))
         self.food_dropdown = discord.ui.Select(placeholder="Select the item to give", options=options)
         self.food_dropdown.callback = self.select_food
         self.add_item(self.food_dropdown)
@@ -58,14 +57,16 @@ class ConfirmButton(discord.ui.Button):
         # Sickness Healing
         if self.pet["sick"] and category != "med":
             if self.pet["sick"]["action"]:
-                if self.food["name"] == self.pet["sick"]["action"][category]["item"]:
+                if self.food["name"] == self.pet["sick"]["action"].get(category,{}).get("item"):
                     self.pet["sick"]["action"][category]["amount"]+=1
                     if self.pet["sick"]["action"][category]["amount"] == self.pet["sick"]["action"][category]["goal"]:
                         description += f"💊 Thanks to {self.food["name"]} your pet is healed from {self.pet["sick"]["name"]}\n"
                         self.pet["sick"]=None
         ## Med healing sickness
-        # BLEP
-        
+        if self.pet["sick"] and category == "med":
+            if self.food["name"] == self.pet["sick"][category]:
+                description += f"💊 Thanks to {self.food["name"]} your pet is healed from {self.pet["sick"]["name"]}\n"
+                self.pet["sick"]=None
         
         # Apply special effects
         for effect in self.food.get("specialEffects", []):
@@ -117,9 +118,16 @@ async def feedView( ctx: discord.ApplicationContext, user_data):
         return
 
     await ctx.response.send_message(content="Select the food to feed:", view=ItemView(user_data["user_id"],user_data["pet"][0], food_items))
-
 async def drinkView( ctx: discord.ApplicationContext, user_data):
     food_items = [item for item in user_data["inventory"] if item.get("typeOfItem") == "drink"]
+    
+    if not food_items:
+        await ctx.response.send_message(embed=make_embed("You don't have any drinks to give your pet!"), ephemeral=True)
+        return
+
+    await ctx.response.send_message(content="Select the drink to give:", view=ItemView(user_data["user_id"],user_data["pet"][0], food_items))
+async def itemView( ctx: discord.ApplicationContext, user_data):
+    food_items = [item for item in user_data["inventory"] if item.get("typeOfItem") != "drink" or item.get("typeOfItem") != "food"] 
     
     if not food_items:
         await ctx.response.send_message(embed=make_embed("You don't have any drinks to give your pet!"), ephemeral=True)
