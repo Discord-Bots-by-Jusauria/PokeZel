@@ -8,6 +8,7 @@ from mongodb.owner import get_owner, updateCheckin, updateBday, updateNotify
 from utilities.profile import show_profile
 from utilities.time import checkBdayToday
 from utilities.buy import buyView, sellView
+from utilities.commands import isAOwner
 
 subgroup = "owner_"
 
@@ -27,10 +28,8 @@ class Player(commands.Cog):
 
     @discord.slash_command(name=subgroup+"profile", description="Shows owner profile")
     async def profile(self, ctx: discord.ApplicationContext):
-        user_id = ctx.author.id
-        user_data = get_owner(user_id=user_id)
+        user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
-            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
             return
         await show_profile(ctx, user_data) 
 
@@ -38,10 +37,8 @@ class Player(commands.Cog):
     async def shop(self, ctx: discord.ApplicationContext, amount: int = 1):
         if not await self.is_in_server(ctx): return  # Prevents execution in DMs
 
-        user_id = ctx.author.id
-        user_data = get_owner(user_id=user_id)
+        user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
-            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
             return
         await buyView(ctx, user_data, amount) 
 
@@ -49,10 +46,8 @@ class Player(commands.Cog):
     async def sell(self, ctx: discord.ApplicationContext, amount: int = 1):
         if not await self.is_in_server(ctx): return  # Prevents execution in DMs
 
-        user_id = ctx.author.id
-        user_data = get_owner(user_id=user_id)
+        user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
-            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
             return
         await sellView(ctx, user_data, amount) 
         
@@ -60,10 +55,8 @@ class Player(commands.Cog):
     async def check_in(self, ctx: discord.ApplicationContext):
         if not await self.is_in_server(ctx): return  # Prevents execution in DMs
 
-        user_id = ctx.author.id
-        user_data = get_owner(user_id=user_id)
+        user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
-            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
             return
         
         checkin_status = updateCheckin(user_id, 1)
@@ -86,13 +79,11 @@ class Player(commands.Cog):
     async def bday(self, ctx: discord.ApplicationContext, birthday: discord.Option(input_type=str, description="Enter your Bday (MM-DD)")):
         if not await self.is_in_server(ctx): return  # Prevents execution in DMs
 
-        user_id = ctx.author.id
-        user_data = get_owner(user_id=user_id)
+        user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
-            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
             return
         
-        bday = updateBday(user_id, birthday)
+        bday = updateBday(user_data["user_id"], birthday)
         if not bday:  
             await ctx.response.send_message(embed=make_embed("Your Check-in didn't work."))
             return        
@@ -107,10 +98,8 @@ class Player(commands.Cog):
         if not await self.is_in_server(ctx): 
             return  # Prevents execution in DMs
 
-        user_id = ctx.author.id
-        user_data = get_owner(user_id=user_id)
+        user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
-            await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
             return
                 
         # Map the notification types to specific messages
@@ -122,7 +111,7 @@ class Player(commands.Cog):
             message = "This means your pet will no longer send you notifications in DMs."
 
         # Update the notification setting based on the user's choice
-        result = updateNotify(user_id, notification_type)
+        result = updateNotify(user_data["user_id"], notification_type)
         if not result:  
             await ctx.response.send_message(embed=make_embed("Setting your Notifications didn't work out. Sorry."), ephemeral=True)
             return
