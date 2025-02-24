@@ -72,6 +72,7 @@
         "triggers": {
             "eat": 80,
             "drink": 70,
+            "operator": "above",
             "chance": 15
         },
         "range": [20, 180]
@@ -98,6 +99,7 @@
         },
         "triggers": {
             "drink": 10,
+            "operator": "below",
             "chance": 90
         },
         "range": [20, 180]
@@ -115,6 +117,7 @@
         },
         "triggers": {
             "eat": 10,
+            "operator": "below",
             "chance": 90
         },
         "range": [20, 240]
@@ -136,8 +139,9 @@
         "effect": {"health": 1.2, "happiness": 0.9},
         "med": "Stomach Relief",
         "triggers": {
-            "eat": 100,
-            "drink": 100,
+            "eat": 95,
+            "drink": 95,
+            "operator": "above",
             "chance": 20
         },
         "range": [20, 180]
@@ -202,6 +206,7 @@
         },
         "triggers": {
             "eat": 8,
+            "operator": "above",
             "chance": 80
         },
         "range": [30, 180]

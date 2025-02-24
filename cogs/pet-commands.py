@@ -56,7 +56,7 @@ class Pet(commands.Cog):
                     return
                 
         await feedView(ctx, user_data)    
-    @discord.slash_command(name=subgroup+"drench",description="Give your pet something to dring :D")
+    @discord.slash_command(name=subgroup+"drench",description="Give your pet something to drink :D")
     async def drench(self, ctx: discord.ApplicationContext):
         actionCategory = "drink"
         user_data = await isAOwner(ctx.author.id,ctx)
@@ -76,7 +76,7 @@ class Pet(commands.Cog):
                     return
                 
         await drinkView(ctx, user_data)
-    @discord.slash_command(name=subgroup+"sleep",description="Give your pet something to dring :D")
+    @discord.slash_command(name=subgroup+"sleep",description="Make it sleep! :D")
     async def sleep(self, ctx: discord.ApplicationContext):
         actionCategory = "sleep"
         user_data = await isAOwner(ctx.author.id,ctx)
@@ -296,36 +296,30 @@ class Pet(commands.Cog):
                 return {"status":1, "message":description + get_messages("sick",pet["nickname"], pet["sick"]["name"])}
             return {"status":1, "message":""}
         
-        
-        # <30 adds low mood tendency
-        low_eat_sicknesses = []
-
-        statList = ["hunger","thirst","happiness"]
-        for stat in statList:
-            if pet[stat] <= 30:
-                low_eat_sicknesses.extend(
-                    s for s in sicknesses
-                    if any(key in s.get("triggers", {}) for key in ["eat", "drink", "happy"])
-                    and any(s["triggers"].get(key, 100) <= 30 and s["triggers"].get(key, 100) > 0 for key in ["eat", "drink", "happy"])
-                )
-
-            if pet[stat] <= 10 and stat in ["hunger", "thirst"]:
-                low_eat_sicknesses.extend(
-                    s for s in sicknesses
-                    if any(key in s.get("triggers", {}) for key in ["eat", "drink"])
-                    and any(s["triggers"].get(key, 100) <= 10 and s["triggers"].get(key, 100) > 0 for key in ["eat", "drink"])
-                )
-        # check if the sicknesses have a successful throw
-        sicknessPossibilities = [] 
-        for sickness in low_eat_sicknesses:
-            randomChance = random.randint(0,100)
-            if randomChance<sickness["triggers"]["chance"]:
-                sicknessPossibilities.append(sickness)
-                
+        ### already is sick and cant get another
         if (datetime.fromtimestamp(logs["sick"]["timestamp"]) + timedelta(minutes=logs["sick"]["range"]))>= datetime.now():
             return {"status":2, "message":""}
-        if sicknessPossibilities:
-            pet["sick"] = random.choice(sicknessPossibilities)
+        
+        food_sicknesses = []
+
+        ## collect sicknesses food and happy related
+        for sickness in sicknesses:
+            if any(key in sickness["triggers"] for key in ["happy", "eat", "drink"]):
+                if sickness["triggers"]["operator"] == "below":
+                    if pet["hunger"] <= sickness["triggers"].get("eat",100) or pet["thirst"] <= sickness["triggers"].get("drink",100) or pet["happiness"] <= sickness["triggers"].get("happy",100):
+                        food_sicknesses.append(sickness)                             
+                else:
+                    if pet["hunger"] >= sickness["triggers"].get("eat",0) or pet["thirst"] >= sickness["triggers"].get("drink",0) or pet["happiness"] >= sickness["triggers"].get("happy",0):
+                        food_sicknesses.append(sickness)
+        ## which have the chance to be used
+        sickness_possibility = []
+        if food_sicknesses:
+            for sick in food_sicknesses:
+                if random.randint(0,100)<= sick["triggers"]["chance"]:   
+                    sickness_possibility.append(sick)                 
+        ## select a random one who won
+        if sickness_possibility:
+            pet["sick"] = random.choice(sickness_possibility)
             description += get_messages("sick",pet["nickname"], pet["sick"]["name"])
             logs["sick"]["timestamp"] =  int(datetime.now().timestamp())
             logs["sick"]["range"] = random.randint(pet["sick"]["range"][0],pet["sick"]["range"][1])
