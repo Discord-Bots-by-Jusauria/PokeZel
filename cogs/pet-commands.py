@@ -10,7 +10,7 @@ from utilities.profile import show_pet_profile
 from utilities.commands import isAOwner
 from mongodb.owner import get_all_owner, get_owner
 from mongodb.pet import nicknamePet, update_pet
-from utilities.pet_interaction import drinkView, feedView, itemView
+from utilities.pet_interaction import AttentionView, drinkView, feedView, itemView
 
 subgroup = "pet_"
 discord_pet_channel = 1343215062197862460
@@ -37,7 +37,8 @@ class Pet(commands.Cog):
         if result == 0:
             await ctx.response.send_message(embed=make_embed("Naming Failed"), ephemeral=True)
         await ctx.response.send_message(embed=make_embed("Your pet is now called "+nickname))
-        
+    
+    ## --- Basic Interactions ---
     @discord.slash_command(name=subgroup+"feed",description="Feed your pet :D")
     async def feed(self, ctx: discord.ApplicationContext):
         actionCategory = "eat"
@@ -79,22 +80,9 @@ class Pet(commands.Cog):
         await drinkView(ctx, user_data)    
     @discord.slash_command(name=subgroup+"hand-over",description="Give your pet an item in your inventory :D")
     async def handOver(self, ctx: discord.ApplicationContext):
-        actionCategory = "give"
         user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
             return
-        #action refusal
-        pet = user_data["pet"][0]
-        logs = pet["logs"]
-        if logs.get(actionCategory):
-            if (datetime.fromtimestamp(logs[actionCategory]["timestamp"]) + timedelta(minutes=10))>= datetime.now():
-                await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} is not ready to consider drinking."), ephemeral=True)
-                return
-            elif pet["personality"]["action_resistence"].get(actionCategory):
-                if random.randint(0,100)<pet["personality"]["action_resistence"][actionCategory]:
-                    pet["logs"][actionCategory]["timestamp"] = int(datetime.now().timestamp)
-                    await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} is refusing to drink", f"{pet["nickname"]} has a mind of it's own and is not wishing to drink yet. You will have to wait 10min until it's more willing to eat."))
-                    return
                 
         await itemView(ctx, user_data)
     @discord.slash_command(name=subgroup+"sleep",description="Make it sleep! :D")
@@ -120,6 +108,29 @@ class Pet(commands.Cog):
         await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} goes to sleep", f"{pet["nickname"]} goes to it's bed and curls up. Sleeping peacefully until you wake it or it is 100%"))
         update_pet(user_data["user_id"], pet)
     
+    ## --- Attention Interactions
+    @discord.slash_command(name=subgroup+"attention",description="Give your pet in the following ways attention UwU")
+    async def attention(self, ctx: discord.ApplicationContext):
+        actionCategory = "attention"
+        user_data = await isAOwner(ctx.author.id,ctx)
+        if not user_data:
+            return
+        #action refusal
+        pet = user_data["pet"][0]
+        logs = pet["logs"]
+        if logs.get(actionCategory):
+            if (datetime.fromtimestamp(logs[actionCategory]["timestamp"]) + timedelta(minutes=10))>= datetime.now():
+                await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} is not ready to consider attention."), ephemeral=True)
+                return
+            elif pet["personality"]["action_resistence"].get(actionCategory):
+                if random.randint(0,100)<pet["personality"]["action_resistence"][actionCategory]:
+                    pet["logs"][actionCategory]["timestamp"] = int(datetime.now().timestamp)
+                    await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} is refusing to get attention", f"{pet["nickname"]} has a mind of it's own and is not wishing to be acknowledged yet. You will have to wait 10min until it's more willing to eat."))
+                    return
+                
+        view = AttentionView(user_data)
+        await ctx.response.send_message(embed=make_embed(f"Give {pet["nickname"]} attention"), view=view, ephemeral=True) 
+    ## --- Automatic stats ---
     @tasks.loop(minutes=20)
     async def update_20min(self):
          # get all users
@@ -171,8 +182,18 @@ class Pet(commands.Cog):
             # check if alive even
             if pet["died"]:
                 return
+            #intelligence
+            # is 24h past last log?
+            logs = pet["logs"]
+            if logs.get("intelligence"):
+                if (datetime.fromtimestamp(logs["intelligence"]["timestamp"]) + timedelta(hours=24))<= datetime.now():
+                    # decrease start with 0.3 procent.
+                    typeEffect = pet["typeEffects"].get("fast", {}).get("intelligence", 1)
+                    if typeEffect == 1:
+                        typeEffect = pet["typeEffects"].get("slow", {}).get("intelligence", 1) 
+                    pet["intelligence"] = round(pet["intelligence"] -(0.3* typeEffect * pet["mood"]["generalBuff"]["intelligence"], 1))
             # go around moods
-            list = ["happiness","intelligence","health","hunger","thirst","energy"]
+            list = ["happiness","health","hunger","thirst","energy"]
             #get type buff/debuff
             for stat in list:
                 # 20% not changed

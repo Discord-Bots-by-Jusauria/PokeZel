@@ -2,7 +2,7 @@ import random
 from unicodedata import category
 import discord
 from discord.ext import commands
-from bot_util import make_embed
+from bot_util import get_attention_messages, make_embed
 from mongodb.owner import get_owner, update_inventory_usage, updateCommissionTarget
 from mongodb.pet import update_pet
 
@@ -82,7 +82,7 @@ class ConfirmButton(discord.ui.Button):
         if self.food["name"] == self.pet["hates"]["food"]["name"]:
             self.pet["hates"]["food"]["discovered"] = True
             happiness_loss = int(self.food["filling"] * 1.5)
-            self.pet["happiness"] = max(0, self.pet["happiness"] - happiness_loss)
+            self.pet["happiness"] = max(0, round(self.pet["happiness"] - happiness_loss,1))
             description += f"*{self.pet['nickname']}* glares at you! **They absolutely hate this food!**\n💔 Lost {happiness_loss} happiness points.\n"
 
         elif self.food["name"] == self.pet["favorites"]["food"]["name"]:
@@ -113,7 +113,6 @@ class ConfirmButton(discord.ui.Button):
             view=None  # Remove buttons
         )
 
-
 async def feedView( ctx: discord.ApplicationContext, user_data):
     food_items = [item for item in user_data["inventory"] if item.get("typeOfItem") == "food"]
     
@@ -138,3 +137,43 @@ async def itemView( ctx: discord.ApplicationContext, user_data):
         return
 
     await ctx.response.send_message(content="Select the drink to give:", view=ItemView(user_data["user_id"],user_data["pet"][0], food_items))
+
+
+## ------ Attention ------
+import discord
+
+
+class AttentionView(discord.ui.View):
+    def __init__(self, user_data, timeout=120):
+        super().__init__(timeout=timeout)
+        self.user_data = user_data  # Store user data for processing
+
+    async def handle_action(self, interaction: discord.Interaction, action_name: str):
+        """Handles different attention actions"""
+        pet = self.user_data["pet"][0]
+        
+        message_action = get_attention_messages(action_name,pet["species"], pet["nickname"],pet["mood"]["name"])
+        # Apply action effect (Modify pet's mood or stats if needed)
+        pet["mood"]["value"] = min(100, pet["mood"]["value"] + mood_boost)
+
+        await interaction.response.send_message(embed=make_embed(response_text, f"{pet['nickname']} looks happy!"), ephemeral=True)
+
+    @discord.ui.button(label="Pat", emoji="🤚", style=discord.ButtonStyle.primary)
+    async def pat_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.handle_action(interaction, "Pat")
+
+    @discord.ui.button(label="Cuddles", emoji="🤗", style=discord.ButtonStyle.primary)
+    async def cuddles_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.handle_action(interaction, "Cuddles")
+
+    @discord.ui.button(label="Talk", emoji="🗣️", style=discord.ButtonStyle.primary)
+    async def talk_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.handle_action(interaction, "Talk")
+
+    @discord.ui.button(label="Treat", emoji="🍪", style=discord.ButtonStyle.success)
+    async def treat_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.handle_action(interaction, "Treat")
+
+    @discord.ui.button(label="Rubs", emoji="💆", style=discord.ButtonStyle.success)
+    async def rubs_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await self.handle_action(interaction, "Rubs")

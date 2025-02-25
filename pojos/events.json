@@ -1,10 +1,104 @@
 {
-    "mood": {
-      "Depressed": {
-        "scenes": [
+  "attention": {
+    "pats": {
+      "Dog": {
+        "Depressed": [
+          {"type": "positive", "message": "You gently pet your dog. It wags its tail weakly, feeling a bit better.", "happiness": 2},
+          {"type": "negative", "message": "You try to pet your dog, but it doesn't react much.", "happiness": -1},
+          {"type": "hurt", "message": "As you reach out, your dog shifts away and accidentally knocks over its water bowl.", "happiness": -2, "health": -1}
+        ],
+        "Frustrated": [
+          {"type": "positive", "message": "You pet your dog, and it lets out a huff before calming down.", "happiness": 3},
+          {"type": "negative", "message": "Your dog pulls away, still too frustrated to enjoy the attention.", "happiness": -1},
+          {"type": "hurt", "message": "Your dog jerks its head and bumps into a table, yelping slightly.", "happiness": -2, "health": -1}
+        ],
+        "Happy": [
+          {"type": "positive", "message": "You pet your dog, and it wags its tail excitedly.", "happiness": 5},
+          {"type": "negative", "message": "Your dog enjoys the pet but quickly gets distracted.", "happiness": 1},
+          {"type": "hurt", "message": "Your dog gets too excited, jumps up, and tumbles over its own feet.", "happiness": -1, "health": -2}
+        ],
+        "Sad": [
+          {"type": "positive", "message": "You pet your dog, and it leans against you for comfort.", "happiness": 4},
+          {"type": "negative", "message": "Your dog barely reacts to your petting, still looking downcast.", "happiness": -1},
+          {"type": "hurt", "message": "Your dog sighs heavily and lays down too quickly, bumping its chin on the floor.", "happiness": -2, "health": -1}
+        ],
+        "Angry": [
+          {"type": "positive", "message": "You pet your dog carefully, and it slowly relaxes.", "happiness": 2},
+          {"type": "negative", "message": "Your dog stiffens but tolerates the petting.", "happiness": -1},
+          {"type": "hurt", "message": "Your dog snaps its jaws in irritation and accidentally bites its own tongue.", "happiness": -2, "health": -2}
+        ],
+        "Afraid": [
+          {"type": "positive", "message": "You pet your dog gently, and it leans into your touch for reassurance.", "happiness": 3},
+          {"type": "negative", "message": "Your dog flinches slightly but stays put.", "happiness": -1},
+          {"type": "hurt", "message": "Your dog gets startled and dashes away, slipping and hitting the wall.", "happiness": -3, "health": -2}
+        ],
+        "Excited": [
+          {"type": "positive", "message": "You pet your dog, and it wiggles with joy.", "happiness": 5},
+          {"type": "negative", "message": "Your dog is too hyper and barely registers the petting.", "happiness": 1},
+          {"type": "hurt", "message": "Your dog jumps up excitedly and bonks its head on the table.", "happiness": -1, "health": -2}
+        ],
+        "Lonely": [
+          {"type": "positive", "message": "You pet your dog, and it nuzzles into your hand happily.", "happiness": 4},
+          {"type": "negative", "message": "Your dog accepts the pet but still seems down.", "happiness": -1},
+          {"type": "hurt", "message": "Your dog is so eager for attention that it accidentally trips over itself.", "happiness": -2, "health": -1}
+        ],
+        "Playful": [
+          {"type": "positive", "message": "You pet your dog, and it rolls over, demanding belly rubs.", "happiness": 5},
+          {"type": "negative", "message": "Your dog wiggles too much to properly enjoy the pet.", "happiness": 1},
+          {"type": "hurt", "message": "Your dog playfully nips but accidentally bites a little too hard.", "happiness": -1, "health": -1}
+          ],"Playful": [
+            { "message": "You gave your dog a pat, and it playfully wiggled its tail!", "effect": { "happiness": 2 }, "type": "positive" },
+            { "message": "You tried to pat your dog, but it ran around in circles instead!", "effect": { "happiness": 0 }, "type": "negative" },
+            { "message": "You went to pat your dog, but it got too excited and knocked something over, hurting itself!", "effect": { "health": -2 }, "type": "hurt" }
+          ],
+          "Annoyed": [
+            { "message": "You patted your dog, even though it seemed grumpy. It tolerated it.", "effect": { "happiness": 1 }, "type": "positive" },
+            { "message": "Your dog huffed and turned away from your pat, clearly not in the mood.", "effect": { "happiness": -1 }, "type": "negative" },
+            { "message": "You patted your annoyed dog, and it playfully bit your hand a little too hard!", "effect": { "health": -2 }, "type": "hurt" }
+          ],
+          "Tired": [
+            { "message": "You patted your sleepy dog, and it let out a relaxed sigh.", "effect": { "happiness": 2 }, "type": "positive" },
+            { "message": "You tried to pat your dog, but it was too tired to care.", "effect": { "happiness": 0 }, "type": "negative" },
+            { "message": "You patted your dog, but it suddenly flopped over onto you, pinning you down!", "effect": { "health": -1 }, "type": "hurt" }
+          ],
+          "Bored": [
+            { "message": "You gave your bored dog a pat, and it wagged its tail a little.", "effect": { "happiness": 1 }, "type": "positive" },
+            { "message": "You patted your dog, but it sighed, still looking for something fun to do.", "effect": { "happiness": 0 }, "type": "negative" },
+            { "message": "You patted your dog, but it was so bored it chewed on your shoe instead!", "effect": { "health": -2 }, "type": "hurt" }
+          ],
+          "Equal": [
+            { "message": "You patted your dog, and it leaned into you contently.", "effect": { "happiness": 2 }, "type": "positive" },
+            { "message": "Your dog accepted the pat but didn't react much.", "effect": { "happiness": 0 }, "type": "negative" },
+            { "message": "You patted your dog, but it accidentally stepped on your foot in return!", "effect": { "health": -1 }, "type": "hurt" }
+          ],
+          "Curious": [
+            { "message": "You patted your dog, and it tilted its head, wondering what you wanted.", "effect": { "happiness": 2 }, "type": "positive" },
+            { "message": "Your dog was too busy sniffing around to care about the pat.", "effect": { "happiness": 0 }, "type": "negative" },
+            { "message": "You patted your curious dog, but it got too excited and tripped over its own paws!", "effect": { "health": -2 }, "type": "hurt" }
+          ],
+          "Relaxed": [
+            { "message": "You gave your dog a gentle pat, and it closed its eyes in contentment.", "effect": { "happiness": 2 }, "type": "positive" },
+            { "message": "Your dog was already relaxed and didn’t react much to the pat.", "effect": { "happiness": 0 }, "type": "negative" },
+            { "message": "You patted your relaxed dog, but it rolled over too fast and fell off the couch!", "effect": { "health": -2 }, "type": "hurt" }
+          ],
+          "Embarrassed": [
+            { "message": "You patted your dog, and it sheepishly wagged its tail.", "effect": { "happiness": 1 }, "type": "positive" },
+            { "message": "Your dog seemed too shy and avoided eye contact when you patted it.", "effect": { "happiness": -1 }, "type": "negative" },
+            { "message": "You patted your embarrassed dog, but it got so flustered it tripped over its own paws!", "effect": { "health": -2 }, "type": "hurt" }
+          ],
+          "Nervous": [
+            { "message": "You patted your nervous dog, and it hesitantly leaned into your hand.", "effect": { "happiness": 1 }, "type": "positive" },
+            { "message": "Your dog flinched at the pat, still feeling uneasy.", "effect": { "happiness": -1 }, "type": "negative" },
+            { "message": "You patted your nervous dog, but it panicked and knocked over its water bowl!", "effect": { "health": -2 }, "type": "hurt" }
+          ],
+          "Unmotivated": [
+            { "message": "You patted your dog, and it let out a small sigh but appreciated the attention.", "effect": { "happiness": 1 }, "type": "positive" },
+            { "message": "Your dog barely reacted to the pat, too unmotivated to care.", "effect": { "happiness": 0 }, "type": "negative" },
+            { "message": "You patted your unmotivated dog, but it flopped down so hard it hurt its back!", "effect": { "health": -2 }, "type": "hurt" }
+          ]
           
-        ]
+        }
       }
-
     }
-}
+  }
+  
