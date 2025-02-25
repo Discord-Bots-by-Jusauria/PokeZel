@@ -129,7 +129,7 @@ class Pet(commands.Cog):
                     return
                 
         view = AttentionView(user_data)
-        await ctx.response.send_message(embed=make_embed(f"Give {pet["nickname"]} attention"), view=view, ephemeral=True) 
+        await ctx.response.send_message(embed=make_embed(f"How you want to give {pet["nickname"]} attention?"), view=view, ephemeral=True) 
     ## --- Automatic stats ---
     @tasks.loop(minutes=20)
     async def update_20min(self):

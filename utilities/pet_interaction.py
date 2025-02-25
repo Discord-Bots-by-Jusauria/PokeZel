@@ -152,7 +152,7 @@ class AttentionView(discord.ui.View):
         """Handles different attention actions"""
         pet = self.user_data["pet"][0]
         
-        message_action = get_attention_messages(action_name,pet["species"], pet["nickname"],pet["mood"]["name"])
+        message_actions = get_attention_messages(action_name,pet["species"], pet["nickname"],pet["mood"]["name"])
         # Apply action effect (Modify pet's mood or stats if needed)
         pet["mood"]["value"] = min(100, pet["mood"]["value"] + mood_boost)
 
@@ -160,20 +160,20 @@ class AttentionView(discord.ui.View):
 
     @discord.ui.button(label="Pat", emoji="🤚", style=discord.ButtonStyle.primary)
     async def pat_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_action(interaction, "Pat")
+        await self.handle_action(interaction, "pat")
 
     @discord.ui.button(label="Cuddles", emoji="🤗", style=discord.ButtonStyle.primary)
     async def cuddles_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_action(interaction, "Cuddles")
+        await self.handle_action(interaction, "cuddles")
 
     @discord.ui.button(label="Talk", emoji="🗣️", style=discord.ButtonStyle.primary)
     async def talk_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_action(interaction, "Talk")
+        await self.handle_action(interaction, "talk")
 
     @discord.ui.button(label="Treat", emoji="🍪", style=discord.ButtonStyle.success)
     async def treat_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_action(interaction, "Treat")
+        await self.handle_action(interaction, "treat")
 
     @discord.ui.button(label="Rubs", emoji="💆", style=discord.ButtonStyle.success)
     async def rubs_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_action(interaction, "Rubs")
+        await self.handle_action(interaction, "rubs")
