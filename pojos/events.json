@@ -3276,9 +3276,10 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
   "message": "You hold {pet_name} close until it drifts off, sighing softly as though relieved to find comfort in your arms.",
-  "happiness": 16
+  "happiness": 16,
+  "energy":15
 }
 ],
 "Frustrated": [
@@ -3293,9 +3294,10 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
   "message": "{pet_name} fidgets and fusses but eventually nods off, snoring faintly against your chest.",
-  "happiness": 17
+  "happiness": 17,
+  "energy":15
 }
 ],
 "Happy": [
@@ -3310,9 +3312,10 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
   "message": "After a flurry of happy tail-wags, {pet_name} curls up contentedly in your arms and dozes off.",
-  "happiness": 18
+  "happiness": 18,
+  "energy":15
 }
 ],
 "Sad": [
@@ -3327,9 +3330,10 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
   "message": "You softly pet {pet_name} until {pet_name} drifts into a quiet sleep, face resting against your arm.",
-  "happiness": 15
+  "happiness": 15,
+  "energy":15
 }
 ],
 "Angry": [
@@ -3344,7 +3348,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Although irritated at first, {pet_name} calms enough to doze off, releasing a small huff as {pet_name} falls asleep.",
   "happiness": 15
 }
@@ -3361,9 +3366,10 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
   "message": "After a few tense moments, {pet_name} curls up in your arms and drifts off, trusting you to keep it safe.",
-  "happiness": 16
+  "happiness": 16,
+  "energy":15
 }
 ],
 "Excited": [
@@ -3378,7 +3384,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+    "energy":15,
   "message": "After a burst of excitement, {pet_name} collapses against you, nodding off mid-cuddle with a content sigh.",
   "happiness": 17
 }
@@ -3395,7 +3402,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+    "energy":15,
   "message": "Eager for company, {pet_name} melts into your arms and drifts off, finally feeling less alone.",
   "happiness": 19
 }
@@ -3412,7 +3420,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+    "energy":15,
   "message": "After some playful antics, {pet_name} nestles up and falls asleep mid-wriggle in your arms.",
   "happiness": 16
 }
@@ -3429,7 +3438,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+    "energy":15,
   "message": "Though initially huffy, {pet_name} grows still and nods off in your arms, the grumpiness fading into soft snores.",
   "happiness": 15
 }
@@ -3446,7 +3456,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+    "energy":15,
   "message": "You offer a comforting embrace, and {pet_name} promptly falls asleep, snoring softly into your sleeve.",
   "happiness": 20
 }
@@ -3463,7 +3474,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+    "energy":15,
   "message": "With nothing better to do, {pet_name} yawns mid-cuddle and drifts off, lulled by your steady breathing.",
   "happiness": 15
 }
@@ -3480,7 +3492,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+    "energy":15,
   "message": "You show mutual respect, and {pet_name} chooses to doze off in your arms, trusting you enough to rest there.",
   "happiness": 18
 }
@@ -3497,7 +3510,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After exploring you for a moment, {pet_name} yawns and curls up in your arms, dozing off contentedly.",
   "happiness": 15
 }
@@ -3514,7 +3528,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You stroke {pet_name}'s fur in a quiet moment until {pet_name} drifts into a peaceful slumber, breathing steadily against you.",
   "happiness": 17
 }
@@ -3531,7 +3546,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} blushes under your attention, then slowly dozes off mid-cuddle, whiskers twitching in a shy dream.",
   "happiness": 15
 }
@@ -3548,7 +3564,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You hold {pet_name} gently until the nerves subside, and {pet_name} nods off, lulled by the closeness.",
   "happiness": 15
 }
@@ -3565,7 +3582,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Too drained to resist, {pet_name} sinks into your arms and drifts off to sleep, resting quietly against you.",
   "happiness": 17
 }
@@ -3584,7 +3602,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You cradle {pet_name} against your chest, and after a small sigh, {pet_name} dozes off, purring softly in your arms.",
   "happiness": 17
 }
@@ -3601,7 +3620,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Though initially tense, {pet_name} relaxes mid-cuddle and slips into a light nap, whiskers twitching in a dream.",
   "happiness": 16
 }
@@ -3618,7 +3638,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} kneads your arm a bit before curling up, purring until it drifts into a peaceful catnap.",
   "happiness": 19
 }
@@ -3635,7 +3656,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep {pet_name} close until those sad eyes flutter shut, and {pet_name} falls asleep in your arms.",
   "happiness": 16
 }
@@ -3652,7 +3674,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} bristles at first but eventually dozes off in your arms, a low rumbling purr still audible.",
   "happiness": 15
 }
@@ -3669,7 +3692,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep {pet_name} safe and snug. Eventually, it succumbs to exhaustion and dozes off, still a bit wary but calmer.",
   "happiness": 18
 }
@@ -3686,7 +3710,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your cat wears itself out and eventually curls up in your lap, purring lightly as it drifts to sleep.",
   "happiness": 17
 }
@@ -3703,7 +3728,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} nestles into your chest, eyes slowly closing as it finds the companionship it needs in a dozing cuddle.",
   "happiness": 20
 }
@@ -3720,7 +3746,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} eventually tires out and curls up against you, purring softly as it dozes off.",
   "happiness": 15
 }
@@ -3737,7 +3764,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Though grumpy at first, {pet_name} ends up nodding off, nestling into your arms with a grudging sigh.",
   "happiness": 16
 }
@@ -3754,7 +3782,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} melts in your arms, drifting into purr-filled slumber, paws twitching in a sleepy haze.",
   "happiness": 18
 }
@@ -3771,7 +3800,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} knocks over a cup out of boredom, then flops into your lap, dozing off from sheer listlessness.",
   "happiness": 15
 }
@@ -3788,7 +3818,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} steps into your lap on its own terms, quickly falling asleep in a comfortable truce.",
   "happiness": 16
 }
@@ -3805,7 +3836,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After a quick sniff session, {pet_name} deems you safe enough, curling up contentedly to sleep.",
   "happiness": 15
 }
@@ -3822,7 +3854,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your cat is so relaxed it simply dozes off fully in your arms, purring softly in a calm dream.",
   "happiness": 19
 }
@@ -3839,7 +3872,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After some shy resistance, {pet_name} nestles into your lap, eventually dozing off with a tiny squeak.",
   "happiness": 16
 }
@@ -3856,7 +3890,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Spooked at first, {pet_name} eventually gives in, curling up anxiously until it drifts into a cautious sleep.",
   "happiness": 15
 }
@@ -3873,7 +3908,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You cradle {pet_name} in a soft blanket, and it drifts to sleep, escaping the drag of unmotivation in a quiet nap.",
   "happiness": 17
 }
@@ -3892,7 +3928,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You hold {pet_name} with gentle palms until it settles and drifts off, tiny legs slowing to a peaceful rest.",
   "happiness": 16
 }
@@ -3909,7 +3946,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} thrashes for a moment but calms, eventually drifting into a light doze in your cupped hands.",
   "happiness": 15
 }
@@ -3926,7 +3964,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After a brief burst of excited flicks, {pet_name} settles and dozes off in your gentle hold, legs occasionally twitching.",
   "happiness": 19
 }
@@ -3943,7 +3982,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep {pet_name} supported in your palms. Its sorrow eases into drowsiness, and soon it drifts to sleep, gently rocking in the water.",
   "happiness": 17
 }
@@ -3960,7 +4000,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} rushes forward as if to fight, then tires and slips into a dozy rest in your hands, still trembling slightly.",
   "happiness": 15
 }
@@ -3977,7 +4018,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep your cupped hands still until {pet_name} eventually stops trembling and drifts into a light sleep, antennae quivering less.",
   "happiness": 16
 }
@@ -3994,7 +4036,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "The shrimp leaps in excitement, then eventually collapses in your palms, drifting off with a flutter of legs.",
   "happiness": 18
 }
@@ -4011,7 +4054,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "In need of company, {pet_name} nestles against your palms, drifting into a peaceful snooze with a slight flick of its tail.",
   "happiness": 17
 }
@@ -4028,7 +4072,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Eventually worn out from playful zips, {pet_name} flutters onto your hand, snoozing in a content little swirl.",
   "happiness": 20
 }
@@ -4045,7 +4090,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Though flicking angrily at first, {pet_name} tires and ends up dozing off, pinned gently by your calm touch.",
   "happiness": 15
 }
@@ -4062,7 +4108,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Exhausted, {pet_name} slowly stills and falls asleep in your steady palms, antenna drooping in restful slumber.",
   "happiness": 20
 }
@@ -4079,7 +4126,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Trying to break its boredom, you lift {pet_name} slightly in your palm. It settles and dozes off, lulled by the gentle motion.",
   "happiness": 16
 }
@@ -4096,7 +4144,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After acknowledging you, {pet_name} settles on your hand and drifts into a calm sleep, trusting your stillness.",
   "happiness": 15
 }
@@ -4113,7 +4162,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After a brief inspection, {pet_name} relaxes and drifts off, lulled by the softly rippling water around your hand.",
   "happiness": 20
 }
@@ -4130,7 +4180,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You gently cradle {pet_name}, and it dozes off without much fuss, drifting in a slow, tranquil swirl.",
   "happiness": 19
 }
@@ -4147,7 +4198,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Though initially shy, {pet_name} clings to your palm and drifts to sleep, as if it’s safer hidden in your hands.",
   "happiness": 16
 }
@@ -4164,7 +4216,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "With your steady presence, {pet_name} eventually calms and drifts into a shaky doze, antennae fluttering in watery dreams.",
   "happiness": 15
 }
@@ -4181,7 +4234,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You hold {pet_name} steadily until it flops into a lazy slumber, gently bobbing in the water of your cupped palms.",
   "happiness": 15
 }
@@ -4200,7 +4254,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep {pet_name} in a gentle hold, and after some listless fin flicks, it drifts into a quiet slumber in your palms.",
   "happiness": 16
 }
@@ -4217,7 +4272,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} initially twists in frustration but soon tires, slipping into a dozy rest in your palms.",
   "happiness": 17
 }
@@ -4234,7 +4290,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} shows off with leaps, then finally settles, dozing in your gentle hold, fins fluttering in a happy dream.",
   "happiness": 19
 }
@@ -4251,7 +4308,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your soothing hold eventually lulls {pet_name} to sleep, tail swaying gently as it rests in your palms.",
   "happiness": 16
 }
@@ -4268,7 +4326,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} fights your hold for a moment, then drifts into an uneasy sleep in your cupped hands.",
   "happiness": 15
 }
@@ -4285,7 +4344,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Startled at first, {pet_name} eventually relaxes enough to snooze in your hands, trusting your gentle touch.",
   "happiness": 15
 }
@@ -4302,7 +4362,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "In its excitement, {pet_name} eventually flops into your hands, dozing off with a few happy fin twitches.",
   "happiness": 17
 }
@@ -4319,7 +4380,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Seeking attention, {pet_name} swims into your hands and drifts into a dozy nap, tail flicking slowly.",
   "happiness": 18
 }
@@ -4336,7 +4398,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "In a burst of energy, {pet_name} flips out of the water then ends up in your cupped hands, dozing from playful exhaustion.",
   "happiness": 20
 }
@@ -4353,7 +4416,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} flares its fins irritably, then ends up snoozing in your hands, as if giving up the protest.",
   "happiness": 16
 }
@@ -4370,7 +4434,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} drifts into a calm sleep in your palms, fins still in a slow, tired flutter.",
   "happiness": 15
 }
@@ -4387,7 +4452,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "In an attempt to play, you end up scooping {pet_name}, who dozes off in your steady hands out of sheer boredom.",
   "happiness": 16
 }
@@ -4404,7 +4470,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You hold still, letting {pet_name} approach. Eventually, it settles in your palm, dozing with quiet trust.",
   "happiness": 19
 }
@@ -4421,7 +4488,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} tries to investigate your hand from below, then decides to settle in and doze, lulled by mild curiosity.",
   "happiness": 17
 }
@@ -4438,7 +4506,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} lazily rolls too far in its relaxed state, flipping onto your hands and dozing contentedly.",
   "happiness": 18
 }
@@ -4455,7 +4524,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} hides behind a plant, but you cradle it gently until it falls asleep, escaping embarrassment.",
   "happiness": 15
 }
@@ -4472,7 +4542,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After a few shaky attempts, {pet_name} settles in your gentle hold, drifting into an anxious but eventual sleep.",
   "happiness": 16
 }
@@ -4489,7 +4560,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You try to liven it up by supporting {pet_name}, but it simply falls asleep in your hands, fins drooping in a tired slump.",
   "happiness": 15
 }
@@ -4508,7 +4580,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep {pet_name} cupped in your hand until it settles into a drowsy rest, tiny legs going still against your skin.",
   "happiness": 16
 }
@@ -4525,7 +4598,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After restless pacing, {pet_name} finally collapses in your palm, antennae drooping as it dozes off in a tired huff.",
   "happiness": 17
 }
@@ -4542,7 +4616,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Excited scurries eventually slow, and {pet_name} settles on your fingers, slipping into an energetic dream-nap.",
   "happiness": 18
 }
@@ -4559,7 +4634,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You maintain a gentle cradle, and {pet_name} eventually dozes off in your palms, looking less sorrowful in slumber.",
   "happiness": 15
 }
@@ -4576,7 +4652,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} bristles, but in your patient hold, it eventually tires, dozing off with a final huff of its mandibles.",
   "happiness": 15
 }
@@ -4593,7 +4670,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Eventually, {pet_name} exhausts its panic and collapses into a nervous sleep on your hand, legs twitching slightly.",
   "happiness": 18
 }
@@ -4610,7 +4688,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Worn out from all the scuttling, {pet_name} finally settles in your hand, antennae lowering as it dozes off contentedly.",
   "happiness": 20
 }
@@ -4627,7 +4706,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "In need of some closeness, {pet_name} settles onto your palm and drifts off, comforted by your steady warmth.",
   "happiness": 16
 }
@@ -4644,7 +4724,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After a few comedic sprints, {pet_name} crawls onto your arm and dozes off mid-scuttle, completely tuckered out.",
   "happiness": 19
 }
@@ -4661,7 +4742,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Though irritated, {pet_name} ends up resting on your palm, eventually dozing off in a sulky snooze.",
   "happiness": 17
 }
@@ -4678,7 +4760,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You scoop up {pet_name}, and it promptly slips into a deep roachy slumber, antennae still in your warm hand.",
   "happiness": 15
 }
@@ -4695,7 +4778,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "With nothing else going on, {pet_name} climbs onto your palm and nods off, mandibles twitching in a bored dream.",
   "happiness": 18
 }
@@ -4712,7 +4796,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Acknowledging your respect, {pet_name} climbs on and eventually dozes, content with your quiet companionship.",
   "happiness": 16
 }
@@ -4729,7 +4814,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After a thorough antenna-inspection, {pet_name} decides your palm is safe enough to nap on, legs curling contently.",
   "happiness": 19
 }
@@ -4746,7 +4832,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You shift your hand gently, and {pet_name} stays put, slipping into a cozy sleep, antenna twitching in a quiet dream.",
   "happiness": 17
 }
@@ -4763,7 +4850,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After a moment of squirming, {pet_name} settles in your palm, drifting into a timid sleep, antenna still quivering slightly.",
   "happiness": 15
 }
@@ -4780,7 +4868,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "A sudden noise spooks {pet_name}, but it flops in your hand, eventually dozing off in frazzled exhaustion.",
   "happiness": 16
 }
@@ -4797,7 +4886,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You nudge {pet_name} gently; it half-climbs your hand, then promptly dozes off, too lazy to fully respond.",
   "happiness": 15
 }
@@ -4816,7 +4906,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You hold {pet_name} gently until it dozes off, nose pressed against your palm in a weary little sigh.",
   "happiness": 15
 }
@@ -4833,7 +4924,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Exhausted by its own frustration, {pet_name} collapses in your warm hold, drifting off mid-squeak.",
   "happiness": 16
 }
@@ -4850,7 +4942,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After a burst of cheer, {pet_name} nestles into your palm, whiskers twitching as it slips into a joyful nap.",
   "happiness": 17
 }
@@ -4867,7 +4960,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep {pet_name} in a warm hold until it quietly dozes off, curling up in your hand like a tiny ball of fur.",
   "happiness": 16
 }
@@ -4884,7 +4978,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "It charges your hand in bravado, then wears itself out, drifting off with a final irritated squeak.",
   "happiness": 15
 }
@@ -4901,7 +4996,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Spooked at first, {pet_name} finally surrenders to fatigue, curling up in your hands for a timid sleep.",
   "happiness": 18
 }
@@ -4918,7 +5014,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Mid-leap, {pet_name} tires and ends up snoozing in your palm, whiskers still quivering with leftover excitement.",
   "happiness": 19
 }
@@ -4935,7 +5032,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Longing for company, {pet_name} dozes off in your hands, finally comforted by your presence.",
   "happiness": 17
 }
@@ -4952,7 +5050,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "After chasing your finger, {pet_name} snuggles into your palm, drifting off with a playful squeak leftover.",
   "happiness": 20
 }
@@ -4969,7 +5068,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your mouse twitches in frustration at your hold, then suddenly succumbs to a sleepy yawn, snoozing in your hands.",
   "happiness": 16
 }
@@ -4986,7 +5086,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your hand nudges {pet_name} gently, and it topples over into your palm, falling asleep on your warm fingers.",
   "happiness": 19
 }
@@ -5003,7 +5104,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You attempt to liven things up, but {pet_name} yawns and curls into your palm, dozing off in mild boredom.",
   "happiness": 16
 }
@@ -5020,7 +5122,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You show it respect, and {pet_name} decides your palm is a suitable bed, curling up for a cozy snooze.",
   "happiness": 17
 }
@@ -5037,7 +5140,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "The mouse climbs your hand to explore a smell, then dozes off, tired from its curiosity.",
   "happiness": 19
 }
@@ -5054,7 +5158,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Already dozy, {pet_name} accepts your gentle cradle and drifts fully asleep, squeaking quietly in a pleasant dream.",
   "happiness": 18
 }
@@ -5071,7 +5176,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} attempts to hide behind a toy but ends up in your palm, dozing off in a flustered squeak of surrender.",
   "happiness": 15
 }
@@ -5088,7 +5194,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Spooked by a sudden sound, {pet_name} eventually calms in your hands, slipping into a jittery yet peaceful nap.",
   "happiness": 18
 }
@@ -5105,7 +5212,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You try to nudge it into action, but {pet_name} simply flops into your palm, dozing off in quiet defeat.",
   "happiness": 15
 }
@@ -5124,7 +5232,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You move to pat it slowly, and {pet_name} eventually dozes off in your arms, letting out a small sigh amid the trash.",
   "happiness": 15
 }
@@ -5141,7 +5250,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} thrashes in your arms, sending trash flying, then suddenly plops into a ragged nap, worn out by its own frustration.",
   "happiness": 17
 }
@@ -5158,7 +5268,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Overjoyed from rummaging, {pet_name} eventually climbs into your arms, dozing off with the chip bag still clutched.",
   "happiness": 19
 }
@@ -5175,7 +5286,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your slow pats lull {pet_name} into a melancholy sleep, curled in your lap amid old cardboard.",
   "happiness": 15
 }
@@ -5192,7 +5304,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} spins to bite your hand but, in exhaustion, ends up passing out in your arms with a final grumble.",
   "happiness": 16
 }
@@ -5209,7 +5322,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Though initially panicked, {pet_name} clutches your arm and eventually drifts into a shaky sleep, trusting your warmth.",
   "happiness": 18
 }
@@ -5226,7 +5340,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Overexcited from trash exploration, {pet_name} hops into your arms and promptly crashes, snoring softly with a grin.",
   "happiness": 20
 }
@@ -5243,7 +5358,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Desperate for companionship, {pet_name} climbs into your lap, eventually dozing off, clutching at old newspaper scraps.",
   "happiness": 16
 }
@@ -5260,7 +5376,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your attempt to join the fun ends with {pet_name} leaping into your arms, collapsing in a playful but exhausted nap.",
   "happiness": 19
 }
@@ -5277,7 +5394,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You pat too insistently, and the racoon spins around in annoyance but ends up too tired to fight, dozing off in your hold.",
   "happiness": 16
 }
@@ -5294,7 +5412,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You disturb its nap with a soft cuddle, and {pet_name} jolts briefly then settles, snoring quietly in your arms.",
   "happiness": 17
 }
@@ -5311,7 +5430,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "In an attempt to amuse it, you rustle a plastic bag, but {pet_name} simply curls up in your arms and dozes off instead.",
   "happiness": 18
 }
@@ -5328,7 +5448,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep a calm presence, and {pet_name} eventually climbs into your lap, drifting off in a balanced, trusting nap.",
   "happiness": 19
 }
@@ -5345,7 +5466,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} tries to investigate your pockets, loses steam, and falls asleep in your hold, tail curled around your arm.",
   "happiness": 17
 }
@@ -5362,7 +5484,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You pat {pet_name}, and it rolls over in your arms, slipping into a relaxed nap, softly snoring next to the trash.",
   "happiness": 16
 }
@@ -5379,7 +5502,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Trying to act cool, {pet_name} attempts a fancy climb but slips, landing awkwardly in your arms, then dozes off in flustered defeat.",
   "happiness": 15
 }
@@ -5396,7 +5520,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "A sudden crash spooks {pet_name}, sending it fleeing into your lap, where it collapses into a shaky sleep.",
   "happiness": 15
 }
@@ -5413,7 +5538,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You nudge {pet_name} to move, but it halfheartedly flops onto your lap, dozing off amid stale food wrappers.",
   "happiness": 16
 }
@@ -5432,7 +5558,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You pat the shell softly until {pet_name} settles, dozing off inside, antennae drooping into a quiet snail sleep.",
   "happiness": 15
 }
@@ -5449,7 +5576,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "{pet_name} tries to scoot away quickly, flips sideways on a slippery rock, then tires out and falls asleep in your gentle cradle.",
   "happiness": 16
 }
@@ -5466,7 +5594,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Excitedly wiggling its tentacles, {pet_name} eventually misjudges the edge, slipping onto a soft cushion in your hand and snoozing contentedly.",
   "happiness": 19
 }
@@ -5483,7 +5612,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Startled by your hand, {pet_name} retracts too fast but eventually relaxes, falling asleep in your damp, comforting hold.",
   "happiness": 15
 }
@@ -5500,7 +5630,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "It attempts to jerk away, slides off a leaf, and rolls onto your palm in frustration, then ends up dozing from snaily exhaustion.",
   "happiness": 15
 }
@@ -5517,7 +5648,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your snail panics, flailing its antennae, but calms when held gently, slipping into a slow, cautious slumber in your hands.",
   "happiness": 18
 }
@@ -5534,7 +5666,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "In its excitement, {pet_name} climbs the terrarium wall at an odd angle, then slides onto your palm, dozing in a happy swirl.",
   "happiness": 17
 }
@@ -5551,7 +5684,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Hoping for companionship, {pet_name} tries to climb onto your hand, then drifts into a lonely but peaceful sleep in your palm.",
   "happiness": 16
 }
@@ -5568,7 +5702,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your snail tries to chase your finger—well, snail-speed chase—and ends up flipping onto your warm hand, dozing off in a comedic tumble.",
   "happiness": 19
 }
@@ -5585,7 +5720,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You corner the snail for a pat, and it tries to retreat quickly, eventually flopping onto your palm in a grouchy snooze.",
   "happiness": 16
 }
@@ -5602,7 +5738,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "It tries to shrink away but collapses onto your hand with a dull thud, succumbing to a snug snail nap.",
   "happiness": 20
 }
@@ -5619,7 +5756,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "With nothing better to do, {pet_name} inches onto your palm and drifts to sleep, slime trailing gently off your fingers.",
   "happiness": 16
 }
@@ -5636,7 +5774,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You try a respectful pat, and {pet_name} squirms a bit before snoozing, shell rocking gently in your steady hold.",
   "happiness": 17
 }
@@ -5653,7 +5792,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "While examining your hand, {pet_name} creeps too far off the terrarium edge and plops onto your palm, dozing off in surprise.",
   "happiness": 15
 }
@@ -5670,7 +5810,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You pat a bit too vigorously, and {pet_name} lurches onto your hand, dozing off comfortably in your warm grasp.",
   "happiness": 19
 }
@@ -5687,7 +5828,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Flustered, {pet_name} tries to scoot away quickly, slips on its own slime, and ends up napping in your hand from pure embarrassment.",
   "happiness": 16
 }
@@ -5704,7 +5846,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Startled by a sudden movement, it jerks backward, tipping onto your palm and dozing in a timid, tense slumber.",
   "happiness": 17
 }
@@ -5721,7 +5864,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You nudge it for motivation, but {pet_name} flops sideways, shell clacking on your hand as it slides inertly into a snail nap.",
   "happiness": 16
 }
@@ -5740,7 +5884,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep {pet_name} cupped in your hand, letting it feel your warmth until it dozes off, half-buried but calmer.",
   "happiness": 15
 }
@@ -5757,7 +5902,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Flailing in frustration, {pet_name} finally exhausts itself, ending up in a restless, sleepy coil in your gentle hold.",
   "happiness": 16
 }
@@ -5774,7 +5920,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Overexcited by your presence, the worm surfaces too quickly and ends up snoozing in the crook of your hand, half out of the soil.",
   "happiness": 17
 }
@@ -5791,7 +5938,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You keep {pet_name} supported, and it eventually drifts into a sad little nap in your warm hands, segments relaxing slightly.",
   "happiness": 15
 }
@@ -5808,7 +5956,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "It lashes out at first, but in your steady hold, it tires and slides into a slumber, segments twitching in final protest.",
   "happiness": 16
 }
@@ -5825,7 +5974,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Spooked by your hand, the worm flails up and out of the container but flops into your soft hold, dozing from fright.",
   "happiness": 17
 }
@@ -5842,7 +5992,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "In its excitement, {pet_name} flips out of your hand, landing on soft bedding where it promptly dozes off, squirming into a dream.",
   "happiness": 19
 }
@@ -5859,7 +6010,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Craving closeness, the worm flops onto your hand and drifts into a quiet nap, half-curled against your warmth.",
   "happiness": 15
 }
@@ -5876,7 +6028,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "It tries to follow your finger in a playful chase but eventually collapses in your hand, squirming into a cozy doze.",
   "happiness": 19
 }
@@ -5893,7 +6046,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your persistent attempt leads to the worm thrashing until it tuckers out, coiling up in a sleepy ball in your palm.",
   "happiness": 16
 }
@@ -5910,7 +6064,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Your hold jolts {pet_name} unexpectedly, but it flops, promptly falling asleep in your palms, exhausted and motionless.",
   "happiness": 15
 }
@@ -5927,7 +6082,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Hoping to entertain it, you scoop it gently, but it yawns in a wormy way and dozes off in your hands.",
   "happiness": 17
 }
@@ -5944,7 +6100,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You attempt a balanced approach, and {pet_name} decides your palm is a fine spot to nap, dozing off with a little earthy sigh.",
   "happiness": 15
 }
@@ -5961,7 +6118,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "While investigating your fingertip, {pet_name} topples off the container’s rim, landing in your hands. Exhausted by curiosity, it sleeps.",
   "happiness": 19
 }
@@ -5978,7 +6136,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You pat it a bit too enthusiastically, causing the worm to slip free of the soil onto your hand, dozing in a relaxed coil.",
   "happiness": 18
 }
@@ -5995,7 +6154,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "Flustered by your attention, {pet_name} tries to slink away but knots itself awkwardly around a pebble, eventually dozing off in embarrassment.",
   "happiness": 15
 }
@@ -6012,7 +6172,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "A sudden noise alarms {pet_name} mid-cuddle, making it thrash out of the soil, only to snooze in your hands from sheer anxiety.",
   "happiness": 16
 }
@@ -6029,7 +6190,8 @@
   "happiness": 0
 },
 {
-  "type": "sleep",
+ "type": "sleep",
+  "energy":15,
   "message": "You hold {pet_name} patiently; it flops sideways onto your palm, drifting into a sluggish worm nap.",
   "happiness": 15
 }

@@ -159,11 +159,15 @@ class AttentionView(discord.ui.View):
             if random.randint(0,1)==1:
                 message_type_action = [message for message in message_actions if message["type"]=="negative"]
             else:
-                message_type_action = [message for message in message_actions if message["type"]=="hurt"]
+                if message["type"] == "hurt":
+                    message_type_action = [message for message in message_actions if message["type"]=="hurt"]
+                elif message["type"] == "sleep":
+                    message_type_action = [message for message in message_actions if message["type"]=="sleep"]
         else:
             message_type_action = [message for message in message_actions if message["type"]=="positive"]
         message = random.choice(message_type_action)
         pet["health"] +=  message.get("health",0)
+        pet["energy"] +=  message.get("energy",0)
         pet["happiness"] +=  message.get("happiness",0)
         update_pet(self.user_data["user_id"], pet)
         
