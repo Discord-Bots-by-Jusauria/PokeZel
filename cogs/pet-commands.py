@@ -403,24 +403,24 @@ class Pet(commands.Cog):
                 if sickness["name"]=="Dying":
                     continue
                 if sickness["triggers"].get("operator") == "below":
-                    if pet["hunger"] <= sickness["triggers"].get("eat"):
+                    if pet["hunger"] <= sickness["triggers"].get("eat",0):
                         food_sicknesses.append(sickness)
                         continue
-                    elif pet["thirst"] <= sickness["triggers"].get("drink"):
+                    elif pet["thirst"] <= sickness["triggers"].get("drink",0):
                         food_sicknesses.append(sickness)
                         continue
-                    elif pet["happiness"] <= sickness["triggers"].get("happy"):
+                    elif pet["happiness"] <= sickness["triggers"].get("happy",0):
                         food_sicknesses.append(sickness)
                         continue
                                                  
                 else:
-                    if pet["hunger"] >= sickness["triggers"].get("eat"):
+                    if pet["hunger"] >= sickness["triggers"].get("eat",101):
                         food_sicknesses.append(sickness)
                         continue
-                    elif pet["thirst"] >= sickness["triggers"].get("drink"):
+                    elif pet["thirst"] >= sickness["triggers"].get("drink",101):
                         food_sicknesses.append(sickness)
                         continue
-                    elif pet["happiness"] >= sickness["triggers"].get("happy"):
+                    elif pet["happiness"] >= sickness["triggers"].get("happy",101):
                         food_sicknesses.append(sickness)
                         continue
         ## which have the chance to be used
