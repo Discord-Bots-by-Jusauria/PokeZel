@@ -300,9 +300,9 @@ class Pet(commands.Cog):
             if  pet["mood"]["name"] in personality["sick_tendency"]:
                 return {"status":1,"message":description}
             for sick_mood in personality["sick_tendency"]:
-                if random.randint(0,100)<personality["sick_tendency"][sick_mood]:
-                    pet["mood"]= moodsList[sick_mood]
-                    moodscription += get_messages_mood("got_sick",pet["nickname"], sick_mood,pet["sick"]["name"])
+                if random.randint(0,100)<sick_mood["chance"]:
+                    pet["mood"]= moodsList[sick_mood["name"]]
+                    moodscription += get_messages_mood("got_sick",pet["nickname"], sick_mood["name"],pet["sick"]["name"])
                     return {"status":1,"message":(description+moodscription)}
                 
         # check if mood changes for low <30
