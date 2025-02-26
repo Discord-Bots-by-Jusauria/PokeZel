@@ -2092,7 +2092,7 @@
 },
 {
   "type": "negative",
-  "message": "You offer a pat, but {pet_name} just whimpers softly, rummaging aimlessly through trash as though missing a fellow raccoon.",
+  "message": "You offer a pat, but {pet_name} just whimpers softly, rummaging aimlessly through trash as though missing a fellow racoon.",
   "happiness": -1
 },
 {
@@ -2110,7 +2110,7 @@
 },
 {
   "type": "negative",
-  "message": "The raccoon is so busy batting cans around that it hardly notices your pat, rummaging happily on its own.",
+  "message": "The racoon is so busy batting cans around that it hardly notices your pat, rummaging happily on its own.",
   "happiness": 1
 },
 {
@@ -2146,7 +2146,7 @@
 },
 {
   "type": "negative",
-  "message": "Your raccoon is too drained to respond, lying sprawled among stale food wrappers, ignoring your pat.",
+  "message": "Your racoon is too drained to respond, lying sprawled among stale food wrappers, ignoring your pat.",
   "happiness": 0
 },
 {
@@ -2254,7 +2254,7 @@
 },
 {
   "type": "negative",
-  "message": "The raccoon jitters at every noise, flinching away each time you try to pat it.",
+  "message": "The racoon jitters at every noise, flinching away each time you try to pat it.",
   "happiness": -2
 },
 {
@@ -2283,7 +2283,7 @@
 }
 ]
 },
-"Raccoon": {
+"Racoon": {
 "Depressed": [
 {
   "type": "positive",
@@ -2418,7 +2418,7 @@
 },
 {
   "type": "negative",
-  "message": "You offer a pat, but {pet_name} just whimpers softly, rummaging aimlessly through trash as though missing a fellow raccoon.",
+  "message": "You offer a pat, but {pet_name} just whimpers softly, rummaging aimlessly through trash as though missing a fellow racoon.",
   "happiness": -1
 },
 {
@@ -2436,7 +2436,7 @@
 },
 {
   "type": "negative",
-  "message": "The raccoon is so busy batting cans around that it hardly notices your pat, rummaging happily on its own.",
+  "message": "The racoon is so busy batting cans around that it hardly notices your pat, rummaging happily on its own.",
   "happiness": 1
 },
 {
@@ -2472,7 +2472,7 @@
 },
 {
   "type": "negative",
-  "message": "Your raccoon is too drained to respond, lying sprawled among stale food wrappers, ignoring your pat.",
+  "message": "Your racoon is too drained to respond, lying sprawled among stale food wrappers, ignoring your pat.",
   "happiness": 0
 },
 {
@@ -2580,7 +2580,7 @@
 },
 {
   "type": "negative",
-  "message": "The raccoon jitters at every noise, flinching away each time you try to pat it.",
+  "message": "The racoon jitters at every noise, flinching away each time you try to pat it.",
   "happiness": -2
 },
 {
@@ -5111,7 +5111,7 @@
 }
 ]
 },
-"Raccoon": {
+"Racoon": {
 "Depressed": [
 {
   "type": "positive",
@@ -5188,7 +5188,7 @@
 },
 {
   "type": "negative",
-  "message": "Your raccoon bares its teeth, refusing your attempted cuddle, too busy clawing at an unopened trash bin.",
+  "message": "Your racoon bares its teeth, refusing your attempted cuddle, too busy clawing at an unopened trash bin.",
   "happiness": 0
 },
 {
@@ -5239,7 +5239,7 @@
 },
 {
   "type": "negative",
-  "message": "You offer a cuddle, but it just whimpers softly, rummaging aimlessly through trash, missing a raccoon friend.",
+  "message": "You offer a cuddle, but it just whimpers softly, rummaging aimlessly through trash, missing a racoon friend.",
   "happiness": 0
 },
 {
@@ -5256,7 +5256,7 @@
 },
 {
   "type": "negative",
-  "message": "The raccoon is so busy batting cans around that it hardly notices your attempt to cuddle.",
+  "message": "The racoon is so busy batting cans around that it hardly notices your attempt to cuddle.",
   "happiness": 0
 },
 {
@@ -5278,7 +5278,7 @@
 },
 {
   "type": "sleep",
-  "message": "You pat too insistently, and the raccoon spins around in annoyance but ends up too tired to fight, dozing off in your hold.",
+  "message": "You pat too insistently, and the racoon spins around in annoyance but ends up too tired to fight, dozing off in your hold.",
   "happiness": 16
 }
 ],
@@ -5290,7 +5290,7 @@
 },
 {
   "type": "negative",
-  "message": "Your raccoon is too drained to respond, lying sprawled among stale food wrappers, ignoring your hold.",
+  "message": "Your racoon is too drained to respond, lying sprawled among stale food wrappers, ignoring your hold.",
   "happiness": 0
 },
 {
@@ -5392,7 +5392,7 @@
 },
 {
   "type": "negative",
-  "message": "The raccoon jitters at every noise, flinching away each time you try to hold it.",
+  "message": "The racoon jitters at every noise, flinching away each time you try to hold it.",
   "happiness": 0
 },
 {
@@ -5409,7 +5409,7 @@
 },
 {
   "type": "negative",
-  "message": "Your raccoon hardly stirs despite your cuddle, lacking the energy even to rummage properly.",
+  "message": "Your racoon hardly stirs despite your cuddle, lacking the energy even to rummage properly.",
   "happiness": 0
 },
 {
