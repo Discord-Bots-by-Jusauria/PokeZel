@@ -403,15 +403,30 @@ class Pet(commands.Cog):
                 if sickness["name"]=="Dying":
                     continue
                 if sickness["triggers"].get("operator") == "below":
-                    if pet["hunger"] <= sickness["triggers"].get("eat",0) or pet["thirst"] <= sickness["triggers"].get("drink",0) or pet["happiness"] <= sickness["triggers"].get("happy",0):
-                        food_sicknesses.append(sickness)                             
-                else:
-                    if pet["hunger"] >= sickness["triggers"].get("eat",100) or pet["thirst"] >= sickness["triggers"].get("drink",100) or pet["happiness"] >= sickness["triggers"].get("happy",100):
+                    if pet["hunger"] <= sickness["triggers"].get("eat"):
                         food_sicknesses.append(sickness)
+                        continue
+                    elif pet["thirst"] <= sickness["triggers"].get("drink"):
+                        food_sicknesses.append(sickness)
+                        continue
+                    elif pet["happiness"] <= sickness["triggers"].get("happy"):
+                        food_sicknesses.append(sickness)
+                        continue
+                                                 
+                else:
+                    if pet["hunger"] >= sickness["triggers"].get("eat"):
+                        food_sicknesses.append(sickness)
+                        continue
+                    elif pet["thirst"] >= sickness["triggers"].get("drink"):
+                        food_sicknesses.append(sickness)
+                        continue
+                    elif pet["happiness"] >= sickness["triggers"].get("happy"):
+                        food_sicknesses.append(sickness)
+                        continue
         ## which have the chance to be used
         sickness_possibility = []
         if food_sicknesses:
-            for sick in food_sicknesses:
+            for sick in food_sicknesses:                
                 if random.randint(0,100)<= sick["triggers"]["chance"]:   
                     sickness_possibility.append(sick)                 
         ## select a random one who won

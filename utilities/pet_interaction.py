@@ -173,12 +173,12 @@ class AttentionView(discord.ui.View):
     @discord.ui.button(label="Pat", emoji="🤚", style=discord.ButtonStyle.primary)
     async def pat_button(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.handle_action(interaction, "pat")
-'''
 
-    @discord.ui.button(label="Cuddles", emoji="🤗", style=discord.ButtonStyle.primary)
+
+    @discord.ui.button(label="Cuddles", emoji="🫂", style=discord.ButtonStyle.primary)
     async def cuddles_button(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.handle_action(interaction, "cuddles")
-
+'''
     @discord.ui.button(label="Talk", emoji="🗣️", style=discord.ButtonStyle.primary)
     async def talk_button(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.handle_action(interaction, "talk")
