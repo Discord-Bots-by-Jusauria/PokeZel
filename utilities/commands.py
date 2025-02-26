@@ -17,3 +17,13 @@ async def isAOwner(user_id,ctx):
         await ctx.response.send_message(embed=make_embed("You are not a Pet Owner"), ephemeral=True)
         return False
     return user_data
+
+async def isPetWorkable(pet,ctx):
+    if pet["died"]:
+        await ctx.response.send_message(embed=make_embed("It's a corpse... you can't do anythign now."), ephemeral=True)
+        return False
+    if pet["is_sleeping"]:
+        await ctx.response.send_message(embed=make_embed("Your pet is asleep. Until you wake up you can't do anything with it."), ephemeral=True)
+        return False
+    return True
+

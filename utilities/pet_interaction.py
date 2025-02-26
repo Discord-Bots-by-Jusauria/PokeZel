@@ -153,14 +153,27 @@ class AttentionView(discord.ui.View):
         pet = self.user_data["pet"][0]
         
         message_actions = get_attention_messages(action_name,pet["species"], pet["nickname"],pet["mood"]["name"])
+        message_type_action = []
         # Apply action effect (Modify pet's mood or stats if needed)
-        pet["mood"]["value"] = min(100, pet["mood"]["value"] + mood_boost)
-
-        await interaction.response.send_message(embed=make_embed(response_text, f"{pet['nickname']} looks happy!"), ephemeral=True)
+        if random.randint(0,100)>90:
+            if random.randint(0,1)==1:
+                message_type_action = [message for message in message_actions if message["type"]=="negative"]
+            else:
+                message_type_action = [message for message in message_actions if message["type"]=="hurt"]
+        else:
+            message_type_action = [message for message in message_actions if message["type"]=="positive"]
+        message = random.choice(message_type_action)
+        pet["health"] +=  message.get("health",0)
+        pet["happiness"] +=  message.get("happiness",0)
+        update_pet(self.user_data["user_id"], pet)
+        
+        message = f"{message["message"]}\n-# Happiness: {message.get("happiness",0)}; Health: {message.get("health",0)}"
+        await interaction.response.send_message(embed=make_embed(f"You try to give {pet['nickname']} pats ",  message))
 
     @discord.ui.button(label="Pat", emoji="🤚", style=discord.ButtonStyle.primary)
     async def pat_button(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.handle_action(interaction, "pat")
+'''
 
     @discord.ui.button(label="Cuddles", emoji="🤗", style=discord.ButtonStyle.primary)
     async def cuddles_button(self, button: discord.ui.Button, interaction: discord.Interaction):
@@ -176,4 +189,4 @@ class AttentionView(discord.ui.View):
 
     @discord.ui.button(label="Rubs", emoji="💆", style=discord.ButtonStyle.success)
     async def rubs_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_action(interaction, "rubs")
+        await self.handle_action(interaction, "rubs")'''

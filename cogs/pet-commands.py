@@ -7,7 +7,7 @@ from discord.ext import commands, tasks
 # Falls du fetch_profile_data nutzt, importiere es hier.
 from bot_util import load_items, make_embed, get_messages, get_messages_mood
 from utilities.profile import show_pet_profile
-from utilities.commands import isAOwner
+from utilities.commands import isAOwner, isPetWorkable
 from mongodb.owner import get_all_owner, get_owner
 from mongodb.pet import nicknamePet, update_pet
 from utilities.pet_interaction import AttentionView, drinkView, feedView, itemView
@@ -47,6 +47,10 @@ class Pet(commands.Cog):
             return
         #action refusal
         pet = user_data["pet"][0]
+        result =await isPetWorkable(pet,ctx)
+        if not result:
+            return
+       
         logs = pet["logs"]
         if logs.get(actionCategory):
             if (datetime.fromtimestamp(logs[actionCategory]["timestamp"]) + timedelta(minutes=10))>= datetime.now():
@@ -67,6 +71,9 @@ class Pet(commands.Cog):
             return
         #action refusal
         pet = user_data["pet"][0]
+        result =await isPetWorkable(pet,ctx)
+        if not result:
+            return
         logs = pet["logs"]
         if logs.get(actionCategory):
             if (datetime.fromtimestamp(logs[actionCategory]["timestamp"]) + timedelta(minutes=10))>= datetime.now():
@@ -83,7 +90,10 @@ class Pet(commands.Cog):
         user_data = await isAOwner(ctx.author.id,ctx)
         if not user_data:
             return
-                
+        pet = user_data["pet"][0]
+        result =await isPetWorkable(pet,ctx)
+        if not result:
+            return
         await itemView(ctx, user_data)
     @discord.slash_command(name=subgroup+"sleep",description="Make it sleep! :D")
     async def sleep(self, ctx: discord.ApplicationContext):
@@ -93,6 +103,13 @@ class Pet(commands.Cog):
             return
         #action refusal
         pet = user_data["pet"][0]
+        
+        #waking up
+        if pet["is_sleeping"]:
+            pet["is_sleeping"] = False
+            await ctx.response.send_message(embed=make_embed(f"{pet["nickname"]} gets waken up", f"{pet["nickname"]} looks at you while you softly wake it up. It's now ready for the world."))
+            update_pet(user_data["user_id"], pet)
+            return
         logs = pet["logs"]
         if logs.get(actionCategory):
             if (datetime.fromtimestamp(logs[actionCategory]["timestamp"]) + timedelta(minutes=10))>= datetime.now():
@@ -117,6 +134,9 @@ class Pet(commands.Cog):
             return
         #action refusal
         pet = user_data["pet"][0]
+        result =await isPetWorkable(pet,ctx)
+        if not result:
+            return
         logs = pet["logs"]
         if logs.get(actionCategory):
             if (datetime.fromtimestamp(logs[actionCategory]["timestamp"]) + timedelta(minutes=10))>= datetime.now():
@@ -129,7 +149,7 @@ class Pet(commands.Cog):
                     return
                 
         view = AttentionView(user_data)
-        await ctx.response.send_message(embed=make_embed(f"How you want to give {pet["nickname"]} attention?"), view=view, ephemeral=True) 
+        await ctx.response.send_message(embed=make_embed(f"How you want to give {pet["nickname"]} attention?"), view=view) 
     ## --- Automatic stats ---
     @tasks.loop(minutes=20)
     async def update_20min(self):
@@ -380,11 +400,13 @@ class Pet(commands.Cog):
         ## collect sicknesses food and happy related
         for sickness in sicknesses:
             if any(key in sickness["triggers"] for key in ["happy", "eat", "drink"]):
-                if sickness["triggers"]["operator"] == "below":
-                    if pet["hunger"] <= sickness["triggers"].get("eat",100) or pet["thirst"] <= sickness["triggers"].get("drink",100) or pet["happiness"] <= sickness["triggers"].get("happy",100):
+                if sickness["name"]=="Dying":
+                    continue
+                if sickness["triggers"].get("operator") == "below":
+                    if pet["hunger"] <= sickness["triggers"].get("eat",0) or pet["thirst"] <= sickness["triggers"].get("drink",0) or pet["happiness"] <= sickness["triggers"].get("happy",0):
                         food_sicknesses.append(sickness)                             
                 else:
-                    if pet["hunger"] >= sickness["triggers"].get("eat",0) or pet["thirst"] >= sickness["triggers"].get("drink",0) or pet["happiness"] >= sickness["triggers"].get("happy",0):
+                    if pet["hunger"] >= sickness["triggers"].get("eat",100) or pet["thirst"] >= sickness["triggers"].get("drink",100) or pet["happiness"] >= sickness["triggers"].get("happy",100):
                         food_sicknesses.append(sickness)
         ## which have the chance to be used
         sickness_possibility = []
