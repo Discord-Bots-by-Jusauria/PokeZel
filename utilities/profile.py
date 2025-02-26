@@ -129,6 +129,7 @@ async def show_inventory(interaction: discord.Interaction, user_data):
 
 
 async def show_pet_profile(interaction: discord.Interaction, user_data):
+    await interaction.response.defer() 
     pet = user_data["pet"]
     if user_data["pet_slot_available"] == 1:
         pet = pet[0]
@@ -218,4 +219,4 @@ async def show_pet_profile(interaction: discord.Interaction, user_data):
         button2.callback = button_callback
         
         # Send the first page to the user
-        await interaction.response.send_message(embed=embed1, file=file1, view=view)
+        await interaction.followup.send(embed=embed1, file=file1, view=view)
