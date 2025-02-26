@@ -206,7 +206,7 @@
         },
         "triggers": {
             "eat": 8,
-            "operator": "above",
+            "operator": "below",
             "chance": 80
         },
         "range": [30, 180]
