@@ -133,7 +133,7 @@ class Player(commands.Cog):
         await ctx.response.send_message(embed=make_embed(f"Your Notification setting is set to {notification_type.capitalize()}.", message))
 
     @discord.slash_command(name=subgroup+"difficulty", description="Sets how often your pet gets updated and sends updates")
-    async def notify(self, ctx: discord.ApplicationContext, difficulty: str = discord.Option(
+    async def diffi(self, ctx: discord.ApplicationContext, difficulty: str = discord.Option(
         description="Choose your difficulty",
         choices=["20min", "1h", "3h"]
     )):
