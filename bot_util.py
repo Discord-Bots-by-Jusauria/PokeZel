@@ -16,7 +16,7 @@ def make_embed(title: str, description="") -> discord.Embed:
     return embed
 
 def load_items(filename):
-    with open("pojos/"+filename, "r", encoding="utf-8") as file:
+    with open("pojos/json/"+filename, "r", encoding="utf-8") as file:
         return json.load(file)
     
 def get_messages(section, petname, sick=""):
