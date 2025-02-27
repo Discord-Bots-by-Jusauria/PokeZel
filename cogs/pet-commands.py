@@ -236,6 +236,8 @@ class Pet(commands.Cog):
                 # sleep makes energy up. :3
                 if pet["is_sleeping"] and stat == "energy":
                     pet[stat] =  round(pet[stat] +(2 * typeEffect), 1)
+                    if any(item["name"] == "Comfort Blanket" for item in owner["inventory"]):
+                        pet["health"] =  round((pet[stat] +(2 * typeEffect))/2, 1)
                     if pet[stat] >= 100:
                         pet[stat] == 100
                         # send notification pet woke up.
