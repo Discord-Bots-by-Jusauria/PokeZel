@@ -13,7 +13,7 @@
         "price": 4,
         "filling": 5,
         "specialEffect": [
-            {"name": "healing", "chance": 70}
+            {"name": "health", "chance": 70}
         ],
         "stage": 1
     },
@@ -23,8 +23,7 @@
         "price": 5,
         "filling": 8,
         "specialEffect": [
-            {"name": "happiness", "chance": 60},
-            {"name": "exp", "chance": 50}
+            {"name": "happiness", "chance": 60}
         ],
         "stage": 2
     },
@@ -52,8 +51,7 @@
         "price": 6,
         "filling": 10,
         "specialEffect": [
-            {"name": "healing", "chance": 80},
-            {"name": "exp", "chance": 60}
+            {"name": "health", "chance": 80}
         ],
         "stage": 2
     },
@@ -63,8 +61,7 @@
         "price": 5,
         "filling": 9,
         "specialEffect": [
-            {"name": "intelligence", "chance": 50},
-            {"name": "exp", "chance": 40}
+            {"name": "intelligence", "chance": 50}
         ],
         "stage": 2
     },
@@ -84,8 +81,7 @@
         "price": 6,
         "filling": 11,
         "specialEffect": [
-            {"name": "happiness", "chance": 70},
-            {"name": "exp", "chance": 55}
+            {"name": "happiness", "chance": 70}
         ],
         "stage": 2
     },
@@ -103,8 +99,7 @@
         "price": 5,
         "filling": 7,
         "specialEffect": [
-            {"name": "intelligence", "chance": 60},
-            {"name": "exp", "chance": 50}
+            {"name": "intelligence", "chance": 60}
         ],
         "stage": 2
     },
@@ -114,8 +109,7 @@
         "price": 5,
         "filling": 6,
         "specialEffect": [
-            {"name": "healing", "chance": 50},
-            {"name": "exp", "chance": 45}
+            {"name": "health", "chance": 50}
         ],
         "stage": 1
     },
@@ -151,8 +145,7 @@
         "price": 6,
         "filling": 12,
         "specialEffect": [
-            {"name": "happiness", "chance": 70},
-            {"name": "exp", "chance": 65}
+            {"name": "happiness", "chance": 70}
         ],
         "stage": 2
     },
@@ -191,7 +184,7 @@
         "price": 15,
         "filling": 20,
         "specialEffect": [
-            {"name": "healing", "chance": 90},
+            {"name": "health", "chance": 90},
             {"name": "happiness", "chance": 80}
         ],
         "stage": 3
@@ -202,7 +195,6 @@
         "price": 12,
         "filling": 22,
         "specialEffect": [
-            {"name": "exp", "chance": 85},
             {"name": "health", "chance": 70}
         ],
         "stage": 3
@@ -213,8 +205,7 @@
         "price": 14,
         "filling": 15,
         "specialEffect": [
-            {"name": "intelligence", "chance": 80},
-            {"name": "exp", "chance": 75}
+            {"name": "intelligence", "chance": 80}
         ],
         "stage": 3
     },
@@ -224,8 +215,7 @@
         "price": 18,
         "filling": 25,
         "specialEffect": [
-            {"name": "happiness", "chance": 95},
-            {"name": "exp", "chance": 80}
+            {"name": "happiness", "chance": 95}
         ],
         "stage": 3
     },
@@ -243,7 +233,7 @@
             "price": 4,
             "filling": 4,
             "specialEffect": [
-                {"name": "healing", "chance": 60},
+                {"name": "health", "chance": 60},
                 {"name": "thirst", "chance": 100}
             ],
             "stage": 1
@@ -275,7 +265,7 @@
             "price": 4,
             "filling": 3,
             "specialEffect": [
-                {"name": "healing", "chance": 70}
+                {"name": "health", "chance": 70}
             ],
             "stage": 1
         },
@@ -286,7 +276,6 @@
             "filling": 5,
             "specialEffect": [
                 {"name": "health", "chance": 60},
-                {"name": "exp", "chance": 50},
                 {"name": "energy", "chance": 100}
             ],
             "stage": 2
@@ -298,7 +287,6 @@
             "filling": 7,
             "specialEffect": [
                 {"name": "hunger", "chance": 80},
-                {"name": "exp", "chance": 50},
                 {"name": "energy", "chance": 100}
             ],
             "stage": 2
@@ -309,8 +297,7 @@
             "price": 5,
             "filling": 4,
             "specialEffect": [
-                {"name": "happiness", "chance": 70},
-                {"name": "exp", "chance": 50}
+                {"name": "happiness", "chance": 70}
             ],
             "stage": 1
         },
@@ -330,8 +317,7 @@
             "price": 6,
             "filling": 6,
             "specialEffect": [
-                {"name": "intelligence", "chance": 70},
-                {"name": "exp", "chance": 60}
+                {"name": "intelligence", "chance": 70}
             ],
             "stage": 2
         },
@@ -353,7 +339,6 @@
             "filling": 4,
             "specialEffect": [
                 {"name": "health", "chance": 60},
-                {"name": "exp", "chance": 45},
                 {"name": "energy", "chance": 100}
             ],
             "stage": 1
@@ -422,7 +407,7 @@
             "price": 6,
             "filling": 12,
             "specialEffect": [
-                {"name": "healing", "chance": 60},
+                {"name": "health", "chance": 60},
                 {"name": "energy", "chance": 100}
             ],
             "stage": 3
@@ -434,7 +419,6 @@
             "filling": 15,
             "specialEffect": [
                 {"name": "health", "chance": 80},
-                {"name": "exp", "chance": 70},
                 {"name": "energy", "chance": 100}
             ],
             "stage": 3
@@ -445,7 +429,7 @@
         "typeOfItem": "healing",
         "price": 30,
         "filling": 10,
-        "specialEffect": [
+        "healing": [
             {"name": "Fiver", "chance": 90},
             {"name": "Flu", "chance": 90}
         ]
@@ -455,7 +439,7 @@
         "typeOfItem": "healing",
         "price": 25,
         "filling": 8,
-        "specialEffect": [
+        "healing": [
             {"name": "Cold", "chance": 90},
             {"name": "Cough", "chance": 90}
         ]
@@ -465,7 +449,7 @@
         "typeOfItem": "healing",
         "price": 22,
         "filling": 7,
-        "specialEffect": [
+        "healing": [
             {"name": "Stomach Ache", "chance": 90},
             {"name": "Nausea", "chance": 90}
         ]
@@ -475,7 +459,7 @@
         "typeOfItem": "healing",
         "price": 28,
         "filling": 9,
-        "specialEffect": [
+        "healing": [
             {"name": "Insomnia", "chance": 90}
         ]
     },
@@ -484,26 +468,32 @@
         "typeOfItem": "healing",
         "price": 18,
         "filling": 6,
-        "specialEffect": [
+        "healing": [
             {"name": "Headache", "chance": 90}
         ]
     },
     {
         "name": "Comfort Blanket",
         "typeOfItem": "healing",
-        "price": 22,
+        "price": 50,
         "filling": 7,
-        "specialEffect": [
+        "healing": [
             {"name": "Stress", "chance": 90},
             {"name": "Chills", "chance": 90}
         ]
+    },
+    {
+        "name": "Bandage",
+        "typeOfItem": "healing",
+        "price": 10,
+        "filling": 7
     },
     {
         "name": "Sturdy Talisman",
         "typeOfItem": "evolution",
         "price": 300,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Ground", "chance": 100}
         ]
     },
@@ -512,7 +502,7 @@
         "typeOfItem": "evolution",
         "price": 500,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Ground", "chance": 100}
         ]
     },
@@ -521,7 +511,7 @@
         "typeOfItem": "evolution",
         "price": 300,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Water", "chance": 100}
         ]
     },
@@ -530,7 +520,7 @@
         "typeOfItem": "evolution",
         "price": 500,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Water", "chance": 100}
         ]
     },
@@ -539,7 +529,7 @@
         "typeOfItem": "evolution",
         "price": 300,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Trash", "chance": 100}
         ]
     },
@@ -548,7 +538,7 @@
         "typeOfItem": "evolution",
         "price": 500,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Trash", "chance": 100}
         ]
     },
@@ -557,7 +547,7 @@
         "typeOfItem": "evolution",
         "price": 300,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Fire", "chance": 100}
         ]
     },
@@ -566,7 +556,7 @@
         "typeOfItem": "evolution",
         "price": 500,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Fire", "chance": 100}
         ]
     },
@@ -575,7 +565,7 @@
         "typeOfItem": "evolution",
         "price": 300,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Speed", "chance": 100}
         ]
     },
@@ -584,7 +574,7 @@
         "typeOfItem": "evolution",
         "price": 500,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Speed", "chance": 100}
         ]
     },
@@ -593,7 +583,7 @@
         "typeOfItem": "evolution",
         "price": 300,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Galaxy", "chance": 100}
         ]
     },
@@ -602,7 +592,7 @@
         "typeOfItem": "evolution",
         "price": 500,
         "filling": 0,
-        "specialEffect": [
+        "evolves": [
             {"name": "Galaxy", "chance": 100}
         ]
     }

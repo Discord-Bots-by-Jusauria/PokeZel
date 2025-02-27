@@ -2,7 +2,8 @@ import random
 from unicodedata import category
 import discord
 from discord.ext import commands
-from bot_util import get_attention_messages, make_embed
+from bot_util import get_attention_messages, load_items, make_embed
+from utilities.commands import isPetStatsFine
 from mongodb.owner import get_owner, update_inventory_usage, updateCommissionTarget
 from mongodb.pet import update_pet
 
@@ -56,11 +57,11 @@ class ConfirmButton(discord.ui.Button):
             stat = "health"
             category = "med"
         # Fill hunger
-        self.pet[stat] = min(100, self.pet[stat] + self.food["filling"])
+        self.pet[stat] = self.pet[stat] + self.food["filling"]
         description = f"*{self.pet['nickname']}* happily munches on the {self.food['name']}. It restores {self.food['filling']} {stat} points.\n"
         # Sickness Healing
         if self.pet["sick"] and category != "med":
-            if self.pet["sick"]["action"]:
+            if self.pet["sick"].get("action"):
                 if self.food["name"] == self.pet["sick"]["action"].get(category,{}).get("item"):
                     self.pet["sick"]["action"][category]["amount"]+=1
                     if self.pet["sick"]["action"][category]["amount"] == self.pet["sick"]["action"][category]["goal"]:
@@ -73,9 +74,11 @@ class ConfirmButton(discord.ui.Button):
                 self.pet["sick"]=None
         
         # Apply special effects
-        for effect in self.food.get("specialEffects", []):
+        print(self.food)
+        for effect in self.food.get("specialEffect", []):
+            print(effect)
             if random.randint(1, 100) <= effect["chance"]:
-                self.pet[effect["name"]] = min(100, self.pet.get(effect["name"], 0) + self.food["filling"])
+                self.pet[effect["name"]] = self.pet.get(effect["name"], 0) + self.food["filling"]
                 description += f"✨ {effect['name']} increased by {self.food['filling']}!\n"
 
         # Check for favorite or hated food
@@ -88,7 +91,7 @@ class ConfirmButton(discord.ui.Button):
         elif self.food["name"] == self.pet["favorites"]["food"]["name"]:
             self.pet["favorites"]["food"]["discovered"] = True
             happiness_gain = int(self.food["filling"] * 1.5)
-            self.pet["happiness"] = min(100, self.pet["happiness"] + happiness_gain)
+            self.pet["happiness"] = self.pet["happiness"] + happiness_gain
             description += f"*{self.pet['nickname']}* wags its tail! **They LOVE this food!**\n💖 Gained {happiness_gain} happiness points!\n"
 
             # Small chance to boost commission target
@@ -99,6 +102,7 @@ class ConfirmButton(discord.ui.Button):
 
         # Update pet data and inventory
         result1 = update_inventory_usage(self.user_id, self.food,1)
+        await isPetStatsFine(self.pet)
         result2 = update_pet(self.user_id, self.pet)
 
         if result1 == 0 or result2 == 0:
@@ -159,9 +163,9 @@ class AttentionView(discord.ui.View):
             if random.randint(0,1)==1:
                 message_type_action = [message for message in message_actions if message["type"]=="negative"]
             else:
-                if message["type"] == "hurt":
+                if message_actions[0]["type"] == "hurt":
                     message_type_action = [message for message in message_actions if message["type"]=="hurt"]
-                elif message["type"] == "sleep":
+                elif message_actions[0]["type"] == "sleep":
                     message_type_action = [message for message in message_actions if message["type"]=="sleep"]
         else:
             message_type_action = [message for message in message_actions if message["type"]=="positive"]
@@ -169,6 +173,8 @@ class AttentionView(discord.ui.View):
         pet["health"] +=  message.get("health",0)
         pet["energy"] +=  message.get("energy",0)
         pet["happiness"] +=  message.get("happiness",0)
+        
+        await isPetStatsFine(pet)    
         update_pet(self.user_data["user_id"], pet)
         
         message = f"{message["message"]}\n-# Happiness: {message.get("happiness",0)}; Health: {message.get("health",0)}"

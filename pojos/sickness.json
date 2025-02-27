@@ -73,7 +73,7 @@
             "eat": 80,
             "drink": 70,
             "operator": "above",
-            "chance": 15
+            "chance": 25
         },
         "range": [20, 180]
     },
@@ -123,6 +123,19 @@
         "range": [20, 240]
     },
     {
+        "name": "Overstimulated",
+        "effect": {"health": 1.1, "happiness": 1.5},
+        "med": null,
+        "action": { 
+        },
+        "triggers": {
+            "happy": 100,
+            "operator": "above",
+            "chance": 90
+        },
+        "range": [20, 20]
+    },
+    {
         "name": "Dying",
         "effect": {"health": 1.8},
         "med": null,
@@ -142,7 +155,7 @@
             "eat": 95,
             "drink": 95,
             "operator": "above",
-            "chance": 20
+            "chance": 40
         },
         "range": [20, 180]
     },

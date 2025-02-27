@@ -2,7 +2,7 @@ import discord
 from discord.ui import View, Select, Button
 from discord import Embed, Interaction
 from bot_util import load_items, make_embed
-from mongodb.owner import buyItem, sellItem
+from mongodb.owner import buyItem, get_owner, sellItem
 
 
 
@@ -148,6 +148,9 @@ class ConfirmPurchaseView(View):
 
     @discord.ui.button(label="Yes", style=discord.ButtonStyle.success)
     async def confirm(self, button: Button, interaction: Interaction):
+        owner = get_owner(self.user_id)
+        if owner:
+            self.money = owner["points"]
         if self.money < self.item["price"]*self.amount:
             await interaction.response.send_message(embed=Embed(title="Not enough points!"))
         else:
