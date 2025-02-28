@@ -23,8 +23,8 @@ class BaseView(discord.ui.View):
 
 class BackButton(discord.ui.Button):
     """A reusable Back button that takes a callback function."""
-    def __init__(self, user_id, label="Back", callback=None):
-        super().__init__(label=label, style=discord.ButtonStyle.secondary)
+    def __init__(self, user_id, label="Back",emoji = None, callback=None):
+        super().__init__(label=label, style=discord.ButtonStyle.secondary,emoji=emoji)
         self.user_id = user_id
         self.callback = callback
 

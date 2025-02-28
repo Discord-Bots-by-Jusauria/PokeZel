@@ -1,3 +1,4 @@
+from functools import partial
 import random
 from unicodedata import category
 import discord
@@ -6,7 +7,7 @@ from bot_util import get_attention_messages, load_items, make_embed
 from utilities.commands import isPetStatsFine
 from mongodb.owner import get_owner, update_inventory_usage, updateCommissionTarget
 from mongodb.pet import update_pet
-
+from pojos.BaseView import BackButton, BaseView
 class ItemView(discord.ui.View):
     def __init__(self, user_id,pet, food_items):
         super().__init__(timeout=60)
@@ -144,17 +145,30 @@ async def itemView( ctx: discord.ApplicationContext, user_data):
 
 
 ## ------ Attention ------
-import discord
-
-
-class AttentionView(discord.ui.View):
-    def __init__(self, user_data, timeout=120):
-        super().__init__(timeout=timeout)
+class AttentionView(BaseView):
+    def __init__(self, user_data):
+        super().__init__(user_id= user_data["user_id"])
         self.user_data = user_data  # Store user data for processing
+        self.latest_message = None
+        
+        self.add_item(BackButton(user_data["user_id"],label="Pat",emoji="🤚", callback=partial(self.attention_action,action_name="pat")))
+        self.add_item(BackButton(user_data["user_id"],label="Cuddles",emoji="🫂", callback=partial(self.attention_action,action_name="cuddles")))
 
-    async def handle_action(self, interaction: discord.Interaction, action_name: str):
+        
+    async def attention_action(self, interaction: discord.Interaction, action_name: str):
         """Handles different attention actions"""
-        pet = self.user_data["pet"][0]
+        pet = get_owner(self.user_data["user_id"])["pet"][0]
+        #pet = self.user_data["pet"][0]
+        
+        ## Overloaded silly time
+        if pet.get("sick"):
+            if pet["sick"]["name"] == "Overstimulated":
+                await interaction.response.edit_message(
+                    embed=make_embed(f"{pet['nickname']} feels too happy!"),
+                    view=None
+                )
+                await interaction.message.add_reaction("💥")
+                return
         
         message_actions = get_attention_messages(action_name,pet["species"], pet["nickname"],pet["mood"]["name"])
         message_type_action = []
@@ -163,10 +177,7 @@ class AttentionView(discord.ui.View):
             if random.randint(0,1)==1:
                 message_type_action = [message for message in message_actions if message["type"]=="negative"]
             else:
-                if message_actions[0]["type"] == "hurt":
-                    message_type_action = [message for message in message_actions if message["type"]=="hurt"]
-                elif message_actions[0]["type"] == "sleep":
-                    message_type_action = [message for message in message_actions if message["type"]=="sleep"]
+                message_type_action = [message for message in message_actions if message["type"]!="negative" or message["type"]=="positive"]
         else:
             message_type_action = [message for message in message_actions if message["type"]=="positive"]
         message = random.choice(message_type_action)
@@ -176,18 +187,23 @@ class AttentionView(discord.ui.View):
         
         await isPetStatsFine(pet)    
         update_pet(self.user_data["user_id"], pet)
+        #add mon
+        addon = ""
+        if message.get("health"):
+            addon = f"Health: {message.get("health",0)}"
+        elif message.get("energy"):
+            addon = f"Energy: {message.get("energy",0)}"
         
-        message = f"{message["message"]}\n-# Happiness: {message.get("happiness",0)}; Health: {message.get("health",0)}"
-        await interaction.response.send_message(embed=make_embed(f"You try to give {pet['nickname']} pats ",  message))
+        message = f"{message["message"]}\n-# Happiness: {message.get("happiness",0)}; {addon}"
+        if self.latest_message:
+           await self.latest_message.delete()
+           self.latest_message = None
 
-    @discord.ui.button(label="Pat", emoji="🤚", style=discord.ButtonStyle.primary)
-    async def pat_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_action(interaction, "pat")
-
-
-    @discord.ui.button(label="Cuddles", emoji="🫂", style=discord.ButtonStyle.primary)
-    async def cuddles_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await self.handle_action(interaction, "cuddles")
+        if not self.latest_message:
+            await interaction.response.defer()
+            response  = await interaction.followup.send(embed=make_embed(f"You try to give {pet['nickname']} {action_name} ",  message))
+            self.latest_message = await interaction.channel.fetch_message(response.id)  
+        
 '''
     @discord.ui.button(label="Talk", emoji="🗣️", style=discord.ButtonStyle.primary)
     async def talk_button(self, button: discord.ui.Button, interaction: discord.Interaction):
@@ -200,3 +216,5 @@ class AttentionView(discord.ui.View):
     @discord.ui.button(label="Rubs", emoji="💆", style=discord.ButtonStyle.success)
     async def rubs_button(self, button: discord.ui.Button, interaction: discord.Interaction):
         await self.handle_action(interaction, "rubs")'''
+        
+    
