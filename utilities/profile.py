@@ -4,36 +4,54 @@ from datetime import datetime
 import discord
 from bot_util import make_embed
 from utilities.time import checkBdayToday, secondsUntil12h
+from pojos.BaseView import BackButton, BaseView
 
-class ProfileView(discord.ui.View):
+class ProfileView(BaseView):
     def __init__(self, user_data):
-        super().__init__(timeout=120)  # Persistent view
+        super().__init__(user_id=user_data["user_id"])
         self.user_data = user_data
-    async def on_timeout(self):
-        """Disable all buttons when the timeout is reached."""
-        for child in self.children:
-            if isinstance(child, discord.ui.Button):
-                child.disabled = True  # Disable buttons
-    @discord.ui.button(label="Inventory", style=discord.ButtonStyle.primary, custom_id="profile_view:inventory")
-    async def inventory_button(self, button: discord.Button, interaction: discord.Interaction):
+
+        # Add Inventory Button
+        self.add_item(BackButton(user_data["user_id"], label="Inventory", callback=self.show_inventory))
+
+    async def show_inventory(self, interaction: discord.Interaction):
+        """Opens the inventory view."""
         await show_inventory(interaction, self.user_data)
-
-
-class InventoryView(discord.ui.View):
+class InventoryView(BaseView):
     def __init__(self, user_data):
-        super().__init__(timeout=120)  # Persistent view
+        super().__init__(user_id=user_data["user_id"])
         self.user_data = user_data
-    async def on_timeout(self):
-        """Disable all buttons when the timeout is reached."""
-        for child in self.children:
-            if isinstance(child, discord.ui.Button):
-                child.disabled = True  # Disable buttons
-    @discord.ui.button(label="Back", style=discord.ButtonStyle.secondary, custom_id="inventory_view:back")
-    async def back_button(self, button: discord.Button, interaction: discord.Interaction):
-        await show_profile(interaction, self.user_data)
 
+        # Add Back Button
+        self.add_item(BackButton(user_data["user_id"], label="Back", callback=self.show_profile))
 
-async def show_profile(interaction: discord.Interaction, user_data):
+    async def show_profile(self, interaction: discord.Interaction):
+        """Returns to profile view."""
+        await show_profile(interaction, self.user_data, True)
+class PetView(BaseView):
+    def __init__(self, user_data):
+        super().__init__(user_id=user_data["user_id"])
+        self.user_data = user_data
+
+        # Add Inventory Button
+        self.add_item(BackButton(user_data["user_id"], label="Personality", callback=self.personality))
+
+    async def personality(self, interaction: discord.Interaction):
+        """Opens the inventory view."""
+        await show_pet_personality(interaction, self.user_data)
+class PersonalityView(BaseView):
+    def __init__(self, user_data):
+        super().__init__(user_id=user_data["user_id"])
+        self.user_data = user_data
+
+        # Add Inventory Button
+        self.add_item(BackButton(user_data["user_id"], label="Back", callback=self.profile))
+
+    async def profile(self, interaction: discord.Interaction):
+        """Opens the inventory view."""
+        await show_pet_profile(interaction, self.user_data,True)
+        
+async def show_profile(interaction: discord.Interaction, user_data, back=False):
     embed = make_embed(user_data["user_name"])
     embed.set_thumbnail(url=interaction.user.display_avatar.url)
     ## Profile user Details
@@ -68,12 +86,10 @@ async def show_profile(interaction: discord.Interaction, user_data):
     view = ProfileView(user_data=user_data)
 
     # Send or Edit Message
-    if interaction.response.is_done():
-        await interaction.followup.send(embed=embed, view=view)
-    else:
-        await interaction.response.send_message(embed=embed, view=view)
-
-
+    if back:
+        await interaction.response.edit_message(embed=embed, view=view)
+        return
+    await interaction.response.send_message(embed=embed,view=view)
 async def show_inventory(interaction: discord.Interaction, user_data):
 
     # Assume 'inventory' is a dictionary with categories as keys and list of items as values
@@ -128,12 +144,9 @@ async def show_inventory(interaction: discord.Interaction, user_data):
     await interaction.response.edit_message(embed=embed, view=view)
 
 
-async def show_pet_profile(interaction: discord.Interaction, user_data):
-    await interaction.response.defer() 
-    pet = user_data["pet"]
+async def show_pet_profile(interaction: discord.Interaction, user_data, back=False):
+    pet = user_data["pet"][0]
     if user_data["pet_slot_available"] == 1:
-        pet = pet[0]
-
         # Page 1: General Information
         addon = ""
         if pet.get("is_sleeping", False):
@@ -166,57 +179,48 @@ async def show_pet_profile(interaction: discord.Interaction, user_data):
         value += f"Intelligence: {pet['intelligence']}%\n"
         
         embed1.add_field(name="Status", value=value, inline=False)
+        file2 = discord.File("assets/alpha.png", filename="alpha.png")
+        view = PetView(user_data)
+        # Send or Edit Message
+        if back:
+            await interaction.response.edit_message(embed=embed1, view=view,file=file2)
+            return
+        await interaction.response.send_message(embed=embed1,view=view, file=file2)
+async def show_pet_personality(interaction: discord.Interaction, user_data):
+    pet = user_data["pet"][0]
+    # Page 1: General Information
+    addon = ""
+    if pet.get("is_sleeping", False):
+        addon = " 💤"
+    if pet.get("died",False):
+            addon = " ☠️"
 
-        # Page 2: Additional Information
-        embed2 = make_embed(f"{pet["species"]}{addon}")
-        embed2.set_thumbnail(url="attachment://alpha.png")
-        # Personality and Evolution Options
-        embed2.add_field(name="Personality", value=pet["personality"]["name"], inline=False)
-        # Favorite and Hated Things
-        value = f"Drink: {pet['favorites']['drink']['name'] if pet['favorites']['drink']['discovered'] else '???'}\n" \
-                f"Food: {pet['favorites']['food']['name'] if pet['favorites']['food']['discovered'] else '???'}"
-        value2 = f"Drink: {pet['hates']['drink']['name'] if pet['hates']['drink']['discovered'] else '???'}\n" \
-                 f"Food: {pet['hates']['food']['name'] if pet['hates']['food']['discovered'] else '???'}"
-        embed2.add_field(name="Likes", value=value)
-        embed2.add_field(name="Hates", value=value2)
+    # Page 2: Additional Information
+    embed2 = make_embed(f"{pet["species"]}{addon}")
+    embed2.set_thumbnail(url="attachment://alpha.png")
+    # Personality and Evolution Options
+    embed2.add_field(name="Personality", value=pet["personality"]["name"], inline=False)
+    # Favorite and Hated Things
+    value = f"Drink: {pet['favorites']['drink']['name'] if pet['favorites']['drink']['discovered'] else '???'}\n" \
+            f"Food: {pet['favorites']['food']['name'] if pet['favorites']['food']['discovered'] else '???'}"
+    value2 = f"Drink: {pet['hates']['drink']['name'] if pet['hates']['drink']['discovered'] else '???'}\n" \
+                f"Food: {pet['hates']['food']['name'] if pet['hates']['food']['discovered'] else '???'}"
+    embed2.add_field(name="Likes", value=value)
+    embed2.add_field(name="Hates", value=value2)
 
-        # Holding Slots
-        value = f"Slot 1: {pet['item_hold']['slot1']}\n" \
-                f"Slot 2: {pet['item_hold']['slot2']}\n" \
-                f"Slot 3: {pet['item_hold']['slot3']}\n"
-        embed2.add_field(name="Item Slots", value=value, inline=False)
-        
-        value=f"Current Stage: {pet['stage']}\n"
-        value+=f"{pet['evolution'][0]} - {pet['evolution'][1]} - {pet['evolution'][2]}\n"
-        embed2.add_field(name="Evolution Info", value=value, inline=False)
+    # Holding Slots
+    value = f"Slot 1: {pet['item_hold']['slot1']}\n" \
+            f"Slot 2: {pet['item_hold']['slot2']}\n" \
+            f"Slot 3: {pet['item_hold']['slot3']}\n"
+    embed2.add_field(name="Item Slots", value=value, inline=False)
+    
+    value=f"Current Stage: {pet['stage']}\n"
+    value+=f"{pet['evolution'][0]} - {pet['evolution'][1]} - {pet['evolution'][2]}\n"
+    embed2.add_field(name="Evolution Info", value=value, inline=False)
 
-        # Navigation Buttons
-        button1 = discord.ui.Button(label="Next", style=discord.ButtonStyle.primary, custom_id="page_2")
-        button2 = discord.ui.Button(label="Back", style=discord.ButtonStyle.secondary, custom_id="page_1")
-        
-        # Create View for Buttons
-        view = discord.ui.View()
-        view.add_item(button1)
+    # Create View for Buttons
+    file2 = discord.File("assets/alpha.png", filename="alpha.png")
+    view = PersonalityView(user_data)
 
-        # Handle button clicks
-        async def button_callback(interaction):
-            if interaction.custom_id == "page_2":
-                # Re-open the file
-                file2 = discord.File("assets/alpha.png", filename="alpha.png")
-                view.clear_items()
-                view.add_item(button2)
-                await interaction.response.edit_message(embed=embed2, file=file2, view=view)  # Only edit the message
-            
-            elif interaction.custom_id == "page_1":
-                # Re-open the file
-                file1 = discord.File("assets/alpha.png", filename="alpha.png")
-                view.clear_items()
-                view.add_item(button1)
-                await interaction.response.edit_message(embed=embed1, file=file1, view=view)  # Only edit the message
-
-
-        button1.callback = button_callback
-        button2.callback = button_callback
-        
-        # Send the first page to the user
-        await interaction.followup.send(embed=embed1, file=file1, view=view)
+    # Send the first page to the user
+    await interaction.response.edit_message(embed=embed2, view=view, file=file2)

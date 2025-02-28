@@ -26,7 +26,7 @@ for cog in cogs_list:
 
 
 def load_pets():
-    with open("./pojos/pets_basic.json", "r", encoding="utf-8") as file:
+    with open("./pojos/json/pets_basic.json", "r", encoding="utf-8") as file:
         return json.load(file)
 
 pets_data = load_pets()

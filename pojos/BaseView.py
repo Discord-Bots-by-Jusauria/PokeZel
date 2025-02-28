@@ -1,51 +1,63 @@
 import discord
-from discord.ext import commands
-
-from bot_util import make_embed
 
 class BaseView(discord.ui.View):
-    """Base class to handle interaction validation and timeout behavior."""
+    """Base View that ensures only the original user can interact and handles timeout."""
     def __init__(self, user_id, timeout=60):
         super().__init__(timeout=timeout)
         self.user_id = user_id  # Restrict to user
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
-        """Only allow the user who initiated the view to interact."""
+        """Restricts interaction to the original user."""
         if interaction.user.id != self.user_id:
-            await interaction.response.send_message(embed=make_embed( "Slow down a bit. That's not your window."), ephemeral=True)
+            await interaction.response.send_message("This isn't your interaction!", ephemeral=True)
             return False
         return True
 
     async def on_timeout(self):
-        """Disable buttons on timeout."""
+        """Disable buttons when timeout is reached."""
         for child in self.children:
             if isinstance(child, (discord.ui.Button, discord.ui.Select)):
                 child.disabled = True
         await self.message.edit(view=self)
 
 
-class ItemSelectionView(BaseView):
-    """Generalized view for selecting and using items."""
-    def __init__(self, user_id, pet, items, category, callback):
-        super().__init__(user_id)
-        self.pet = pet
-        self.items = items
-        self.category = category
-        self.callback = callback  # Function to execute on selection
+class BackButton(discord.ui.Button):
+    """A reusable Back button that takes a callback function."""
+    def __init__(self, user_id, label="Back", callback=None):
+        super().__init__(label=label, style=discord.ButtonStyle.secondary)
+        self.user_id = user_id
+        self.callback = callback
 
-        options = [
-            discord.SelectOption(label=f"{item['name']} ({item['filling']})", value=item["name"])
-            for item in items
-        ]
-        
-        self.select_menu = discord.ui.Select(
-            placeholder=f"Select {category}",
-            options=options
-        )
-        self.select_menu.callback = self.select_item
-        self.add_item(self.select_menu)
+    async def callback(self, interaction: discord.Interaction):
+        """Ensures only the correct user can interact and executes callback."""
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("That's not yours. >:/", ephemeral=True)
+            return
+        if self.callback:
+            await self.callback(interaction)
 
-    async def select_item(self, interaction: discord.Interaction):
-        """Handles item selection and calls the provided callback."""
-        selected_item = next(item for item in self.items if item["name"] == self.select_menu.values[0])
-        await self.callback(interaction, self.pet, selected_item)
+
+class NextPageButton(discord.ui.Button):
+    """Moves to the next page."""
+    def __init__(self, user_id, next_callback):
+        super().__init__(label="Next", style=discord.ButtonStyle.primary)
+        self.user_id = user_id
+        self.next_callback = next_callback
+
+    async def callback(self, interaction: discord.Interaction):
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("Not yours!", ephemeral=True)
+            return
+        await self.next_callback(interaction)
+class PreviousPageButton(discord.ui.Button):
+    """Moves to the previous page."""
+    def __init__(self, user_id, previous_callback):
+        super().__init__(label="Back", style=discord.ButtonStyle.secondary)
+        self.user_id = user_id
+        self.previous_callback = previous_callback
+
+    async def callback(self, interaction: discord.Interaction):
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("Still not yours", ephemeral=True)
+            return
+        await self.previous_callback(interaction)
