@@ -36,6 +36,8 @@ async def isPetStatsFine(pet):
         sickness = [s for s in sicknesses if s["name"] == "Overstimulated"][0]
         if random.randint(0,100)<sickness["triggers"]["chance"]:
             pet["sick"] = sickness
+            if not pet["logs"]["sick"]:
+                pet["logs"]["sick"] = {"timestamp":0,"range":[0,0]}
             pet["logs"]["sick"]["timestamp"] = int(datetime.now().timestamp())
             pet["logs"]["sick"]["range"] = sickness["range"][0]
         reasons["status"] =0
@@ -44,6 +46,8 @@ async def isPetStatsFine(pet):
         sickness = [s for s in sicknesses if s["name"] == "Nausea"][0]
         if random.randint(0,100)<sickness["triggers"]["chance"]:
             pet["sick"] = sickness
+            if not pet["logs"]["sick"]:
+                pet["logs"]["sick"] = {"timestamp":0,"range":[0,0]}
             pet["logs"]["sick"]["timestamp"] = int(datetime.now().timestamp())
             pet["logs"]["sick"]["range"] = sickness["range"][0]
         reasons["status"] =0

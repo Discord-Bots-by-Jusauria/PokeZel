@@ -18,7 +18,8 @@ class BaseView(discord.ui.View):
         for child in self.children:
             if isinstance(child, (discord.ui.Button, discord.ui.Select)):
                 child.disabled = True
-        await self.message.edit(view=self)
+        if self.message:
+            await self.message.edit(view=self)
 
 
 class BackButton(discord.ui.Button):
@@ -34,7 +35,10 @@ class BackButton(discord.ui.Button):
             await interaction.response.send_message("That's not yours. >:/", ephemeral=True)
             return
         if self.callback:
-            await self.callback(interaction)
+            try:
+                await self.message.edit(view=self)
+            except discord.NotFound:
+                print("Message was deleted before timeout.")
 
 
 class NextPageButton(discord.ui.Button):
