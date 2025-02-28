@@ -115,27 +115,29 @@ class PreviousPageButton(discord.ui.Button):
 
 
 class DynamicDropdown(discord.ui.Select):
-    def __init__(self, user_id, items, amount, label_formatter=None, callback=None):
-        # If no custom label formatter is provided, use the default
-        if label_formatter is None:
-            label_formatter = self.default_label_formatter
-        
-        options = []
-        for item in items:
-            label = label_formatter(item, amount)  # Generate the label using the custom formatter
-            options.append(discord.SelectOption(label=label, value=item['name']))
-        
-        super().__init__(placeholder="Choose an item", options=options)
-        
+    def __init__(self, user_id, items, amount,placeholder="Choose an item", label_formatter=None, callback=None):
+        self.label_formatter = label_formatter if label_formatter else self.default_label_formatter
         self.user_id = user_id
         self.items = items
         self.amount = amount
         self.callback = callback
-
-    def default_label_formatter(self, item, amount):
+        # If no custom label formatter is provided, use the default
+        super().__init__(placeholder=placeholder, options=self.setUpSelection(items))
+        
+        
+    def setUpSelection(self,items):
+        options = []
+        for item in items:
+            label = self.label_formatter(item)  # Generate the label using the custom formatter
+            options.append(discord.SelectOption(label=label, value=item['name']))
+        return options
+    def default_label_formatter(self, item):
         """Default label format that shows item name and price multiplied by amount."""
-        return f"{item['name']} - {item['price'] * amount}p"
-
+        return f"{item['name']} - {item['price'] * self.amount}p"
+    
+    def changeOptions(self, items):
+        self.options = self.setUpSelection(items)
+    
     async def callback(self, interaction: discord.Interaction):
         """Handles the selection of an item from the dropdown."""
         selected_item_name = self.values[0]  # Get the selected value (name of the item)

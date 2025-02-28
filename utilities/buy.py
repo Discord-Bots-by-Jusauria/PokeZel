@@ -1,3 +1,4 @@
+from cProfile import label
 from functools import partial
 from urllib import response
 import discord
@@ -5,7 +6,7 @@ from discord.ui import View, Select, Button
 from discord import Embed, Interaction
 from bot_util import load_items, make_embed
 from mongodb.owner import buyItem, get_owner, sellItem
-from pojos.BaseView import BaseView, ConfirmView, NextPageButton, PreviousPageButton
+from pojos.BaseView import BaseView, ConfirmView, DynamicDropdown, NextPageButton, PreviousPageButton
 
 
 
@@ -41,29 +42,24 @@ class ShopView(BaseView):
         self.category_list = list(categories.keys())  # Ordered category list
         self.current_category_index = self.category_list.index(current_category)
         self.amount = amount
-        self.dropdown = Select(
+        
+        self.dropdown = DynamicDropdown(
             placeholder="Select an item to buy...",
-            options=self.get_item_options(),
-            custom_id="item_select"
+            user_id=user_id,
+            items=self.categories[current_category],
+            amount=self.amount,
+            callback=self.select_item,
+            label_formatter=self.get_item_options
         )
-        self.dropdown.callback = self.select_item
-        self.add_item(self.dropdown)
-
         self.previous_page_button = PreviousPageButton(self.user_id, self.previous_page)
         self.next_page_button = NextPageButton(self.user_id, self.next_page)
         
+        self.add_item(self.dropdown)
         self.add_item(self.previous_page_button)
         self.add_item(self.next_page_button)
         
-    def get_item_options(self):
-        """Create dropdown options for the current category."""
-        current_category = self.category_list[self.current_category_index]
-        items = self.categories[current_category]
-
-        return [
-            discord.SelectOption(label=f"{item["name"]} - {item['price']*self.amount}p", value=item["name"])
-            for item in items
-        ]
+    def get_item_options(self, item):
+        return f"{item["name"]} - {item['price'] * self.amount}p"
 
     async def select_item(self, interaction: Interaction):
         """Handle item selection, which acts as a buy button."""
@@ -110,13 +106,13 @@ class ShopView(BaseView):
     async def previous_page(self, interaction: Interaction):
         if self.current_category_index > 0:
             self.current_category_index -= 1
-            self.dropdown.options = self.get_item_options()
+            self.dropdown.changeOptions(self.categories[self.category_list[self.current_category_index]])
             self.update_buttons()
             await self.update_shop(interaction)
     async def next_page(self, interaction: Interaction):
         if self.current_category_index < len(self.category_list) - 1:
             self.current_category_index += 1
-            self.dropdown.options = self.get_item_options()
+            self.dropdown.changeOptions(self.categories[self.category_list[self.current_category_index]])
             self.update_buttons()
             await self.update_shop(interaction)
 
