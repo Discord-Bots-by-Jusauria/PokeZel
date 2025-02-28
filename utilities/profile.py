@@ -132,10 +132,13 @@ async def show_inventory(interaction: discord.Interaction, user_data):
                 item_lines.append(line)
             
             # Join all item lines into a single string separated by newlines
-            item_list = "\n\n".join(item_lines)
-            
-            # Add the category and its items as a field in the embed
-            embed.add_field(name=category.capitalize(), value=item_list, inline=True)
+            item_list = "\n\n"
+            for i in range(len(item_lines)):
+                item_list += f"{item_lines[i]}\n"
+                print(item_list)
+                if i%5 ==0:
+                    embed.add_field(name=category.capitalize(), value=item_list, inline=True)
+                    item_list = "\n\n"
 
     # Create and attach InventoryView
     view = InventoryView(user_data=user_data)

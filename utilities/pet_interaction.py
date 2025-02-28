@@ -75,9 +75,7 @@ class ConfirmButton(discord.ui.Button):
                 self.pet["sick"]=None
         
         # Apply special effects
-        print(self.food)
         for effect in self.food.get("specialEffect", []):
-            print(effect)
             if random.randint(1, 100) <= effect["chance"]:
                 self.pet[effect["name"]] = self.pet.get(effect["name"], 0) + self.food["filling"]
                 description += f"✨ {effect['name']} increased by {self.food['filling']}!\n"

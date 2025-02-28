@@ -1,8 +1,11 @@
+from functools import partial
+from urllib import response
 import discord
 from discord.ui import View, Select, Button
 from discord import Embed, Interaction
 from bot_util import load_items, make_embed
 from mongodb.owner import buyItem, get_owner, sellItem
+from pojos.BaseView import BaseView, ConfirmView, NextPageButton, PreviousPageButton
 
 
 
@@ -29,9 +32,9 @@ def create_shop_embed(category, items, money):
     
     return embed
 
-class ShopView(View):
+class ShopView(BaseView):
     def __init__(self, user_id, money, categories, current_category, amount):
-        super().__init__(timeout=120)
+        super().__init__(user_id)
         self.user_id = user_id
         self.money = money
         self.categories = categories
@@ -46,13 +49,12 @@ class ShopView(View):
         self.dropdown.callback = self.select_item
         self.add_item(self.dropdown)
 
-        self.update_buttons()
-    async def on_timeout(self):
+        self.previous_page_button = PreviousPageButton(self.user_id, self.previous_page)
+        self.next_page_button = NextPageButton(self.user_id, self.next_page)
         
-        """Disable all buttons when the timeout is reached."""
-        for child in self.children:
-            if isinstance(child, discord.ui.Button) or isinstance(child, Select):
-                child.disabled = True  # Disable buttons
+        self.add_item(self.previous_page_button)
+        self.add_item(self.next_page_button)
+        
     def get_item_options(self):
         """Create dropdown options for the current category."""
         current_category = self.category_list[self.current_category_index]
@@ -73,37 +75,24 @@ class ShopView(View):
 
         if selected_item:
             # Show confirmation view immediately
+            confirmView = ConfirmView(self.user_id, confimActionCall= partial(self.confirm_purchase,item=selected_item))
+            
             await interaction.response.send_message(
                 embed=Embed(title=f"Buy {self.amount}x {selected_item['name']} for {selected_item['price']*self.amount}p?"),
-                view=ConfirmPurchaseView(self.user_id, selected_item, self.money, confirm_purchase,self.amount),
+                view= confirmView,
                 ephemeral=True
             )
-
-    async def interaction_check(self, interaction: Interaction) -> bool:
-        if interaction.user.id != self.user_id:
-            await interaction.response.send_message("This is not your shop!", ephemeral=True)
-            return False
-        return True
-
-    def update_buttons(self):
-        """Update navigation buttons' state."""
-        self.previous_page.disabled = self.current_category_index == 0
-        self.next_page.disabled = self.current_category_index == len(self.category_list) - 1
-
-    @discord.ui.button(label="◀", style=discord.ButtonStyle.primary)
-    async def previous_page(self, button: Button, interaction: Interaction):
-        if self.current_category_index > 0:
-            self.current_category_index -= 1
-            self.dropdown.options = self.get_item_options()
-            await self.update_shop(interaction)
-
-    @discord.ui.button(label="▶", style=discord.ButtonStyle.primary)
-    async def next_page(self, button: Button, interaction: Interaction):
-        if self.current_category_index < len(self.category_list) - 1:
-            self.current_category_index += 1
-            self.dropdown.options = self.get_item_options()
-            await self.update_shop(interaction)
-
+    
+    async def confirm_purchase(self,interaction: Interaction, item):
+        owner = get_owner(self.user_id)
+        if owner:
+            self.money = owner["points"]
+        if self.money < item["price"]*self.amount:
+            await interaction.response.send_message(embed = make_embed("Not enough points!"))
+            return
+        """Handle successful purchase logic."""
+        result = buyItem(interaction.user.id,item,self.amount)
+        await interaction.response.send_message(embed=Embed(title=f"You bought {self.amount}x **{item['name']}**!"))
     async def update_shop(self, interaction: Interaction):
         """Update the shop page when navigating categories."""
         current_category = self.category_list[self.current_category_index]
@@ -113,6 +102,25 @@ class ShopView(View):
         embed = create_shop_embed(current_category, items, self.money)
 
         await interaction.response.edit_message(embed=embed, view=self)
+        
+    def update_buttons(self):
+        """Update navigation buttons' state."""
+        self.previous_page_button.disabled = self.current_category_index == 0
+        self.next_page_button.disabled = self.current_category_index == len(self.category_list) - 1
+    async def previous_page(self, interaction: Interaction):
+        if self.current_category_index > 0:
+            self.current_category_index -= 1
+            self.dropdown.options = self.get_item_options()
+            self.update_buttons()
+            await self.update_shop(interaction)
+    async def next_page(self, interaction: Interaction):
+        if self.current_category_index < len(self.category_list) - 1:
+            self.current_category_index += 1
+            self.dropdown.options = self.get_item_options()
+            self.update_buttons()
+            await self.update_shop(interaction)
+
+    
 
 
 async def buyView(interaction: discord.ApplicationContext, user_data, amount):
@@ -131,40 +139,6 @@ async def buyView(interaction: discord.ApplicationContext, user_data, amount):
     embed = create_shop_embed(first_category, categories[first_category], money)
     await interaction.response.send_message(embed=embed, view=shop_view)
 
-class ConfirmPurchaseView(View):
-    def __init__(self, user_id, item, money, callback, amount):
-        super().__init__()
-        self.user_id = user_id
-        self.item = item
-        self.money = money
-        self.callback = callback
-        self.amount = amount
-
-    async def interaction_check(self, interaction: Interaction) -> bool:
-        if interaction.user.id != self.user_id:
-            await interaction.response.send_message("This is not your purchase!", ephemeral=True)
-            return False
-        return True
-
-    @discord.ui.button(label="Yes", style=discord.ButtonStyle.success)
-    async def confirm(self, button: Button, interaction: Interaction):
-        owner = get_owner(self.user_id)
-        if owner:
-            self.money = owner["points"]
-        if self.money < self.item["price"]*self.amount:
-            await interaction.response.send_message(embed=Embed(title="Not enough points!"))
-        else:
-            await self.callback(interaction, self.item, self.amount)
-
-    @discord.ui.button(label="No", style=discord.ButtonStyle.danger)
-    async def cancel(self, button: Button, interaction: Interaction):
-        await interaction.response.edit_message(embed=Embed(title="Purchase canceled."), view=None)
-
-
-async def confirm_purchase(interaction: Interaction, item, amount):
-    """Handle successful purchase logic."""
-    result = buyItem(interaction.user.id,item,amount)
-    await interaction.response.send_message(embed=Embed(title=f"You bought {amount}x **{item['name']}**!"))
 
 ####################
 
