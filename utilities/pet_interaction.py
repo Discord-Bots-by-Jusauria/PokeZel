@@ -7,89 +7,99 @@ from bot_util import get_attention_messages, load_items, make_embed
 from utilities.commands import isPetStatsFine
 from mongodb.owner import get_owner, update_inventory_usage, updateCommissionTarget
 from mongodb.pet import update_pet
-from pojos.BaseView import BackButton, BaseView
-class ItemView(discord.ui.View):
-    def __init__(self, user_id,pet, food_items):
-        super().__init__(timeout=60)
+from pojos.BaseView import BackButton, BaseView, ConfirmView, DynamicDropdown
+class ItemView(BaseView):
+    def __init__(self, user_id,pet, food_items,amount=1):
+        super().__init__(user_id=user_id)
         self.user_id = user_id
         self.food_items = food_items
         self.pet = pet
-        async def on_timeout(self):
-            """Disable all buttons when the timeout is reached."""
-            for child in self.children:
-                if isinstance(child, discord.ui.Button):
-                    child.disabled = True  # Disable buttons
+        self.amount=amount
+        self.select_food = None
         # Create a dropdown with food items
         options = []
         for item in food_items:
             description = ""
             for effect in item.get("specialEffect",[]):
                 description += f"{effect["name"]} (Chance: {effect["chance"]}%), \n"
-            
-            options.append(discord.SelectOption(label=f"{item["name"]} - filling: {item["filling"]}", description=description, value=item["name"]))
-        self.food_dropdown = discord.ui.Select(placeholder="Select the item to give", options=options)
-        self.food_dropdown.callback = self.select_food
+            item["description"] = description.strip()
+            options.append(item)
+        self.food_dropdown = DynamicDropdown(
+            user_id,
+            options,
+            amount,
+            "Give your pet the following item",
+            self.lable_format,
+            self.select_item_callback
+        )
         self.add_item(self.food_dropdown)
-
-    async def select_food(self, interaction: discord.Interaction):
-        selected_food = next(item for item in self.food_items if item["name"] == self.food_dropdown.values[0])
+        
+    def lable_format(self,item):
+        if item["amount"] < self.amount:
+            return f"{item["amount"]}x {item["name"]} - filling: {item["filling"]}"
+        return f"{self.amount}x {item["name"]} - filling: {item["filling"]}"
+    
+    async def select_item_callback(self, interaction: discord.Interaction):
+        self.select_food = next(item for item in self.food_items if item["name"] == self.food_dropdown.values[0])
         self.clear_items()  # Remove dropdown
-        self.add_item(ConfirmButton(self.user_id, selected_food, self.pet))  # Add confirm button
+        
+        view = ConfirmView(self.user_id,self.confirm_callback)
 
-        await interaction.response.edit_message(
-            content=f"Are you sure you want to give **{selected_food['name']}**?",
-            view=self
+        await interaction.response.send_message(
+            content=f"Are you sure you want to give **{self.select_food['name']}**?",
+            view=view
         )
 
-class ConfirmButton(discord.ui.Button):
-    def __init__(self, user_id, selected_food, pet):
-        super().__init__(label="Confirm", style=discord.ButtonStyle.green)
-        self.user_id = user_id
-        self.food = selected_food
-        self.pet = pet
-
-    async def callback(self, interaction: discord.Interaction):
+    async def confirm_callback(self, interaction: discord.Interaction):
+        amount = self.amount
         stat = "hunger"
         category = "eat"
-        if self.food["typeOfItem"] == "drink":
+        if self.select_food["typeOfItem"] == "drink":
             stat = "thirst"
             category = "drink"
-        elif self.food["typeOfItem"] == "healing":
+        elif self.select_food["typeOfItem"] == "healing":
             stat = "health"
             category = "med"
+            
+        if self.select_food["amount"] < amount:
+            amount = self.select_food["amount"]
         # Fill hunger
-        self.pet[stat] = self.pet[stat] + self.food["filling"]
-        description = f"*{self.pet['nickname']}* happily munches on the {self.food['name']}. It restores {self.food['filling']} {stat} points.\n"
+        self.pet[stat] = self.pet[stat] + (self.select_food["filling"]*amount)
+        
+        if amount >3:
+            description = f"*{self.pet['nickname']}* looks at you shocked, nevertheless starts happily munchin on the {self.select_food['name']}. It restores {self.select_food['filling']*amount} {stat} points.\n"
+        description = f"*{self.pet['nickname']}* happily munches on the {self.select_food['name']}. It restores {self.select_food['filling']*amount} {stat} points.\n"
         # Sickness Healing
         if self.pet["sick"] and category != "med":
             if self.pet["sick"].get("action"):
-                if self.food["name"] == self.pet["sick"]["action"].get(category,{}).get("item"):
-                    self.pet["sick"]["action"][category]["amount"]+=1
-                    if self.pet["sick"]["action"][category]["amount"] == self.pet["sick"]["action"][category]["goal"]:
-                        description += f"💊 Thanks to {self.food["name"]} your pet is healed from {self.pet["sick"]["name"]}\n"
+                if self.select_food["name"] == self.pet["sick"]["action"].get(category,{}).get("item"):
+                    self.pet["sick"]["action"][category]["amount"]+=1*amount
+                    if self.pet["sick"]["action"][category]["amount"] >= self.pet["sick"]["action"][category]["goal"]:
+                        description += f"💊 Thanks to {self.select_food["name"]} your pet is healed from {self.pet["sick"]["name"]}\n"
                         self.pet["sick"]=None
         ## Med healing sickness
         if self.pet["sick"] and category == "med":
-            if self.food["name"] == self.pet["sick"][category]:
-                description += f"💊 Thanks to {self.food["name"]} your pet is healed from {self.pet["sick"]["name"]}\n"
+            if self.select_food["name"] == self.pet["sick"][category]:
+                description += f"💊 Thanks to {self.select_food["name"]} your pet is healed from {self.pet["sick"]["name"]}\n"
                 self.pet["sick"]=None
         
         # Apply special effects
-        for effect in self.food.get("specialEffect", []):
-            if random.randint(1, 100) <= effect["chance"]:
-                self.pet[effect["name"]] = self.pet.get(effect["name"], 0) + self.food["filling"]
-                description += f"✨ {effect['name']} increased by {self.food['filling']}!\n"
+        for i in range(amount):
+            for effect in self.select_food.get("specialEffect", []):
+                if random.randint(1, 100) <= effect["chance"]:
+                    self.pet[effect["name"]] = self.pet.get(effect["name"], 0) + self.select_food["filling"]
+                    description += f"✨ {effect['name']} increased by {self.select_food['filling']}!\n"
 
         # Check for favorite or hated food
-        if self.food["name"] == self.pet["hates"]["food"]["name"]:
+        if self.select_food["name"] == self.pet["hates"]["food"]["name"]:
             self.pet["hates"]["food"]["discovered"] = True
-            happiness_loss = int(self.food["filling"] * 1.5)
+            happiness_loss = int(self.select_food["filling"]*amount * 1.5)
             self.pet["happiness"] = max(0, round(self.pet["happiness"] - happiness_loss,1))
             description += f"*{self.pet['nickname']}* glares at you! **They absolutely hate this food!**\n💔 Lost {happiness_loss} happiness points.\n"
 
-        elif self.food["name"] == self.pet["favorites"]["food"]["name"]:
+        elif self.select_food["name"] == self.pet["favorites"]["food"]["name"]:
             self.pet["favorites"]["food"]["discovered"] = True
-            happiness_gain = int(self.food["filling"] * 1.5)
+            happiness_gain = int(self.select_food["filling"]*amount * 1.5)
             self.pet["happiness"] = self.pet["happiness"] + happiness_gain
             description += f"*{self.pet['nickname']}* wags its tail! **They LOVE this food!**\n💖 Gained {happiness_gain} happiness points!\n"
 
@@ -100,7 +110,7 @@ class ConfirmButton(discord.ui.Button):
                 updateCommissionTarget(self.user_id, commission_points)
 
         # Update pet data and inventory
-        result1 = update_inventory_usage(self.user_id, self.food,1)
+        result1 = update_inventory_usage(self.user_id, self.select_food,amount)
         await isPetStatsFine(self.pet)
         result2 = update_pet(self.user_id, self.pet)
 
@@ -112,34 +122,23 @@ class ConfirmButton(discord.ui.Button):
         
         # Send confirmation message
         await interaction.response.edit_message(
-            embed=make_embed(f"You give *{self.pet['nickname']}* a **{self.food['name']}**!", description=description),
+            embed=make_embed(f"You give *{self.pet['nickname']}*  **{self.select_food['name']}**!", description=description),
             view=None  # Remove buttons
         )
 
-async def feedView( ctx: discord.ApplicationContext, user_data):
-    food_items = [item for item in user_data["inventory"] if item.get("typeOfItem") == "food"]
-    
-    if not food_items:
-        await ctx.response.send_message(embed=make_embed("You don't have any food to feed your pet!"), ephemeral=True)
+async def itemGiveView(ctx: discord.ApplicationContext,category, user_data,amount):
+    itemOptions=[]
+    if category == "eat":
+        itemOptions = [item for item in user_data["inventory"] if item.get("typeOfItem") == "food"]
+    elif category == "drink":
+        itemOptions = [item for item in user_data["inventory"] if item.get("typeOfItem") == "drink"]
+    else:
+        itemOptions = [item for item in user_data["inventory"] if item.get("typeOfItem") != "drink" and item.get("typeOfItem") != "food"] 
+    if not itemOptions:
+        await ctx.response.send_message(embed=make_embed(f"You don't have anything to {category}!"), ephemeral=True)
         return
 
-    await ctx.response.send_message(content="Select the food to feed:", view=ItemView(user_data["user_id"],user_data["pet"][0], food_items))
-async def drinkView( ctx: discord.ApplicationContext, user_data):
-    food_items = [item for item in user_data["inventory"] if item.get("typeOfItem") == "drink"]
-    
-    if not food_items:
-        await ctx.response.send_message(embed=make_embed("You don't have any drinks to give your pet!"), ephemeral=True)
-        return
-
-    await ctx.response.send_message(content="Select the drink to give:", view=ItemView(user_data["user_id"],user_data["pet"][0], food_items))
-async def itemView( ctx: discord.ApplicationContext, user_data):
-    food_items = [item for item in user_data["inventory"] if item.get("typeOfItem") != "drink" or item.get("typeOfItem") != "food"] 
-    
-    if not food_items:
-        await ctx.response.send_message(embed=make_embed("You don't have any drinks to give your pet!"), ephemeral=True)
-        return
-
-    await ctx.response.send_message(content="Select the drink to give:", view=ItemView(user_data["user_id"],user_data["pet"][0], food_items))
+    await ctx.response.send_message(content=f"Select the {category} to give:", view=ItemView(user_data["user_id"],user_data["pet"][0], itemOptions,amount))
 
 
 ## ------ Attention ------

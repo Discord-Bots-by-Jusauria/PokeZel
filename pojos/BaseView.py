@@ -115,7 +115,7 @@ class PreviousPageButton(discord.ui.Button):
 
 
 class DynamicDropdown(discord.ui.Select):
-    def __init__(self, user_id, items, amount,placeholder="Choose an item", label_formatter=None, callback=None):
+    def __init__(self, user_id, items, amount=1, placeholder="Choose an item", label_formatter=None, callback=None):
         self.label_formatter = label_formatter if label_formatter else self.default_label_formatter
         self.user_id = user_id
         self.items = items
@@ -129,7 +129,7 @@ class DynamicDropdown(discord.ui.Select):
         options = []
         for item in items:
             label = self.label_formatter(item)  # Generate the label using the custom formatter
-            options.append(discord.SelectOption(label=label, value=item['name']))
+            options.append(discord.SelectOption(label=label, value=item['name'],description=item.get('description',"")))
         return options
     def default_label_formatter(self, item):
         """Default label format that shows item name and price multiplied by amount."""
