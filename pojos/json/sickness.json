@@ -192,7 +192,8 @@
         "med": "Comfort Blanket",
         "triggers": {
             "happy": 30,
-            "chance": 30
+            "chance": 30,
+            "operator": "below"
         },
         "range": [20, 180]
     },

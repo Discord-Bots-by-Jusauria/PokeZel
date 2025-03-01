@@ -227,10 +227,12 @@ class Pet(commands.Cog):
                         # wake pet up
                         pet["is_sleeping"] = not pet["is_sleeping"]
                         description += get_messages("woken", pet["nickname"])
-                    return
-
-                pet[stat] = round(pet[stat] - (1 * typeEffect * pet["mood"]["generalBuff"][stat] * sicknessDebuff))
-                pet[stat] = max(0, min(100, pet[stat]))
+                elif stat != "health":
+                    pet[stat] = round(pet[stat] - (1 * typeEffect * pet["mood"]["generalBuff"][stat] * sicknessDebuff),1)
+                elif stat == "health":
+                    if pet["sick"]:
+                        pet[stat] = round(pet[stat] - (1 * typeEffect * pet["mood"]["generalBuff"][stat] * sicknessDebuff),1)
+                pet[stat] = round(max(0, min(100, pet[stat])),1)
                 # Consider Personality tendency...
                 # energy <0 passing out - very unhappy mood when waking up and -30 happiness
                 if stat == "energy" and pet[stat] <=0:
@@ -238,7 +240,7 @@ class Pet(commands.Cog):
                     pet["happiness"] -= 20
                     title = f"{pet["nickname"]} has passed out..."
                     description += get_messages("fainting",pet["nickname"])
-                    return
+                    continue
             # mood changes and algorythm
             result = self.update_pet_mood(owner,pet,list)
             # died
@@ -364,6 +366,10 @@ class Pet(commands.Cog):
                     pet["died"]= int( datetime.now().timestamp())
                     death = get_messages("death",pet["nickname"])
                     return {"status":0, "message":death}
+                if pet.get("hunger",0)>=0 or pet.get("thirst",0)>=0:
+                    pet["sick"]=None
+                    pet["logs"]["dying"] = None
+                    return {"status":1, "message":f"{description}Your Pet stands up with shaky legs. It looks at you with the eyes of betrayal. Slowly it walks away laying down. As it barely survived Dying."}
         # <0 adds dying - food/drinky
         if pet.get("hunger",1)<=0 or pet.get("thirst",1)<=0:
             dying_sickness = next((s for s in sicknesses if s["name"] == "Dying"), None)

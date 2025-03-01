@@ -156,7 +156,7 @@ async def show_pet_profile(interaction: discord.Interaction, user_data, back=Fal
             addon = " 💤"
         if pet.get("died",False):
              addon = " ☠️"
-        embed1 = make_embed(f"{pet["species"]}{addon}")
+        embed1 = make_embed(f"{pet["species"]} {addon}")
         file1 = discord.File("assets/alpha.png", filename="alpha.png")
         embed1.set_thumbnail(url="attachment://alpha.png")
         
@@ -173,13 +173,13 @@ async def show_pet_profile(interaction: discord.Interaction, user_data, back=Fal
         if pet.get("sick"):
             embed1.add_field(name="Sickness", value=pet["sick"]["name"])
         # Statues of Living
-        value=">>> "
-        value += f"Health: {pet['health']}%\n"
-        value += f"Hunger: {pet['hunger']}%\n"
-        value += f"Thirst: {pet['thirst']}%\n"
-        value += f"Energy: {pet['energy']}%\n"
-        value += f"Happiness: {pet['happiness']}%\n"
-        value += f"Intelligence: {pet['intelligence']}%\n"
+        value=""
+        value += f":sparkling_heart: Health: {pet['health']}%\n"
+        value += f":fork_and_knife: Hunger: {pet['hunger']}%\n"
+        value += f":ocean: Thirst: {pet['thirst']}%\n"
+        value += f":zap: Energy: {pet['energy']}%\n"
+        value += f":sparkles: Happiness: {pet['happiness']}%\n"
+        value += f":books: Intelligence: {pet['intelligence']}%\n"
         
         embed1.add_field(name="Status", value=value, inline=False)
         file2 = discord.File("assets/alpha.png", filename="alpha.png")

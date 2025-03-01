@@ -53,10 +53,10 @@ async def isPetStatsFine(pet):
         reasons["status"] =0
         reasons["reasons"].append("food")
     
-    pet["happiness"] = max(0,min(100,pet["happiness"]))
-    pet["thirst"] = max(0,min(100,pet["thirst"]))
-    pet["hunger"] = max(0,min(100,pet["hunger"]))
-    pet["health"] = max(0,min(100,pet["health"]))
-    pet["energy"] = max(0,min(100,pet["energy"]))
+    pet["happiness"] = round(max(0, min(100, pet["happiness"])), 1)
+    pet["thirst"] = round(max(0, min(100, pet["thirst"])), 1)
+    pet["hunger"] = round(max(0, min(100, pet["hunger"])), 1)
+    pet["health"] = round(max(0, min(100, pet["health"])), 1)
+    pet["energy"] = round(max(0, min(100, pet["energy"])), 1)
     
     return reasons
