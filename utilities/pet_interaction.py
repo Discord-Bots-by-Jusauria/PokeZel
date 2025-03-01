@@ -9,13 +9,15 @@ from mongodb.owner import get_owner, update_inventory_usage, updateCommissionTar
 from mongodb.pet import update_pet
 from pojos.BaseView import BackButton, BaseView, ConfirmView, DynamicDropdown
 class ItemView(BaseView):
-    def __init__(self, user_id,pet, food_items,amount=1):
+    def __init__(self, user_id,pet, food_items,category,amount=1):
         super().__init__(user_id=user_id)
         self.user_id = user_id
         self.food_items = food_items
         self.pet = pet
         self.amount=amount
         self.select_food = None
+        self.og_message = None
+        self.category = category
         # Create a dropdown with food items
         options = []
         for item in food_items:
@@ -51,6 +53,7 @@ class ItemView(BaseView):
         )
 
     async def confirm_callback(self, interaction: discord.Interaction):
+        
         amount = self.amount
         stat = "hunger"
         category = "eat"
@@ -115,11 +118,21 @@ class ItemView(BaseView):
         result2 = update_pet(self.user_id, self.pet)
 
         if result1 == 0 or result2 == 0:
-             await interaction.response.edit_message(
-            embed=make_embed(f"Somethign went wrong with feeding."),
-            view=None  # Remove buttons
-        )
-        
+            await interaction.response.edit_message(
+                embed=make_embed(f"Somethign went wrong with this action. Prepare for data lost :D"),
+                view=None  # Remove buttons
+            )
+            return
+        user_data = get_owner(interaction.user.id)
+        itemOptions = categoryItemOptionMaker(self.category,user_data["inventory"])
+
+        if len(itemOptions)==0:
+            await self.og_message.edit(embed=make_embed(f"You don't have anything to {self.category} left!",view=None))
+            return
+        self.food_dropdown.changeOptions(itemOptions)
+        self.clear_items()  # Removes old buttons/dropdowns
+        self.add_item(self.food_dropdown)  # Re-add the updated dropdown
+        await self.og_message.edit(embed=make_embed(f"Select the {self.category} to give:"),view=self)
         # Send confirmation message
         await interaction.response.edit_message(
             embed=make_embed(f"You give *{self.pet['nickname']}*  **{self.select_food['name']}**!", description=description),
@@ -127,20 +140,24 @@ class ItemView(BaseView):
         )
 
 async def itemGiveView(ctx: discord.ApplicationContext,category, user_data,amount):
-    itemOptions=[]
-    if category == "eat":
-        itemOptions = [item for item in user_data["inventory"] if item.get("typeOfItem") == "food"]
-    elif category == "drink":
-        itemOptions = [item for item in user_data["inventory"] if item.get("typeOfItem") == "drink"]
-    else:
-        itemOptions = [item for item in user_data["inventory"] if item.get("typeOfItem") != "drink" and item.get("typeOfItem") != "food"] 
+    itemOptions = categoryItemOptionMaker(category,user_data["inventory"])
     if not itemOptions:
         await ctx.response.send_message(embed=make_embed(f"You don't have anything to {category}!"), ephemeral=True)
         return
+    view = ItemView(user_data["user_id"],user_data["pet"][0], itemOptions,category,amount)
+    await ctx.response.defer()
+    message = await ctx.followup.send(content=f"Select the {category} to give:", view=view)
+    view.og_message = message
 
-    await ctx.response.send_message(content=f"Select the {category} to give:", view=ItemView(user_data["user_id"],user_data["pet"][0], itemOptions,amount))
-
-
+def categoryItemOptionMaker(category, items):
+    itemOptions=[]
+    if category == "eat":
+        itemOptions = [item for item in items if item.get("typeOfItem") == "food"]
+    elif category == "drink":
+        itemOptions = [item for item in items if item.get("typeOfItem") == "drink"]
+    else:
+        itemOptions = [item for item in items if item.get("typeOfItem") != "drink" and item.get("typeOfItem") != "food"] 
+    return itemOptions
 ## ------ Attention ------
 class AttentionView(BaseView):
     def __init__(self, user_data):

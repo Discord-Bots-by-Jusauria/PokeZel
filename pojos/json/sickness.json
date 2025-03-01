@@ -71,7 +71,6 @@
         "med": "Stomach Relief",
         "triggers": {
             "eat": 80,
-            "drink": 70,
             "operator": "above",
             "chance": 25
         },

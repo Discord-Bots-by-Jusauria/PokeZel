@@ -197,11 +197,12 @@ class Pet(commands.Cog):
             # go around moods
             list = ["happiness","health","hunger","thirst","energy"]
             #get type buff/debuff
+            print(owner["user_name"])
             for stat in list:
                 # 20% not changed
                 chance = random.randint(0, 10)
                 if chance in [4,9]:
-                    return
+                    continue
                 # change - 1*buff/debuff*moodEffect*sicknessEffect
                 # get typing buff
                 typeEffect = pet["typeEffects"].get("fast", {}).get(stat, 1)
@@ -241,6 +242,7 @@ class Pet(commands.Cog):
                     title = f"{pet["nickname"]} has passed out..."
                     description += get_messages("fainting",pet["nickname"])
                     continue
+                print(f"{stat} {pet[stat]}")
             # mood changes and algorythm
             result = self.update_pet_mood(owner,pet,list)
             # died
@@ -419,7 +421,8 @@ class Pet(commands.Cog):
         sickness_possibility = []
         if food_sicknesses:
             for sick in food_sicknesses:                
-                if random.randint(0,100)<= sick["triggers"]["chance"]:   
+                if random.randint(0,100)<= sick["triggers"]["chance"]:  
+                    print(f"Sickness: {sick} {sick["triggers"]["chance"]}") 
                     sickness_possibility.append(sick)                 
         ## select a random one who won
         if sickness_possibility:
