@@ -63,7 +63,10 @@ async def show_profile(interaction: discord.Interaction, user_data, back=False):
         if checkBdayToday(user_data["bday"]):
             value += "  == 🎉🎂"
         embed.add_field(name="B-day (MM-DD)",value= value, inline=False)
-    
+    embed.add_field(name="Commission target:", 
+                    value=user_data["commission_target"]["name"] + 
+                        " (" + str(user_data["commission_target"]["amount"]) + 
+                        "/" + str(user_data["commission_target"]["goal"]) + ")",inline=False)
     ## Daily To-Dos
     check_in_time = secondsUntil12h(user_data["check-in"])
     check_in_display = "✅" if check_in_time == 0 else f"` {check_in_time}s `"
@@ -77,11 +80,9 @@ async def show_profile(interaction: discord.Interaction, user_data, back=False):
           ##              " (" + str(user_data["commission_target"]["amount"]) + 
 ##"/" + str(user_data["commission_target"]["goal"]) + ")")
     ## Set Values and Goals
-    embed.add_field(name="Commission target:", 
-                    value=user_data["commission_target"]["name"] + 
-                        " (" + str(user_data["commission_target"]["amount"]) + 
-                        "/" + str(user_data["commission_target"]["goal"]) + ")",inline=False)
-    embed.add_field(name="Started", value=f"<t:{str(user_data.get('start_of_game', 0))}:F>", inline=False)
+    
+    embed.add_field(name="Difficulty", value=f"{user_data["difficulty"]}", inline=False)
+    embed.add_field(name="Started", value=f"<t:{str(user_data.get('start_of_game', 0))}:F>", inline=True)
     # Create and attach ProfileView
     view = ProfileView(user_data=user_data)
 

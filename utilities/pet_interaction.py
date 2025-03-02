@@ -134,6 +134,8 @@ class ItemView(BaseView):
         self.add_item(self.food_dropdown)  # Re-add the updated dropdown
         await self.og_message.edit(embed=make_embed(f"Select the {self.category} to give:"),view=self)
         # Send confirmation message
+        interaction.view.stop()
+        interaction.clear_items()
         await interaction.response.edit_message(
             embed=make_embed(f"You give *{self.pet['nickname']}*  **{self.select_food['name']}**!", description=description),
             view=None  # Remove buttons

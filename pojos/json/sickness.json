@@ -70,7 +70,7 @@
         "effect": {"health": 1.2, "happiness": 1.2},
         "med": "Stomach Relief",
         "triggers": {
-            "eat": 80,
+            "eat": 90,
             "operator": "above",
             "chance": 25
         },

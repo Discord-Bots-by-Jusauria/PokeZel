@@ -1,13 +1,13 @@
 from datetime import datetime, timedelta
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 # Falls du fetch_profile_data nutzt, importiere es hier.
 from bot_util import make_embed
 from pojos.emoji_handle import app_emojis, get_emoji, get_item_emoji
-from mongodb.owner import get_owner, updateCheckin, updateBday, updateDifficulty, updateNotify
+from mongodb.owner import get_all_owner, get_owner, updateCheckin, updateBday, updateCheckinNotification, updateDifficulty, updateNotify
 from utilities.profile import show_profile
-from utilities.time import checkBdayToday
+from utilities.time import checkBdayToday, secondsUntil12h
 from utilities.buy import buyView, sellView
 from utilities.commands import isAOwner
 
@@ -166,6 +166,15 @@ class Player(commands.Cog):
 
         # Send appropriate response based on the selection
         await ctx.response.send_message(embed=make_embed(f"Pet difficulty changed", f"Your pet gets updated all {updateTime} and sends you silly messages about it's idle or events all  {sillyTime}"))
-
+    @tasks.loop(minutes=10)
+    async def update_20min(self):
+        owners = get_all_owner()
+        for owner in owners:
+            checkinResult = await secondsUntil12h(owner["check-in"])
+            if checkinResult == 0 and owner.get("logs").get("check-in"):
+                    user = await self.bot.fetch_user(owner["user_id"])
+                    # Sending a direct message to the user
+                    await user.send(embed=make_embed(":information_source: A NEW CHECK-IN IS READY"))
+                    updateCheckinNotification(owner["user_id"])
 def setup(bot):
     bot.add_cog(Player(bot))

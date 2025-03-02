@@ -24,7 +24,7 @@ class BaseView(discord.ui.View):
             try:
                 await self.message.edit(view=self)
             except discord.NotFound:
-                print("Message was deleted before timeout.")
+                print("BaseView: Message was deleted before timeout.")
 
 
 class BackButton(discord.ui.Button):
@@ -43,7 +43,7 @@ class BackButton(discord.ui.Button):
             try:
                 await self.message.edit(view=self)
             except discord.NotFound:
-                print("Message was deleted before timeout.")
+                print("Backbutton: Message was deleted before timeout.")
 
 class AcceptButton(discord.ui.Button):
     """A reusable Back button that takes a callback function."""
@@ -61,7 +61,7 @@ class AcceptButton(discord.ui.Button):
             try:
                 await self.message.edit(view=self)
             except discord.NotFound:
-                print("Message was deleted before timeout.")
+                print("Action: Message was deleted before timeout.")
 class DenyButton(discord.ui.Button):
     """A reusable Back button that takes a callback function."""
     def __init__(self, user_id, label="No"):
@@ -75,9 +75,11 @@ class DenyButton(discord.ui.Button):
             return
         if self.callback:
             try:
-                await interaction.response.send_message(embed=make_embed("Action canceled"))
+                await interaction.response.defer()  # Prevents the "interaction failed" message
+                await interaction.delete_original_response()  # Deletes the original message with buttons
+                await interaction.followup.send(embed=make_embed("Action canceled"))
             except discord.NotFound:
-                print("Message was deleted before timeout.")
+                print("Deny! Message was deleted before timeout.")
 
 class ConfirmView(BaseView):
     def __init__(self, user_id,confimActionCall):

@@ -29,7 +29,15 @@ def get_messages_mood(section, petname, mood, sick=""):
     messages= messages[section][mood]["messages"]
     message= random.choice(messages)
     return message.format(pet_name = petname, sickness = sick)
-
+def get_sleep_messages(petname, mood):
+    messages = load_items("events.json")
+    messages= messages["sleeping"][mood]
+    messageList = []
+    for message in messages:
+        message["message"]=message["message"].format(pet_name = petname)
+        messageList.append(message)
+    return random.choice(messageList)
+    
 def get_attention_messages(action,species, petname, mood):
     messages = load_items("events.json")
     messages= messages["attention"][action][species][mood]

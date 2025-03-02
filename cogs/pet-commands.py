@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands, tasks
 
 # Falls du fetch_profile_data nutzt, importiere es hier.
-from bot_util import load_items, make_embed, get_messages, get_messages_mood
+from bot_util import get_sleep_messages, load_items, make_embed, get_messages, get_messages_mood
 from utilities.profile import show_pet_profile
 from utilities.commands import isAOwner, isPetWorkable
 from mongodb.owner import get_all_owner, get_owner
@@ -256,14 +256,16 @@ class Pet(commands.Cog):
                 return
             elif result["message"]== "":
                 return
+            if pet["is_sleeping"]:
+                title = f":cloud: {pet["nickname"]} is dreaming :cloud:"
             else:
                 title = f"{pet["nickname"]} gives you a little update! :sparkles:"
-                description += result["message"]
-                # send notificications if is on
-                if owner["notifications"] != "none":
-                    user = await self.bot.fetch_user(owner["user_id"])
-                    # Sending a direct message to the user
-                    await user.send(embed=make_embed(title,description))
+            description += result["message"]
+            # send notificications if is on
+            if owner["notifications"] != "none":
+                user = await self.bot.fetch_user(owner["user_id"])
+                # Sending a direct message to the user
+                await user.send(embed=make_embed(title,description))
             
     def update_pet_mood(self,owner,pet, statList):
         description = ""
@@ -272,47 +274,51 @@ class Pet(commands.Cog):
         if not logs:
             pet.setdefault("logs", {}).setdefault("long_mood", {"timestamp": 0, "range": 0})
             logs = pet["logs"]
-                
+        personalities = load_items("personalities.json")
+        personality = personalities[pet["personality"]["name"]]
+        moodsList = load_items("emotion.json")
         # when can range mood be overwriten? 
             # When sick
             # when low
             # only needs overwriting when not the same mood in there
-        result = self.update_sickness(pet,logs)
-        if result["status"]==0:
-            return result
-        description += result["message"]
-        personalities = load_items("personalities.json")
-        personality = personalities[pet["personality"]["name"]]
-        moodsList = load_items("emotion.json")
-        # check if mood changes for sickness
-        if result["status"] == 1:
-            if  pet["mood"]["name"] in personality["sick_tendency"]:
-                return {"status":1,"message":description}
-            for sick_mood in personality["sick_tendency"]:
-                print(sick_mood)
-                if random.randint(0,100)<personality["sick_tendency"][sick_mood]:
-                    pet["mood"]= moodsList[sick_mood]
-                    moodscription += get_messages_mood("got_sick",pet["nickname"], sick_mood,pet["sick"]["name"])
-                    return {"status":1,"message":(description+moodscription)}
-                
-        # check if mood changes for low <30
-        for stat in statList:
-            if pet[stat]<=25:
-                if  pet["mood"]["name"] in [mood["name"] for mood in personality["low_tendency"]]:
+        # Cant get sick or low when sleeping
+        if not pet["is_sleeping"]:
+            result = self.update_sickness(pet,logs)
+            if result["status"]==0:
+                return result
+            description += result["message"]
+        
+            # check if mood changes for sickness
+            if result["status"] == 1:
+                if  pet["mood"]["name"] in personality["sick_tendency"]:
                     return {"status":1,"message":description}
-                for low_mood in personality["low_tendency"]:
-                    if random.randint(0,100)<low_mood["chance"]:
-                        pet["mood"]= moodsList[low_mood["name"]]
-                        moodscription += f"-# Mood changed because of low {stat}\n"
-                        moodscription += get_messages_mood("low_"+stat,pet["nickname"], low_mood["name"])
+                for sick_mood in personality["sick_tendency"]:
+                    print(sick_mood)
+                    if random.randint(0,100)<personality["sick_tendency"][sick_mood]:
+                        pet["mood"]= moodsList[sick_mood]
+                        moodscription += get_messages_mood("got_sick",pet["nickname"], sick_mood,pet["sick"]["name"])
                         return {"status":1,"message":(description+moodscription)}
+                
+            # check if mood changes for low <30
+            for stat in statList:
+                if pet[stat]<=25:
+                    if  pet["mood"]["name"] in [mood["name"] for mood in personality["low_tendency"]]:
+                        return {"status":1,"message":description}
+                    for low_mood in personality["low_tendency"]:
+                        if random.randint(0,100)<low_mood["chance"]:
+                            pet["mood"]= moodsList[low_mood["name"]]
+                            moodscription += f"-# Mood changed because of low {stat}\n"
+                            moodscription += get_messages_mood("low_"+stat,pet["nickname"], low_mood["name"])
+                            return {"status":1,"message":(description+moodscription)}
+        
         # check if mood change generally
         long_mood_chance = random.randint(0,100) <= 20
         mood_change_change = random.randint(0,100) <= 45
-        
+        mood_change_in_sleep = random.randint(0,100)<=20
         if not mood_change_change:
             return {"status":1,"message":description}
-        
+        if pet["is_sleeping"] and not mood_change_in_sleep:
+            return {"status":1,"message":description}
         if logs["long_mood"]["timestamp"] !=0:
             if (datetime.fromtimestamp(logs["long_mood"]["timestamp"]) + timedelta(minutes=logs["long_mood"]["range"]))>= datetime.now():
                 return {"status":1,"message":description}
@@ -320,7 +326,7 @@ class Pet(commands.Cog):
         for mood_tendency in personality["mood_tendency"]:
             if random.randint(0,100)<mood_tendency["chance"]:
                 pet["mood"]= moodsList[mood_tendency["name"]]
-                if long_mood_chance and any(moodTime["name"] == mood_tendency["name"] for moodTime in personality["mood_time"]):
+                if long_mood_chance and any(moodTime["name"] == mood_tendency["name"] for moodTime in personality["mood_time"] and not pet["is_sleeping"]):
                     logs["long_mood"]["timestamp"] = int(datetime.now().timestamp())
                     logs["long_mood"]["range"] = next(
                         (random.randint(moodTime["range"][0], moodTime["range"][1]) 
@@ -330,14 +336,16 @@ class Pet(commands.Cog):
                     )
                     pet["logs"] = logs
                     moodscription += get_messages_mood("long_mood",pet["nickname"], mood_tendency["name"])
-                    if owner["notifications"]=="normal":
-                        return {"status":1,"message":(description+moodscription)}
-                    return {"status":1,"message":description}
+                   
                 else:
                     logs["long_mood"]["timestamp"] = 0
                     logs["long_mood"]["range"] = 0
-                pet["logs"] = logs
-                moodscription += get_messages_mood("new_mood",pet["nickname"], mood_tendency["name"])
+                    pet["logs"] = logs
+                    moodscription += get_messages_mood("new_mood",pet["nickname"], mood_tendency["name"])
+                    
+                # When sleeping you cant have long moods but still change :3
+                if pet["is_sleeping"]:
+                    moodscription += get_sleep_messages(pet["nickname"], mood_tendency["name"])
                 if owner["notifications"]=="normal":
                     return {"status":1,"message":(description+moodscription)}
                 return {"status":1,"message":description}
@@ -348,6 +356,8 @@ class Pet(commands.Cog):
         pet["mood"] = new_mood_list[random.choice(list(new_mood_list.keys()))]
         pet["logs"] = logs
         moodscription += get_messages_mood("new_mood",pet["nickname"], pet["mood"]["name"])
+        if pet["is_sleeping"]:
+            moodscription += get_sleep_messages(pet["nickname"], pet["mood"]["name"])
         if owner["notifications"]=="normal":
             return {"status":1,"message":(description+moodscription)}
         return {"status":1,"message":description}

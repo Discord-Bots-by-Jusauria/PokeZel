@@ -98,9 +98,19 @@ def create_adoption(user: any, selectedPet: any) -> bool:
 ## Updates
 
 def updateCheckin(user_id:int,amount:int):
-    result = owner_coll.update_one({"user_id": user_id}, {"$inc": {"points": amount},"$set":{"check-in":int(datetime.now().timestamp())}})
+    result = owner_coll.update_one({"user_id": user_id}, 
+        {"$inc": {"points": amount},
+         "$set":{"check-in":int(datetime.now().timestamp()),"logs.check-in":True}
+         })
     
     return result.modified_count > 0
+
+def updateCheckinNotification(user_id:int):
+    return owner_coll.update_one({"user_id": user_id}, 
+        {
+         "$set":{"logs.check-in":False}
+         })
+    
 
 def updateBday(user_id:int,birthday:str):
     month, day = map(int, birthday.split("-"))
