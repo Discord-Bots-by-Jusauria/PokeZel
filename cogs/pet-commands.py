@@ -293,7 +293,6 @@ class Pet(commands.Cog):
                 if  pet["mood"]["name"] in personality["sick_tendency"]:
                     return {"status":1,"message":description}
                 for sick_mood in personality["sick_tendency"]:
-                    print(sick_mood)
                     if random.randint(0,100)<personality["sick_tendency"][sick_mood]:
                         pet["mood"]= moodsList[sick_mood]
                         moodscription += get_messages_mood("got_sick",pet["nickname"], sick_mood,pet["sick"]["name"])
@@ -326,7 +325,7 @@ class Pet(commands.Cog):
         for mood_tendency in personality["mood_tendency"]:
             if random.randint(0,100)<mood_tendency["chance"]:
                 pet["mood"]= moodsList[mood_tendency["name"]]
-                if long_mood_chance and any(moodTime["name"] == mood_tendency["name"] for moodTime in personality["mood_time"] and not pet["is_sleeping"]):
+                if long_mood_chance and any(moodTime["name"] == mood_tendency["name"] for moodTime in personality["mood_time"])and not pet["is_sleeping"]:
                     logs["long_mood"]["timestamp"] = int(datetime.now().timestamp())
                     logs["long_mood"]["range"] = next(
                         (random.randint(moodTime["range"][0], moodTime["range"][1]) 

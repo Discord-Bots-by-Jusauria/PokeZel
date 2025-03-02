@@ -10,6 +10,7 @@ from utilities.profile import show_profile
 from utilities.time import checkBdayToday, secondsUntil12h
 from utilities.buy import buyView, sellView
 from utilities.commands import isAOwner
+from utilities.help import helpView
 
 subgroup = "owner_"
 
@@ -27,6 +28,10 @@ class Player(commands.Cog):
             return False
         return True
 
+    @discord.command(name="help", description="The offical Pointlink Pet Guide")
+    async def help(self, ctx: discord.ApplicationContext):
+        await helpView(ctx) 
+    
     @discord.slash_command(name=subgroup+"profile", description="Shows owner profile")
     async def profile(self, ctx: discord.ApplicationContext):
         user_data = await isAOwner(ctx.author.id,ctx)

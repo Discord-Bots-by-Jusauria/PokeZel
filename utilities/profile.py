@@ -1,10 +1,11 @@
 
 from collections import defaultdict
 from datetime import datetime
+from pickle import TRUE
 import discord
 from bot_util import make_embed
 from utilities.time import checkBdayToday, secondsUntil12h
-from pojos.BaseView import BackButton, BaseView
+from pojos.BaseView import BackButton, BaseView, DynamicDropdown
 
 class ProfileView(BaseView):
     def __init__(self, user_data):
@@ -32,10 +33,37 @@ class PetView(BaseView):
     def __init__(self, user_data):
         super().__init__(user_id=user_data["user_id"])
         self.user_data = user_data
-
+        
+        itemOptions = [{"name":"eat","label":"Feed the Pet"},{"name":"drink","label":"Drench the Pet"},{"name":"offer","label":"Give the Pet an item"},{"name":"attention","label":"Give the pet attention and love"},{"name":"sleep","label":"Sleeping Burrito >:3"}]
+        self.dropdown = DynamicDropdown(user_data["user_id"],itemOptions,1,"Choose a quick action selection",self.formatDropdown,self.selectedAction)
+        self.add_item(self.dropdown)
+        
         # Add Inventory Button
         self.add_item(BackButton(user_data["user_id"], label="Personality", callback=self.personality))
-
+        
+        
+    def formatDropdown(self,item):
+        return f"{item["label"]}"
+    async def selectedAction(self, interaction: discord.Interaction):
+        action = self.dropdown.values[0]
+        pet_cog = interaction.client.get_cog("Pet")
+        
+        if not pet_cog:
+            await interaction.response.send_message("Upsy. This command doesn't exist yet ^^", ephemeral=True)
+            return
+        ctx = await interaction.client.get_application_context(interaction)
+        
+        if action == "eat":
+            await pet_cog.feed.callback(pet_cog,ctx)
+        elif action == "drink":
+            await pet_cog.drench.callback(pet_cog,ctx)
+        elif action == "offer":
+            await pet_cog.offer.callback(pet_cog,ctx)
+        elif action == "sleep":
+            await pet_cog.sleep.callback(pet_cog,ctx)
+        elif action == "attention":
+            await pet_cog.attention.callback(pet_cog,ctx)
+        
     async def personality(self, interaction: discord.Interaction):
         """Opens the inventory view."""
         await show_pet_personality(interaction, self.user_data)
@@ -75,14 +103,10 @@ async def show_profile(interaction: discord.Interaction, user_data, back=False):
                         " (" + str(user_data["commission_target"]["amount"]) + 
                         "/" + str(user_data["commission_target"]["goal"]) + ")"}"
     embed.add_field(name="Today's To-Dos: ", value=value,inline=False)
-   ## embed.add_field(name="Daily Pet Task:", 
-               ##     value=user_data["commission_target"]["name"] + 
-          ##              " (" + str(user_data["commission_target"]["amount"]) + 
-##"/" + str(user_data["commission_target"]["goal"]) + ")")
-    ## Set Values and Goals
     
-    embed.add_field(name="Difficulty", value=f"{user_data["difficulty"]}", inline=False)
-    embed.add_field(name="Started", value=f"<t:{str(user_data.get('start_of_game', 0))}:F>", inline=True)
+    embed.add_field(name="Difficulty", value=f"{user_data["difficulty"]}", inline=True)
+    embed.add_field(name="Notifications", value=f"{user_data.get("notifications","normal")}", inline=True)
+    embed.add_field(name="Started", value=f"<t:{str(user_data.get('start_of_game', 0))}:F>", inline=False)
     # Create and attach ProfileView
     view = ProfileView(user_data=user_data)
 

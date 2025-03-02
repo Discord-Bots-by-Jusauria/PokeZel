@@ -127,15 +127,15 @@ class ItemView(BaseView):
         itemOptions = categoryItemOptionMaker(self.category,user_data["inventory"])
 
         if len(itemOptions)==0:
-            await self.og_message.edit(embed=make_embed(f"You don't have anything to {self.category} left!",view=None))
-            return
-        self.food_dropdown.changeOptions(itemOptions)
-        self.clear_items()  # Removes old buttons/dropdowns
-        self.add_item(self.food_dropdown)  # Re-add the updated dropdown
-        await self.og_message.edit(embed=make_embed(f"Select the {self.category} to give:"),view=self)
+            self.clear_items()
+            await self.og_message.edit(embed=make_embed(f"You don't have anything to {self.category} left!"))
+        else:
+            self.food_dropdown.changeOptions(itemOptions)
+            self.clear_items()  # Removes old buttons/dropdowns
+            self.add_item(self.food_dropdown)  # Re-add the updated dropdown
+            await self.og_message.edit(embed=make_embed(f"Select the {self.category} to give:"),view=self)
         # Send confirmation message
-        interaction.view.stop()
-        interaction.clear_items()
+        self.clear_items()
         await interaction.response.edit_message(
             embed=make_embed(f"You give *{self.pet['nickname']}*  **{self.select_food['name']}**!", description=description),
             view=None  # Remove buttons
