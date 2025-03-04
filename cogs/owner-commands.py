@@ -17,6 +17,7 @@ subgroup = "owner_"
 class Player(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.update_20min.start()
     
     async def is_in_server(self, ctx: discord.ApplicationContext):
         """Helper function to check if the command is used in a server."""
@@ -175,7 +176,7 @@ class Player(commands.Cog):
     async def update_20min(self):
         owners = get_all_owner()
         for owner in owners:
-            checkinResult = await secondsUntil12h(owner["check-in"])
+            checkinResult = secondsUntil12h(owner["check-in"])
             if checkinResult == 0 and owner.get("logs").get("check-in"):
                     user = await self.bot.fetch_user(owner["user_id"])
                     # Sending a direct message to the user
